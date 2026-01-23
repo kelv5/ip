@@ -5,6 +5,7 @@ import java.util.Scanner;
  */
 public class Ui {
     public static final String LINE = "___________________________________________________";
+    private static final String INDENTATION = "    ";
     private Scanner scanner;
 
     /**
@@ -18,13 +19,13 @@ public class Ui {
      * Displays the ASCII art logo.
      */
     public void printLogo() {
-        System.out.println(LINE);
-        String logo = "  ______ _      _    _\n"
-                + " |  ___(_)    | |  | |     \n"
-                + " | |_   _  ___| | _| | ___ \n"
-                + " |  _| | |/ __| |/ / |/ _ \\\n"
-                + " | |   | | |__|   <|_|  __/\n"
-                + " \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+        indentLine();
+        String logo = "     ______ _      _    _\n"
+                + "    |  ___(_)    | |  | |     \n"
+                + "    | |_   _  ___| | _| | ___ \n"
+                + "    |  _| | |/ __| |/ / |/ _ \\\n"
+                + "    | |   | | |__|   <|_|  __/\n"
+                + "    \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -32,17 +33,14 @@ public class Ui {
      * Prints Fickle's greeting message.
      */
     public void greet() {
-        System.out.println("    Hello! I'm Fickle");
-        System.out.println("    What shall we do today? ");
-        System.out.println(LINE);
+        printFormattedMessages(new String[] { "Hello! I'm Fickle", "What shall we do today? " });
     }
 
     /**
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        System.out.println("    Bye. See you soon!");
-        System.out.println(LINE);
+        printFormattedMessages(new String[] { "Goodbye! See you soon!" });
         scanner.close();
     }
 
@@ -52,17 +50,46 @@ public class Ui {
      * @return The user input.
      */
     public String readInput() {
+        System.out.println();
+        System.out.print("Input: ");
         return scanner.nextLine();
     }
 
     /**
-     * Echoes the user input back.
+     * Echoes a single line of input.
      * 
-     * @param input The user input.
+     * @param input The input to echo.
      */
     public void echoLine(String input) {
-        System.out.println("    You said: " + input);
-        System.out.println(LINE);
+        printFormattedMessages(new String[] { input });
     }
 
+    /**
+     * Prints messages with indentation and lines.
+     * 
+     * @param messages
+     */
+    private void printFormattedMessages(String[] messages) {
+        indentLine();
+        for (String msg : messages) {
+            indentMessage(msg);
+        }
+        indentLine();
+    }
+
+    /**
+     * Prints an indented message.
+     * 
+     * @param msg
+     */
+    private void indentMessage(String msg) {
+        System.out.println(INDENTATION + "  " + msg);
+    }
+
+    /**
+     * Prints an indented line.
+     */
+    private void indentLine() {
+        System.out.println(INDENTATION + LINE);
+    }
 }
