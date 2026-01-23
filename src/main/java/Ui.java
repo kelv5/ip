@@ -56,12 +56,31 @@ public class Ui {
     }
 
     /**
-     * Echoes a single line of input.
+     * Prints the added task message.
      * 
-     * @param input The input to echo.
+     * @param taskname The name of the added task.
      */
-    public void echoLine(String input) {
-        printFormattedMessages(new String[] { input });
+    public void printAddedTask(String taskname) {
+        printFormattedMessages(new String[] { taskname });
+    }
+
+    /**
+     * Prints the list of tasks.
+     * 
+     * @param tasks The tasklist to be printed.
+     */
+    public void printTaskList(TaskList tasks) {
+        if (tasks.size() == 0) {
+            printFormattedMessages(new String[] { "You have no tasks now" });
+            return;
+        }
+        String[] messageList = new String[tasks.size() + 1];
+        messageList[0] = "Your current tasks: ";
+
+        for (int i = 0; i < tasks.size(); i++) {
+            messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
+        }
+        printFormattedMessages(messageList);
     }
 
     /**

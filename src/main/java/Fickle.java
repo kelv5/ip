@@ -3,12 +3,14 @@
  */
 public class Fickle {
     private Ui ui;
+    private TaskList tasks;
 
     /**
      * Constructor for Fickle.
      */
     public Fickle() {
         this.ui = new Ui();
+        this.tasks = new TaskList();
     }
 
     /**
@@ -23,18 +25,29 @@ public class Fickle {
 
     /**
      * Runs the Fickle chatbot
-     * Displays the logo, greeting, and goodbye message.
+     * Displays the logo, greeting, and handles user input.
+     * Exits on "bye" command.
      */
     public void run() {
         ui.printLogo();
         ui.greet();
 
         while (true) {
-            String input = ui.readInput();
-            if (input.equalsIgnoreCase("bye")) {
-                break;
+            try {
+                String input = ui.readInput();
+                if (input.equalsIgnoreCase("bye")) {
+                    break;
+                }
+                if (input.equalsIgnoreCase("list")) {
+                    ui.printTaskList(tasks);
+                } else {
+                    Task task = new Task(input);
+                    String addedTaskResponse = tasks.addTask(task);
+                    ui.printAddedTask(addedTaskResponse);
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
             }
-            ui.echoLine(input);
         }
         ui.sayGoodbye();
     }
