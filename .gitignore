@@ -3,7 +3,7 @@
 /out/
 /*.iml
 
-# Compiled class files
+# Ignore compiled class files
 *.class
 
 # Gradle build files
