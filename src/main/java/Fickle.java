@@ -1,10 +1,10 @@
 public class Fickle {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println("___________________________________________________");
+        System.out.println(" Hello! I'm Fickle");
+        System.out.println(" What shall we do today? ");
+        System.out.println("___________________________________________________");
+        System.out.println("Alright, that's enough for now. See you!");
+        System.out.println("___________________________________________________");
     }
 }
