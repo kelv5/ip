@@ -68,6 +68,10 @@ public class Fickle {
                         processAddDeadlineTask(contextWord);
                         break;
 
+                    case "todo":
+                        processAddTodoTask(contextWord);
+                        break;
+
                     default:
                         throw new IllegalArgumentException("Unknown command.");
                 }
@@ -156,4 +160,12 @@ public class Fickle {
         ui.printAddedTask(addedTaskResponse);
     }
 
+    private void processAddTodoTask(String contextWord) {
+        if (contextWord.isEmpty()) {
+            throw new IllegalArgumentException("Todo must have a name");
+        }
+        Task task = new Todo(contextWord);
+        String addedTaskResponse = tasks.addTask(task);
+        ui.printAddedTask(addedTaskResponse);
+    }
 }
