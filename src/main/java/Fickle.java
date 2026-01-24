@@ -127,7 +127,7 @@ public class Fickle {
                 throw new IndexOutOfBoundsException("Task index out of bounds.");
             }
             Task task = tasks.getTask(index);
-            task.markAsDone();
+            task.markAsNotDone();
             ui.printUnmarkedTask(task.toString());
 
         } catch (NumberFormatException e) {
