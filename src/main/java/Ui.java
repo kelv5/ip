@@ -65,6 +65,24 @@ public class Ui {
     }
 
     /**
+     * Prints the marked task message.
+     * 
+     * @param taskname The name of the marked task.
+     */
+    public void printMarkedTask(String taskname) {
+        printFormattedMessages(new String[] { "Nice! I've marked this task as done:", taskname });
+    }
+
+    /**
+     * Prints the unmarked task message.
+     * 
+     * @param taskname The name of the unmarked task.
+     */
+    public void printUnmarkedTask(String taskname) {
+        printFormattedMessages(new String[] { "OK, I've marked this task as not done yet:", taskname });
+    }
+
+    /**
      * Prints the list of tasks.
      * 
      * @param tasks The tasklist to be printed.
