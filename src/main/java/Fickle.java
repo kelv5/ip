@@ -94,10 +94,10 @@ public class Fickle {
 
         try {
             int index = Integer.parseInt(contextWord) - 1;
-            if (tasks.size() == 0) {
+            if (tasks.getSize() == 0) {
                 throw new IllegalArgumentException("You have no tasks to mark.");
             }
-            if (!(index >= 0 && index < tasks.size())) {
+            if (!(index >= 0 && index < tasks.getSize())) {
                 throw new IndexOutOfBoundsException("Task index out of bounds.");
             }
 
@@ -119,11 +119,11 @@ public class Fickle {
 
         try {
             int index = Integer.parseInt(contextWord) - 1;
-            if (tasks.size() == 0) {
+            if (tasks.getSize() == 0) {
                 throw new IllegalArgumentException("You have no tasks to unmark.");
             }
 
-            if (!(index >= 0 && index < tasks.size())) {
+            if (!(index >= 0 && index < tasks.getSize())) {
                 throw new IndexOutOfBoundsException("Task index out of bounds.");
             }
             Task task = tasks.getTask(index);
@@ -153,8 +153,7 @@ public class Fickle {
             throw new IllegalArgumentException("Deadline must have a name and due time");
         }
         Task task = new Deadline(name, by);
-        String addedTaskResponse = tasks.addTask(task);
-        ui.printAddedTask(addedTaskResponse);
+        addTaskandPrint(task);
     }
 
     private void processAddTodoTask(String contextWord) {
@@ -162,8 +161,7 @@ public class Fickle {
             throw new IllegalArgumentException("Todo must have a name");
         }
         Task task = new Todo(contextWord);
-        String addedTaskResponse = tasks.addTask(task);
-        ui.printAddedTask(addedTaskResponse);
+        addTaskandPrint(task);
     }
 
     private void processAddEventTask(String contextWord) {
@@ -193,7 +191,11 @@ public class Fickle {
             throw new IllegalArgumentException("Event must have a name, start time, and end time");
         }
         Task task = new Event(name, from, to);
+        addTaskandPrint(task);
+    }
+
+    private void addTaskandPrint(Task task) {
         String addedTaskResponse = tasks.addTask(task);
-        ui.printAddedTask(addedTaskResponse);
+        ui.printAddedTask(addedTaskResponse, tasks.getSize());
     }
 }

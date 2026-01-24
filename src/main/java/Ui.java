@@ -60,8 +60,9 @@ public class Ui {
      * 
      * @param taskname The name of the added task.
      */
-    public void printAddedTask(String taskname) {
-        printFormattedMessages(new String[] { "Got it. I've added this task: " + taskname });
+    public void printAddedTask(String taskname, int totalTasks) {
+        String totalTasksMessage = "Now you have " + totalTasks + " tasks in the list.";
+        printFormattedMessages(new String[] { "Got it. I've added this task: ", taskname, totalTasksMessage });
     }
 
     /**
@@ -88,14 +89,14 @@ public class Ui {
      * @param tasks The tasklist to be printed.
      */
     public void printTaskList(TaskList tasks) {
-        if (tasks.size() == 0) {
+        if (tasks.getSize() == 0) {
             printFormattedMessages(new String[] { "You have no tasks now" });
             return;
         }
-        String[] messageList = new String[tasks.size() + 1];
+        String[] messageList = new String[tasks.getSize() + 1];
         messageList[0] = "Your current tasks: ";
 
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
         printFormattedMessages(messageList);
