@@ -72,6 +72,10 @@ public class Fickle {
                         processAddTodoTask(contextWord);
                         break;
 
+                    case "event":
+                        processAddEventTask(contextWord);
+                        break;
+
                     default:
                         throw new IllegalArgumentException("Unknown command.");
                 }
@@ -132,13 +136,6 @@ public class Fickle {
             throw new IllegalArgumentException("Task index out of bounds.");
         }
     }
-    /*
-     * private void processAddTask(String input) {
-     * Task task = new Task(input);
-     * String addedTaskResponse = tasks.addTask(task);
-     * ui.printAddedTask(addedTaskResponse);
-     * }
-     */
 
     private void processAddDeadlineTask(String contextWord) {
         if (contextWord.isEmpty()) {
@@ -165,6 +162,37 @@ public class Fickle {
             throw new IllegalArgumentException("Todo must have a name");
         }
         Task task = new Todo(contextWord);
+        String addedTaskResponse = tasks.addTask(task);
+        ui.printAddedTask(addedTaskResponse);
+    }
+
+    private void processAddEventTask(String contextWord) {
+        if (contextWord.isEmpty()) {
+            throw new IllegalArgumentException("Event must have a name");
+        }
+
+        if (!contextWord.contains("/from")) {
+            throw new IllegalArgumentException("Event must have a /from to specify start time");
+        }
+
+        if (!contextWord.contains("/to")) {
+            throw new IllegalArgumentException("Event must have a /to to specify end time");
+        }
+
+        if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
+            throw new IllegalArgumentException("/from has to be in front of /to");
+        }
+
+        String[] firstSecondParts = contextWord.split("/from", 2);
+        String name = firstSecondParts[0].trim();
+        String[] secondThirdParts = firstSecondParts[1].split("/to", 2);
+        String from = secondThirdParts[0].trim();
+        String to = secondThirdParts[1].trim();
+
+        if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new IllegalArgumentException("Event must have a name, start time, and end time");
+        }
+        Task task = new Event(name, from, to);
         String addedTaskResponse = tasks.addTask(task);
         ui.printAddedTask(addedTaskResponse);
     }
