@@ -22,7 +22,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        return "Task added: " + task.toString();
+        return task.toString();
     }
 
     /**

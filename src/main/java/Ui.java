@@ -61,7 +61,7 @@ public class Ui {
      * @param taskname The name of the added task.
      */
     public void printAddedTask(String taskname) {
-        printFormattedMessages(new String[] { taskname });
+        printFormattedMessages(new String[] { "Got it. I've added this task: " + taskname });
     }
 
     /**
