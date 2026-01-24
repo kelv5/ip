@@ -22,7 +22,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        return "Added task: " + task.getName();
+        return "Task added: " + task.toString();
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @return The task at the index.
      */
     public Task getTask(int idx) {
-        return tasks.get(idx);
+        return this.tasks.get(idx);
     }
 
     /**
@@ -41,6 +41,6 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 }
