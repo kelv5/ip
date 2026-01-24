@@ -4,7 +4,7 @@ import java.util.Scanner;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "________________________________________________________________";
+    public static final String LINE = "_____________________________________________________________________________";
     private static final String INDENTATION = "    ";
     private Scanner scanner;
 
@@ -40,7 +40,7 @@ public class Ui {
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        printFormattedMessages(new String[] { "Goodbye. We’ll come back to this, day by day." });
+        printFormattedMessages(new String[] { "Goodbye. We’ll come back to this, Day by day." });
         scanner.close();
     }
 
@@ -74,7 +74,7 @@ public class Ui {
      */
     public void printMarkedTask(String taskname) {
         printFormattedMessages(
-                new String[] { "All set. This task is marked as done --- one after another: ", taskname });
+                new String[] { "All set. This task is marked as done --- One after Another: ", taskname });
     }
 
     /**
@@ -93,7 +93,7 @@ public class Ui {
      */
     public void printTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            printFormattedMessages(new String[] { "No tasks remaining — enjoy a little happiness today. " });
+            printFormattedMessages(new String[] { "No tasks remaining ~~~ Enjoy a little happiness. " });
             return;
         }
         String[] messageList = new String[tasks.getSize() + 1];
@@ -103,6 +103,14 @@ public class Ui {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
         printFormattedMessages(messageList);
+    }
+
+    public void printException(String exceptionMessage) {
+        System.out.println("[Invalid Input]  " + exceptionMessage);
+    }
+
+    public void printError(String errorMessage) {
+        System.out.println("[Error]  " + errorMessage);
     }
 
     /**
