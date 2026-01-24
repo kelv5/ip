@@ -4,7 +4,7 @@ import java.util.Scanner;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "___________________________________________________";
+    public static final String LINE = "________________________________________________________________";
     private static final String INDENTATION = "    ";
     private Scanner scanner;
 
@@ -33,14 +33,14 @@ public class Ui {
      * Prints Fickle's greeting message.
      */
     public void greet() {
-        printFormattedMessages(new String[] { "Hello! I'm Fickle", "What shall we do today? " });
+        printFormattedMessages(new String[] { "Hi! I'm Fickle", "What feels right to start with today? " });
     }
 
     /**
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        printFormattedMessages(new String[] { "Goodbye! See you soon!" });
+        printFormattedMessages(new String[] { "Goodbye. We’ll come back to this, day by day." });
         scanner.close();
     }
 
@@ -51,7 +51,7 @@ public class Ui {
      */
     public String readInput() {
         System.out.println();
-        System.out.print("Input: ");
+        System.out.print("Next: ");
         return scanner.nextLine();
     }
 
@@ -62,7 +62,9 @@ public class Ui {
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " tasks in the list.";
-        printFormattedMessages(new String[] { "Got it. I've added this task: ", taskname, totalTasksMessage });
+        printFormattedMessages(
+                new String[] { "Got it. I've added this task: ", taskname, "\n",
+                        totalTasksMessage });
     }
 
     /**
@@ -71,7 +73,8 @@ public class Ui {
      * @param taskname The name of the marked task.
      */
     public void printMarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "Nice! I've marked this task as done:", taskname });
+        printFormattedMessages(
+                new String[] { "All set. This task is marked as done --- one after another: ", taskname });
     }
 
     /**
@@ -80,7 +83,7 @@ public class Ui {
      * @param taskname The name of the unmarked task.
      */
     public void printUnmarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "OK, I've marked this task as not done yet:", taskname });
+        printFormattedMessages(new String[] { "Noted. This task is now unmarked --- take your time: ", taskname });
     }
 
     /**
@@ -90,11 +93,11 @@ public class Ui {
      */
     public void printTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            printFormattedMessages(new String[] { "You have no tasks now" });
+            printFormattedMessages(new String[] { "No tasks remaining — enjoy a little happiness today. " });
             return;
         }
         String[] messageList = new String[tasks.getSize() + 1];
-        messageList[0] = "Your current tasks: ";
+        messageList[0] = "Here's your task list for you: ";
 
         for (int i = 0; i < tasks.getSize(); i++) {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
