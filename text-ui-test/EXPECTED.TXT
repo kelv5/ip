@@ -25,6 +25,12 @@ Next:
       ____________________________________________________________________________________________
 
 Next:  
+[Invalid Input]  No tasks remaining to delete.
+        
+                                                                   ~~~  A Little Happiness
+      ____________________________________________________________________________________________
+
+Next:  
 [Invalid Input]  No tasks remaining to mark.
         
                                                                    ~~~  A Little Happiness
@@ -144,11 +150,37 @@ Next:
       ____________________________________________________________________________________________
 
 Next:  
+[Invalid Input]  Missing task index for 'delete' command.
+        
+                                                                   ~~~  Shadow's shadow without it
+      ____________________________________________________________________________________________
+
+Next:  
+[Invalid Input]  Invalid task index: less than 1.
+        
+                                                                   ~~~  Too small, Insignificance
+      ____________________________________________________________________________________________
+
+Next:  
+[Invalid Input]  Invalid task index: not an integer.
+        
+                                                                   ~~~  Confuses me, Contradiction
+      ____________________________________________________________________________________________
+
+Next:  
+      ____________________________________________________________________________________________
+        Noted. I've removed this task: 
+          [T][ ] groceries
+        
+
+        Now you have 2 tasks in the list.
+      ____________________________________________________________________________________________
+
+Next:  
       ____________________________________________________________________________________________
         Here's your task list for you: 
-        1. [T][ ] groceries
-        2. [D][ ] return book (by: Monday)
-        3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+        1. [D][ ] return book (by: Monday)
+        2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
         
                                                                    ~~~  Glimpses of a Journey
       ____________________________________________________________________________________________
@@ -186,14 +218,6 @@ Next:
 Next:  
       ____________________________________________________________________________________________
         All set. This task is marked as done: 
-        [T][X] groceries
-        
-                                                                   ~~~  One After Another
-      ____________________________________________________________________________________________
-
-Next:  
-      ____________________________________________________________________________________________
-        All set. This task is marked as done: 
         [D][X] return book (by: Monday)
         
                                                                    ~~~  One After Another
@@ -212,9 +236,15 @@ Next:
       ____________________________________________________________________________________________
 
 Next:  
+[Invalid Input]  Invalid task index: exceeds the total number of tasks.
+        
+                                                                   ~~~  Too Much
+      ____________________________________________________________________________________________
+
+Next:  
       ____________________________________________________________________________________________
         Noted. This task is now unmarked: 
-        [T][ ] groceries
+        [D][ ] return book (by: Monday)
         
                                                                    ~~~  Pace Yourself
       ____________________________________________________________________________________________
