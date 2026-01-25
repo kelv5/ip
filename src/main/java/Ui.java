@@ -4,8 +4,8 @@ import java.util.Scanner;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "_____________________________________________________________________________";
-    private static final String INDENTATION = "    ";
+    public static final String LINE = "____________________________________________________________________________________";
+    private static final String INDENTATION = "      ";
     private Scanner scanner;
 
     /**
@@ -20,12 +20,12 @@ public class Ui {
      */
     public void printLogo() {
         indentLine();
-        String logo = "     ______ _      _    _\n"
-                + "    |  ___(_)    | |  | |     \n"
-                + "    | |_   _  ___| | _| | ___ \n"
-                + "    |  _| | |/ __| |/ / |/ _ \\\n"
-                + "    | |   | | |__|   <|_|  __/\n"
-                + "    \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+        String logo = "       ______ _      _    _\n"
+                + "      |  ___(_)    | |  | |     \n"
+                + "      | |_   _  ___| | _| | ___ \n"
+                + "      |  _| | |/ __| |/ / |/ _ \\\n"
+                + "      | |   | | |__|   <|_|  __/\n"
+                + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -33,14 +33,15 @@ public class Ui {
      * Prints Fickle's greeting message.
      */
     public void greet() {
-        printFormattedMessages(new String[] { "Hi! I'm Fickle", "What feels right to start with today? " });
+        printFormattedMessages(new String[] { "Hi! I'm Fickle", "What feels right to start with today? " }, true);
     }
 
     /**
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        printFormattedMessages(new String[] { "Goodbye. We’ll come back to this, Day by day." });
+        printFormattedMessages(new String[] { "Goodbye. We'll come back to this." }, false);
+        printEasterAlignedRight("Day by Day");
         scanner.close();
     }
 
@@ -61,10 +62,12 @@ public class Ui {
      * @param taskname The name of the added task.
      */
     public void printAddedTask(String taskname, int totalTasks) {
-        String totalTasksMessage = "Now you have " + totalTasks + " tasks in the list.";
+        String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
+                + " in the list.";
         printFormattedMessages(
                 new String[] { "Got it. I've added this task: ", taskname, "\n",
-                        totalTasksMessage });
+                        totalTasksMessage },
+                true);
     }
 
     /**
@@ -74,7 +77,8 @@ public class Ui {
      */
     public void printMarkedTask(String taskname) {
         printFormattedMessages(
-                new String[] { "All set. This task is marked as done --- One after Another: ", taskname });
+                new String[] { "All set. This task is marked as done: ", taskname }, false);
+        printEasterAlignedRight("One After Another");
     }
 
     /**
@@ -83,7 +87,9 @@ public class Ui {
      * @param taskname The name of the unmarked task.
      */
     public void printUnmarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "Noted. This task is now unmarked --- take your time: ", taskname });
+        printFormattedMessages(new String[] { "Noted. This task is now unmarked: ", taskname },
+                false);
+        printEasterAlignedRight("Pace Yourself");
     }
 
     /**
@@ -93,7 +99,8 @@ public class Ui {
      */
     public void printTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            printFormattedMessages(new String[] { "No tasks remaining ~~~ Enjoy a little happiness. " });
+            printFormattedMessages(new String[] { "No tasks remaining. " }, false);
+            printEasterAlignedRight("A Little Happiness");
             return;
         }
         String[] messageList = new String[tasks.getSize() + 1];
@@ -102,27 +109,66 @@ public class Ui {
         for (int i = 0; i < tasks.getSize(); i++) {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
-        printFormattedMessages(messageList);
+        // add in the print easter egg a glimpse of journey
+        printFormattedMessages(messageList, false);
+        printEasterAlignedRight("Glimpses of a Journey");
     }
 
+    /**
+     * Prints an invalid input Exception message
+     * 
+     * @param exceptionMessage The message description the invalid input
+     */
     public void printException(String exceptionMessage) {
         System.out.println("[Invalid Input]  " + exceptionMessage);
     }
 
+    /**
+     * Prints an error message
+     * 
+     * @param errorMessage The message description the Error
+     */
     public void printError(String errorMessage) {
         System.out.println("[Error]  " + errorMessage);
     }
 
     /**
-     * Prints messages with indentation and lines.
+     * Prints a single line message with indentation
+     * No lines are printed
      * 
-     * @param messages
+     * @param message The message to be printed.
      */
-    private void printFormattedMessages(String[] messages) {
+    public void printSingleLineWithoutLine(String message) {
+        indentMessage(message);
+    }
+
+    /**
+     * Prints an array of messages with indentation
+     * A top horizontal line is always printed.
+     * The bottom horizontal line is printed only if hasBottomLine is true.
+     * 
+     * @param messages      An array of messages to be printed
+     * @param hasBottomLine Print a bottom horizontal line if true
+     * 
+     */
+    private void printFormattedMessages(String[] messages, boolean hasBottomLine) {
         indentLine();
         for (String msg : messages) {
             indentMessage(msg);
         }
+        if (hasBottomLine) {
+            indentLine();
+        }
+    }
+
+    /**
+     * Prints a single easter egg line aligned to the right of horizontal line.
+     *
+     * @param easterEgg The message to print.
+     */
+    public void printEasterAlignedRight(String easterEgg) {
+        indentMessage("");
+        indentMessage("                                                        ~~~  " + easterEgg);
         indentLine();
     }
 
