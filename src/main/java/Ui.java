@@ -52,8 +52,10 @@ public class Ui {
      */
     public String readInput() {
         System.out.println();
-        System.out.print("Next: ");
-        return scanner.nextLine();
+        System.out.print("Next:  ");
+        String input = scanner.nextLine();
+        System.out.println();
+        return input;
     }
 
     /**

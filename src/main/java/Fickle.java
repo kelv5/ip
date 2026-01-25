@@ -191,14 +191,9 @@ public class Fickle {
             throw new IllegalArgumentException("Event must have a name ~~~ Missing it, like Missing You.");
         }
 
-        if (!contextWord.contains("/from")) {
+        if (!contextWord.contains("/from") || !contextWord.contains("/to")) {
             throw new IllegalArgumentException(
-                    "Event must have a /from to specify start time ~~~ Without it, it's Too Late.");
-        }
-
-        if (!contextWord.contains("/to")) {
-            throw new IllegalArgumentException(
-                    "Event must have a /to to specify end time ~~~ Without it, it's Too Late.");
+                    "Event must have both /from and /to to specify start and end time ~~~ Without them, it's Too Late.");
         }
 
         if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
