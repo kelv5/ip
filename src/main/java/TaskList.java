@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks.
- * Manages adding and getting tasks.
+ * Represents a list of tasks. Manages adding and getting tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -42,5 +41,19 @@ public class TaskList {
      */
     public int getSize() {
         return this.tasks.size();
+    }
+
+    /**
+     * Checks whether all tasks in the list are marked as done.
+     *
+     * @return true if all tasks are completed, else it returns false
+     */
+    public boolean isAllMarked() {
+        for (Task task : tasks) {
+            if (!task.isDone()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

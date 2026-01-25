@@ -4,7 +4,7 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * 
+     *
      * @param name The name of the task.
      * @throws IllegalArgumentException if the task name is empty.
      */
@@ -19,7 +19,7 @@ public class Task {
 
     /**
      * Gets the name of the task.
-     * 
+     *
      * @return The taskname.
      */
     public String getName() {
@@ -40,23 +40,22 @@ public class Task {
         this.isDone = false;
     }
 
-    /**
-     * Gets the task status icon
-     * 
-     * @return "X" if done, else " ".
-     */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
      * Returns the string representation of the task.
-     * 
+     *
      * @return The string representation with status icon and name.
      */
     @Override
     public String toString() {
         String icon = "[" + getStatusIcon() + "] ";
         return icon + name;
+    }
+
+    private String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 }

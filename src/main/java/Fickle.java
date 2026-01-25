@@ -24,9 +24,8 @@ public class Fickle {
     }
 
     /**
-     * Runs the Fickle chatbot
-     * Displays the logo, greeting, and handles user input.
-     * Exits on "bye" command.
+     * Runs the Fickle chatbot Displays the logo, greeting, and handles user
+     * input. Exits on "bye" command.
      */
     public void run() {
         ui.printLogo();
@@ -97,7 +96,7 @@ public class Fickle {
         try {
             int index = Integer.parseInt(contextWord) - 1;
             if (tasks.getSize() == 0) {
-                throw new IllegalArgumentException("No tasks remaining to mark ~~~ Enjoy a little happiness.");
+                throw new IllegalArgumentException("No tasks remaining to mark ~~~ A Little Happiness.");
             }
             if (index < 0) {
                 throw new IndexOutOfBoundsException(
@@ -112,6 +111,11 @@ public class Fickle {
             Task task = tasks.getTask(index);
             task.markAsDone();
             ui.printMarkedTask(task.toString());
+
+            if (tasks.isAllMarked()) {
+                ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
+                ui.printEasterAlignedRight("A Little Happiness");
+            }
 
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
@@ -130,7 +134,7 @@ public class Fickle {
         try {
             int index = Integer.parseInt(contextWord) - 1;
             if (tasks.getSize() == 0) {
-                throw new IllegalArgumentException("No tasks remaining to unmark ~~~ Enjoy a little happiness.");
+                throw new IllegalArgumentException("No tasks remaining to unmark ~~~ A Little Happiness. ");
             }
             if (index < 0) {
                 throw new IndexOutOfBoundsException(
@@ -168,8 +172,7 @@ public class Fickle {
         String name = contents[0].trim();
         String by = contents[1].trim();
         if (name.isEmpty() || by.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Deadline must have a name and due time ~~~ else, it's Untold.");
+            throw new IllegalArgumentException("Deadline must have a name and due time ~~~ else, it's Untold.");
         }
         Task task = new Deadline(name, by);
         addTaskandPrint(task);
