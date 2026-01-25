@@ -4,7 +4,7 @@ import java.util.Scanner;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "____________________________________________________________________________________";
+    public static final String LINE = "____________________________________________________________________________________________";
     private static final String INDENTATION = "      ";
     private Scanner scanner;
 
@@ -117,11 +117,22 @@ public class Ui {
     }
 
     /**
-     * Prints an invalid input Exception message
+     * Prints a Exception message for invalid input with double lines.
      * 
-     * @param exceptionMessage The message description the invalid input
+     * @param exceptionMessage The description the invalid input
+     * @param secondLine       The second message to display, aligned to the right.
      */
-    public void printException(String exceptionMessage) {
+    public void printInvalidInput(String exceptionMessage, String secondLine) {
+        System.out.println("[Invalid Input]  " + exceptionMessage);
+        printEasterAlignedRight(secondLine);
+    }
+
+    /**
+     * Prints a Exception message for invalid input with a single line.
+     *
+     * @param exceptionMessage The description of the invalid input.
+     */
+    public void printInvalidInput(String exceptionMessage) {
         System.out.println("[Invalid Input]  " + exceptionMessage);
     }
 
@@ -170,7 +181,7 @@ public class Ui {
      */
     public void printEasterAlignedRight(String easterEgg) {
         indentMessage("");
-        indentMessage("                                                        ~~~  " + easterEgg);
+        indentMessage("                                                           ~~~  " + easterEgg);
         indentLine();
     }
 
