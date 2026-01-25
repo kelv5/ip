@@ -25,6 +25,16 @@ public class TaskList {
     }
 
     /**
+     * Delete a task from the task list.
+     * 
+     * @param index The index of the task to be deleted.
+     * @return Message of deleted task.
+     */
+    public Task deleteTask(int index) {
+        return tasks.remove(index);
+    }
+
+    /**
      * Gets a task at the given index.
      * 
      * @param idx The index of the task.

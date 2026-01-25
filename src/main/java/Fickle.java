@@ -40,8 +40,9 @@ public class Fickle {
 
                 String[] commandParts = input.split(" ", 2);
                 String commandWord = commandParts[0].toLowerCase();
-                String contextWord = commandParts.length > 1 ? commandParts[1] : "";
+                String contextWord = commandParts.length > 1 ? commandParts[1].trim() : "";
 
+                // contextWord is everything after the single command word
                 switch (commandWord) {
                     case "bye":
                         ui.sayGoodbye();
@@ -71,6 +72,9 @@ public class Fickle {
                         processAddEventTask(contextWord);
                         break;
 
+                    case "delete":
+                        processDeleteTask(contextWord);
+                        break;
                     default:
                         throw new FickleException(
                                 "Sorry, I didn't understand that. Try using my commands!", "Going Nowhere.");
@@ -226,5 +230,41 @@ public class Fickle {
     private void addTaskandPrint(Task task) {
         String addedTaskResponse = "  " + tasks.addTask(task);
         ui.printAddedTask(addedTaskResponse, tasks.getSize());
+    }
+
+    private void processDeleteTask(String contextWord) throws FickleException {
+        if (contextWord.isEmpty()) {
+            throw new FickleException(
+                    "Missing task index for 'delete' command.", "Shadow's shadow without it");
+        }
+        try {
+            int index = Integer.parseInt(contextWord) - 1;
+            if (tasks.getSize() == 0) {
+                throw new FickleException("No tasks remaining to delete.", "A Little Happiness");
+            }
+            if (index < 0) {
+                throw new FickleException(
+                        "Invalid task index: less than 1.", "Too small, Insignificance");
+            }
+
+            if (index >= tasks.getSize()) {
+                throw new FickleException(
+                        "Invalid task index: exceeds the total number of tasks.", "Too Much");
+            }
+
+            Task task = tasks.deleteTask(index);
+            int totalTaskCount = tasks.getSize();
+            ui.printDeletedTask("  " + task.toString(), totalTaskCount);
+
+            // Special message when all tasks are deleted
+            if (totalTaskCount == 0) {
+                ui.printSingleLineWithoutLine("Wow! All tasks are deleted!");
+                ui.printEasterAlignedRight("A Little Happiness");
+            }
+
+        } catch (NumberFormatException e) {
+            throw new FickleException(
+                    "Invalid task index: not an integer.", "Confuses me, Contradiction");
+        }
     }
 }

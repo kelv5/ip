@@ -61,13 +61,31 @@ public class Ui {
     /**
      * Prints the added task message.
      * 
-     * @param taskname The name of the added task.
+     * @param taskname   The name of the added task.
+     * @param totalTasks Total number of tasks after added a new task
+     * 
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
                 new String[] { "Got it. I've added this task: ", taskname, "\n",
+                        totalTasksMessage },
+                true);
+    }
+
+    /**
+     * Prints the deleted task message.
+     * 
+     * @param taskname   The name of the deleted task.
+     * @param totalTasks Total number of tasks after deleted a new task
+     * 
+     */
+    public void printDeletedTask(String taskname, int totalTasks) {
+        String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
+                + " in the list.";
+        printFormattedMessages(
+                new String[] { "Noted. I've removed this task: ", taskname, "\n",
                         totalTasksMessage },
                 true);
     }
