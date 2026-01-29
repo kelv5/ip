@@ -1,4 +1,5 @@
-public class Task {
+/** Abstract class representing a task */
+public abstract class Task {
     private String name;
     private boolean isDone;
 
@@ -6,12 +7,8 @@ public class Task {
      * Constructor for Task.
      *
      * @param name The name of the task.
-     * @throws IllegalArgumentException if the task name is empty.
      */
     public Task(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Task name cannot be empty.");
-        }
         this.name = name;
         this.isDone = false;
 
