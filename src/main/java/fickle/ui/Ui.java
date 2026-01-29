@@ -1,3 +1,6 @@
+package fickle.ui;
+
+import fickle.tasks.TaskList;
 import java.util.Scanner;
 
 /**

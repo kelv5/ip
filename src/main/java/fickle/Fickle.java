@@ -1,3 +1,13 @@
+package fickle;
+
+import fickle.exceptions.FickleException;
+import fickle.tasks.Deadline;
+import fickle.tasks.Event;
+import fickle.tasks.Task;
+import fickle.tasks.TaskList;
+import fickle.tasks.Todo;
+import fickle.ui.Ui;
+
 /**
  * Fickle chatbot main class.
  */

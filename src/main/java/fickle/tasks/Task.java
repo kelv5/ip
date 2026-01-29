@@ -1,3 +1,5 @@
+package fickle.tasks;
+
 /** Abstract class representing a task */
 public abstract class Task {
     private String name;

@@ -1,3 +1,5 @@
+package fickle.exceptions;
+
 public class FickleException extends Exception {
     private String secondLine;
 

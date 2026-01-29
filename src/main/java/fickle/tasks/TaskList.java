@@ -1,3 +1,5 @@
+package fickle.tasks;
+
 import java.util.ArrayList;
 
 /**

@@ -1,3 +1,5 @@
+package fickle.tasks;
+
 public class Todo extends Task {
     /**
      * Constructor for Todo task.
