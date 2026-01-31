@@ -54,6 +54,15 @@ public abstract class Task {
         return icon + name;
     }
 
+    /**
+     * Returns the string representation of the task for saving to a file.
+     *
+     * @return The string representation for writing to the save file.
+     */
+    public String toStorageString() {
+        return " | " + (isDone() ? "1" : "0") + " | " + getName();
+    }
+
     private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
