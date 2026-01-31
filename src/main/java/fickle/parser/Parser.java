@@ -24,7 +24,6 @@ public class Parser {
      * @throws FickleException if the input is invalid or unknown command
      */
     public static Command parse(String input) throws FickleException {
-        input = input.trim();
         if (input.isEmpty()) {
             throw new FickleException("Input can't be empty.", "Don't Leave me Alone.");
         }
