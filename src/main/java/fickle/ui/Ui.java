@@ -72,7 +72,7 @@ public class Ui {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", taskname, "\n",
+                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
                         totalTasksMessage },
                 true);
     }
