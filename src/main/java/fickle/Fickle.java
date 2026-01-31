@@ -1,12 +1,10 @@
 package fickle;
 
+import fickle.commands.Command;
 import fickle.exceptions.FickleException;
-import fickle.tasks.Deadline;
-import fickle.tasks.Event;
-import fickle.tasks.Task;
 import fickle.tasks.TaskList;
-import fickle.tasks.Todo;
 import fickle.ui.Ui;
+import fickle.parser.Parser;
 
 /**
  * Fickle chatbot main class.
@@ -19,8 +17,8 @@ public class Fickle {
      * Constructor for Fickle.
      */
     public Fickle() {
-        this.ui = new Ui();
-        this.tasks = new TaskList();
+        ui = new Ui();
+        tasks = new TaskList();
     }
 
     /**
@@ -34,61 +32,20 @@ public class Fickle {
     }
 
     /**
-     * Runs the Fickle chatbot Displays the logo, greeting, and handles user
-     * input. Exits on "bye" command.
+     * Runs the Fickle chatbot
+     * Displays the logo, greeting, handles user input and executes commands.
+     * Exits on "bye" command and print goodbye.
      */
     public void run() {
         ui.printLogo();
         ui.greet();
-
-        while (true) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
                 String input = ui.readInput().trim();
-                if (input.isEmpty()) {
-                    throw new FickleException("Input can't be empty.", "Don't Leave me Alone.");
-                }
-
-                String[] commandParts = input.split(" ", 2);
-                String commandWord = commandParts[0].toLowerCase();
-                String contextWord = commandParts.length > 1 ? commandParts[1].trim() : "";
-
-                // contextWord is everything after the single command word
-                switch (commandWord) {
-                    case "bye":
-                        ui.sayGoodbye();
-                        return;
-
-                    case "list":
-                        processList(contextWord);
-                        break;
-
-                    case "mark":
-                        processMarkTask(contextWord);
-                        break;
-
-                    case "unmark":
-                        processUnmarkTask(contextWord);
-                        break;
-
-                    case "deadline":
-                        processAddDeadlineTask(contextWord);
-                        break;
-
-                    case "todo":
-                        processAddTodoTask(contextWord);
-                        break;
-
-                    case "event":
-                        processAddEventTask(contextWord);
-                        break;
-
-                    case "delete":
-                        processDeleteTask(contextWord);
-                        break;
-                    default:
-                        throw new FickleException(
-                                "Sorry, I didn't understand that. Try using my commands!", "Going Nowhere.");
-                }
+                Command command = Parser.parse(input);
+                command.execute(tasks, ui);
+                isExit = command.isExit();
             } catch (FickleException e) {
                 // FickleException may contain an optional second display line
                 if (e.hasSecondLine()) {
@@ -99,182 +56,6 @@ public class Fickle {
             } catch (Exception e) {
                 ui.printError(e.getMessage());
             }
-        }
-    }
-
-    private void processList(String contextWord) throws FickleException {
-        if (contextWord.length() > 0) {
-            throw new FickleException("The list command doesn't accept any arguments.", "Even fickleness has rules");
-        } else {
-            ui.printTaskList(tasks);
-        }
-
-    }
-
-    private void processMarkTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException(
-                    "Missing task index for 'mark' command.", "Shadow's shadow without it");
-        }
-
-        try {
-            int index = Integer.parseInt(contextWord) - 1;
-            if (tasks.getSize() == 0) {
-                throw new FickleException("No tasks remaining to mark.", "A Little Happiness");
-            }
-            if (index < 0) {
-                throw new FickleException(
-                        "Invalid task index: less than 1.", "Too small, Insignificance");
-            }
-
-            if (index >= tasks.getSize()) {
-                throw new FickleException(
-                        "Invalid task index: exceeds the total number of tasks.", "Too Much");
-            }
-
-            Task task = tasks.getTask(index);
-            task.markAsDone();
-            ui.printMarkedTask(task.toString());
-
-            // Special message when all tasks are completed
-            if (tasks.isAllMarked()) {
-                ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
-                ui.printEasterAlignedRight("A Little Happiness");
-            }
-
-        } catch (NumberFormatException e) {
-            throw new FickleException(
-                    "Invalid task index: not an integer.", "Confuses me, Contradiction");
-        }
-    }
-
-    private void processUnmarkTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException(
-                    "Missing task index for 'unmark' command.", "Shadow's shadow without it");
-        }
-
-        try {
-            int index = Integer.parseInt(contextWord) - 1;
-            if (tasks.getSize() == 0) {
-                throw new FickleException("No tasks remaining to unmark.", "A Little Happiness");
-            }
-            if (index < 0) {
-                throw new FickleException(
-                        "Invalid task index: less than 1.", "Too small, Insignificance");
-            }
-
-            if (index >= tasks.getSize()) {
-                throw new FickleException(
-                        "Invalid task index: exceeds the total number of tasks.", "Too Much");
-            }
-
-            Task task = tasks.getTask(index);
-            task.markAsNotDone();
-            ui.printUnmarkedTask(task.toString());
-
-        } catch (NumberFormatException e) {
-            throw new FickleException(
-                    "Invalid task index: not an integer.", "Confuses me, Contradiction");
-        }
-    }
-
-    private void processAddDeadlineTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException("Deadline name is missing.", "Like Missing You");
-        }
-
-        if (!contextWord.contains("/by")) {
-            throw new FickleException(
-                    "Deadline must have a /by to specify due time.", "Too Late without it");
-        }
-
-        String[] contents = contextWord.split("/by", 2);
-        String name = contents[0].trim();
-        String by = contents[1].trim();
-        if (name.isEmpty() || by.isEmpty()) {
-            throw new FickleException("Deadline must have a name and due time.", "else, it's Untold");
-        }
-        Task task = new Deadline(name, by);
-        addTaskandPrint(task);
-    }
-
-    private void processAddTodoTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException("Todo name is missing.", "Like Missing You");
-        }
-        Task task = new Todo(contextWord);
-        addTaskandPrint(task);
-    }
-
-    private void processAddEventTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException("Event name is missing.", "Like Missing You");
-        }
-
-        if (!contextWord.contains("/from") || !contextWord.contains("/to")) {
-            throw new FickleException(
-                    "Event must have both /from and /to to specify start and end time.",
-                    "Too Late without it");
-        }
-
-        if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
-            throw new FickleException(
-                    "/from has to be in front of /to.", "Confuses me, Contradiction");
-        }
-
-        String[] firstSecondParts = contextWord.split("/from", 2);
-        String name = firstSecondParts[0].trim();
-        String[] secondThirdParts = firstSecondParts[1].split("/to", 2);
-        String from = secondThirdParts[0].trim();
-        String to = secondThirdParts[1].trim();
-
-        if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new FickleException(
-                    "Event must have a name, start time, and end time.", "else, it's Untold");
-        }
-        Task task = new Event(name, from, to);
-        addTaskandPrint(task);
-    }
-
-    private void addTaskandPrint(Task task) {
-        String addedTaskResponse = "  " + tasks.addTask(task);
-        ui.printAddedTask(addedTaskResponse, tasks.getSize());
-    }
-
-    private void processDeleteTask(String contextWord) throws FickleException {
-        if (contextWord.isEmpty()) {
-            throw new FickleException(
-                    "Missing task index for 'delete' command.", "Shadow's shadow without it");
-        }
-        try {
-            int index = Integer.parseInt(contextWord) - 1;
-            if (tasks.getSize() == 0) {
-                throw new FickleException("No tasks remaining to delete.", "A Little Happiness");
-            }
-            if (index < 0) {
-                throw new FickleException(
-                        "Invalid task index: less than 1.", "Too small, Insignificance");
-            }
-
-            if (index >= tasks.getSize()) {
-                throw new FickleException(
-                        "Invalid task index: exceeds the total number of tasks.", "Too Much");
-            }
-
-            Task task = tasks.deleteTask(index);
-            int totalTaskCount = tasks.getSize();
-            ui.printDeletedTask("  " + task.toString(), totalTaskCount);
-
-            // Special message when all tasks are deleted
-            if (totalTaskCount == 0) {
-                ui.printSingleLineWithoutLine("Wow! All tasks are deleted!");
-                ui.printEasterAlignedRight("A Little Happiness");
-            }
-
-        } catch (NumberFormatException e) {
-            throw new FickleException(
-                    "Invalid task index: not an integer.", "Confuses me, Contradiction");
         }
     }
 }
