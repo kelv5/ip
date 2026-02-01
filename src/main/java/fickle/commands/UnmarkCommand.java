@@ -4,6 +4,7 @@ import fickle.exceptions.FickleException;
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 import fickle.ui.Ui;
+import fickle.storage.Storage;
 
 /**
  * Unmarks a task in the task list.
@@ -21,7 +22,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws FickleException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("No tasks remaining to unmark.", "A Little Happiness");
         }
@@ -38,5 +39,6 @@ public class UnmarkCommand extends Command {
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
         ui.printUnmarkedTask(task.toString());
+        storage.overwriteSave(tasks);
     }
 }

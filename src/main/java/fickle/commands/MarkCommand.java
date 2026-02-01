@@ -4,6 +4,7 @@ import fickle.exceptions.FickleException;
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 import fickle.ui.Ui;
+import fickle.storage.Storage;
 
 /**
  * Marks a task in the task list as done.
@@ -21,7 +22,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws FickleException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("No tasks remaining to mark.", "A Little Happiness");
         }
@@ -44,5 +45,6 @@ public class MarkCommand extends Command {
             ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
             ui.printEasterAlignedRight("A Little Happiness");
         }
+        storage.overwriteSave(tasks);
     }
 }
