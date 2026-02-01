@@ -9,10 +9,19 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskList.
+     * Constructor for TaskList with the list of tasks.
+     *
+     * @param tasks The loaded list of tasks from save file.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Alternative constructor for TaskList to create an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**

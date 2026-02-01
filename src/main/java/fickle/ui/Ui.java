@@ -143,7 +143,7 @@ public class Ui {
      * @param exceptionMessage The description the invalid input
      * @param secondLine       The second message to display, aligned to the right.
      */
-    public void printInvalidInput(String exceptionMessage, String secondLine) {
+    public void printFickleException(String exceptionMessage, String secondLine) {
         System.out.println("[Invalid Input]  " + exceptionMessage);
         printEasterAlignedRight(secondLine);
     }
@@ -153,7 +153,7 @@ public class Ui {
      *
      * @param exceptionMessage The description of the invalid input.
      */
-    public void printInvalidInput(String exceptionMessage) {
+    public void printFickleException(String exceptionMessage) {
         System.out.println("[Invalid Input]  " + exceptionMessage);
     }
 
