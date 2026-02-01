@@ -25,11 +25,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (FROM: " + from + "  TO: " + to + ")";
     }
 
     @Override
     public String toStorageString() {
-        return "D" + super.toStorageString() + " | " + from + " | " + to;
+        return "E" + super.toStorageString() + " | " + from + " | " + to;
     }
 }

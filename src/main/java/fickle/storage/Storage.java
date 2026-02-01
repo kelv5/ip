@@ -62,11 +62,12 @@ public class Storage {
                 if (task != null) {
                     tasks.addTask(task);
                 } else {
-                    System.out.println("Warning! Corrupted line skipped: " + line);
+                    System.out.println("Warning! Corrupted line skipped: ");
+                    System.out.println("   " + line);
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new FickleException("Couldn't load tasks from file.", "What, Where");
+            throw new FickleException("Couldn't load tasks from file.");
         } finally {
             if (scanner != null) {
                 scanner.close();
@@ -92,7 +93,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new FickleException("Couldn't save tasks to file.", "Anything Goes");
+            throw new FickleException("Couldn't save tasks to file.");
         }
     }
 
@@ -110,7 +111,7 @@ public class Storage {
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new FickleException("Couldn't append tasks to file.", "Anything Goes");
+            throw new FickleException("Couldn't append tasks to file.");
         }
     }
 

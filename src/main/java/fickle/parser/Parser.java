@@ -25,7 +25,7 @@ public class Parser {
      */
     public static Command parse(String input) throws FickleException {
         if (input.isEmpty()) {
-            throw new FickleException("Input can't be empty.", "Don't Leave me Alone.");
+            throw new FickleException("No input detected. We'll be here when you're ready.", "Don't Leave me Alone.");
         }
 
         String[] parts = input.split(" ", 2);
@@ -60,7 +60,7 @@ public class Parser {
 
             default:
                 throw new FickleException(
-                        "Sorry, I didn't understand that. Try using my commands!", "Going Nowhere.");
+                        "Sorry, I didn't understand that. Try a valid command!", "Going Nowhere.");
         }
     }
 
@@ -70,41 +70,43 @@ public class Parser {
 
     private static Command parseList(String contextWord) throws FickleException {
         if (!contextWord.isEmpty()) {
-            throw new FickleException("The list command doesn't accept any arguments.", "Even fickleness has rules");
+            throw new FickleException("The 'list' command doesn't take any arguments.", "Even fickleness has rules");
         }
         return new ListCommand();
     }
 
     private static Command parseMark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Missing task index for 'mark' command.", "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for the 'mark' command.",
+                    "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
             return new MarkCommand(index);
         } catch (NumberFormatException e) {
-            throw new FickleException("Invalid task index: not an integer.", "Confuses me, Contradiction");
+            throw new FickleException("Please use a valid whole number for the task.", "Confuses me, Contradiction");
         }
     }
 
     private static Command parseUnmark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Missing task index for 'unmark' command.", "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for the 'unmark' command.",
+                    "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
             return new UnmarkCommand(index);
         } catch (NumberFormatException e) {
-            throw new FickleException("Invalid task index: not an integer.", "Confuses me, Contradiction");
+            throw new FickleException("Please use a valid whole number for the task.", "Confuses me, Contradiction");
         }
     }
 
     private static Command parseDeadline(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Deadline name is missing.", "Like Missing You");
+            throw new FickleException("Deadline name is missing. Please provide one.", "Like Missing You");
         }
         if (!contextWord.contains("/by")) {
-            throw new FickleException("Deadline must have a /by to specify due time.", "Too Late without it");
+            throw new FickleException("Deadline must include '/by' to set a due time.", "Too Late without it");
         }
 
         String[] contents = contextWord.split("/by", 2);
@@ -112,7 +114,7 @@ public class Parser {
         String by = contents[1].trim();
 
         if (name.isEmpty() || by.isEmpty()) {
-            throw new FickleException("Deadline must have a name and due time.", "else, it's Untold");
+            throw new FickleException("Deadline needs both a name and a due time.", "else, it's Untold");
         }
 
         return new DeadlineCommand(name, by);
@@ -120,18 +122,18 @@ public class Parser {
 
     private static Command parseTodo(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Todo name is missing.", "Like Missing You");
+            throw new FickleException("Todo name is missing. Please provide one.", "Like Missing You");
         }
         return new TodoCommand(contextWord);
     }
 
     private static Command parseEvent(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Event name is missing.", "Like Missing You");
+            throw new FickleException("Event name is missing. Please provide one.", "Like Missing You");
         }
         if (!contextWord.contains("/from") || !contextWord.contains("/to")) {
             throw new FickleException(
-                    "Event must have both /from and /to to specify start and end time.", "Too Late without it");
+                    "Please place '/from' before '/to' in your input.", "Too Late without it");
         }
         if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
             throw new FickleException("/from has to be in front of /to.", "Confuses me, Contradiction");
@@ -144,7 +146,7 @@ public class Parser {
         String to = secondThirdParts[1].trim();
 
         if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new FickleException("Event must have a name, start time, and end time.", "else, it's Untold");
+            throw new FickleException("Event needs a name, a start time, and an end time.", "else, it's Untold");
         }
 
         return new EventCommand(name, from, to);
@@ -152,13 +154,14 @@ public class Parser {
 
     private static Command parseDelete(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Missing task index for 'delete' command.", "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for the 'delete' command.",
+                    "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
-            throw new FickleException("Invalid task index: not an integer.", "Confuses me, Contradiction");
+            throw new FickleException("Please use a valid whole number for the task.", "Confuses me, Contradiction");
         }
     }
 }

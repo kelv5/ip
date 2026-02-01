@@ -7,7 +7,7 @@ import java.util.Scanner;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "____________________________________________________________________________________________";
+    public static final String LINE = "___________________________________________________________________________________________________";
     private static final String INDENTATION = "      ";
     private Scanner scanner;
 
@@ -43,7 +43,7 @@ public class Ui {
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        printFormattedMessages(new String[] { "Goodbye. We'll come back to this." }, false);
+        printFormattedMessages(new String[] { "Goodbye. See you again soon! " }, false);
         printEasterAlignedRight("Day by Day");
         scanner.close();
     }
@@ -132,7 +132,6 @@ public class Ui {
         for (int i = 0; i < tasks.getSize(); i++) {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
-        // add in the print easter egg a glimpse of journey
         printFormattedMessages(messageList, false);
         printEasterAlignedRight("Glimpses of a Journey");
     }
@@ -149,12 +148,12 @@ public class Ui {
     }
 
     /**
-     * Prints a Exception message for invalid input with a single line.
+     * Prints an error message when tasks cannot be loaded from or saved to a file.
      *
-     * @param exceptionMessage The description of the invalid input.
+     * @param exceptionMessage Description of the file operation failure.
      */
     public void printFickleException(String exceptionMessage) {
-        System.out.println("[Invalid Input]  " + exceptionMessage);
+        System.out.println("[Load/Save Error]  " + exceptionMessage);
     }
 
     /**
@@ -202,7 +201,7 @@ public class Ui {
      */
     public void printEasterAlignedRight(String easterEgg) {
         indentMessage("");
-        indentMessage("                                                           ~~~  " + easterEgg);
+        indentMessage("                                                                  ~~~  " + easterEgg);
         indentLine();
     }
 
