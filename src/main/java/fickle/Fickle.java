@@ -52,7 +52,7 @@ public class Fickle {
             try {
                 String input = ui.readInput().trim();
                 Command command = Parser.parse(input);
-                command.execute(tasks, ui);
+                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (FickleException e) {
                 // FickleException may contain an optional second display line
