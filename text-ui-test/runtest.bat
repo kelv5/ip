@@ -13,7 +13,8 @@ javac -Xlint:none -d ..\bin ^
 ..\src\main\java\fickle\ui\*.java ^
 ..\src\main\java\fickle\exceptions\*.java ^
 ..\src\main\java\fickle\commands\*.java ^
-..\src\main\java\fickle\parser\*.java
+..\src\main\java\fickle\parser\*.java ^
+..\src\main\java\fickle\storage\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
