@@ -4,6 +4,8 @@ import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 import fickle.tasks.Todo;
 import fickle.ui.Ui;
+import fickle.exceptions.FickleException;
+import fickle.storage.Storage;
 
 /**
  * Adds a Todo task to the task list.
@@ -21,8 +23,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
         Task task = new Todo(taskName);
         ui.printAddedTask(tasks.addTask(task), tasks.getSize());
+        storage.appendSave(task);
     }
 }

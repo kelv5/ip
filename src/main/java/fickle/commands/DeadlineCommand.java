@@ -2,6 +2,8 @@ package fickle.commands;
 
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
+import fickle.exceptions.FickleException;
+import fickle.storage.Storage;
 import fickle.tasks.Deadline;
 import fickle.ui.Ui;
 
@@ -24,8 +26,9 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
         Task task = new Deadline(taskName, by);
         ui.printAddedTask(tasks.addTask(task), tasks.getSize());
+        storage.appendSave(task);
     }
 }

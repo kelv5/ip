@@ -5,6 +5,7 @@ import fickle.exceptions.FickleException;
 import fickle.tasks.TaskList;
 import fickle.ui.Ui;
 import fickle.parser.Parser;
+import fickle.storage.Storage;
 
 /**
  * Fickle chatbot main class.
@@ -12,13 +13,20 @@ import fickle.parser.Parser;
 public class Fickle {
     private Ui ui;
     private TaskList tasks;
+    private Storage storage;
 
     /**
      * Constructor for Fickle.
      */
-    public Fickle() {
+    public Fickle(String filePath) {
         ui = new Ui();
-        tasks = new TaskList();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FickleException e) {
+            ui.printFickleException(e.getMessage(), e.getSecondLine());
+            tasks = new TaskList();
+        }
     }
 
     /**
@@ -27,7 +35,7 @@ public class Fickle {
      * @param args
      */
     public static void main(String[] args) {
-        Fickle fickle = new Fickle();
+        Fickle fickle = new Fickle("data/tasks.txt");
         fickle.run();
     }
 
@@ -44,14 +52,14 @@ public class Fickle {
             try {
                 String input = ui.readInput().trim();
                 Command command = Parser.parse(input);
-                command.execute(tasks, ui);
+                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (FickleException e) {
                 // FickleException may contain an optional second display line
                 if (e.hasSecondLine()) {
-                    ui.printInvalidInput(e.getMessage(), e.getSecondLine());
+                    ui.printFickleException(e.getMessage(), e.getSecondLine());
                 } else {
-                    ui.printInvalidInput(e.getMessage());
+                    ui.printFickleException(e.getMessage());
                 }
             } catch (Exception e) {
                 ui.printError(e.getMessage());

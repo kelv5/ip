@@ -2,6 +2,8 @@ package fickle.commands;
 
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
+import fickle.exceptions.FickleException;
+import fickle.storage.Storage;
 import fickle.tasks.Event;
 import fickle.ui.Ui;
 
@@ -28,8 +30,9 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
         Task task = new Event(taskName, from, to);
         ui.printAddedTask(tasks.addTask(task), tasks.getSize());
+        storage.appendSave(task);
     }
 }

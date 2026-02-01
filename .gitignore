@@ -3,7 +3,7 @@
 /out/
 /*.iml
 
-# Ignore compiled class files
+# Compiled class files
 *.class
 
 # Gradle build files
@@ -19,5 +19,8 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# Ignore VS Code files
+# VS Code files
 .vscode/
+
+# Data storage
+/data/
