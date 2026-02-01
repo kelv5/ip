@@ -5,12 +5,12 @@ import fickle.tasks.Task;
 import fickle.tasks.Todo;
 import fickle.tasks.Deadline;
 import fickle.tasks.Event;
+import fickle.tasks.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,16 +33,16 @@ public class Storage {
     /**
      * Loads tasks from the save file.
      *
-     * @return An ArrayList of Task loaded from the save file. An empty ArrayList if
-     *         the file does not exist
+     * @return A TaskList with the tasks loaded from the save file. Returns an empty
+     *         TaskList if the file does not exist.
      * 
      * @throws FickleException If the file exists but cannot be read.
      */
-    public ArrayList<Task> load() throws FickleException {
+    public TaskList load() throws FickleException {
         checkAndCreateFolder();
 
         File file = new File(filePath);
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList();
 
         if (!file.exists()) {
             return tasks;
@@ -60,7 +60,7 @@ public class Storage {
 
                 Task task = parseTask(line);
                 if (task != null) {
-                    tasks.add(task);
+                    tasks.addTask(task);
                 } else {
                     System.out.println("Warning! Corrupted line skipped: " + line);
                 }
@@ -82,10 +82,11 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      * @throws FickleException If fails to write to the saveFile.
      */
-    public void overwriteSave(ArrayList<Task> tasks) throws FickleException {
+    public void overwriteSave(TaskList tasks) throws FickleException {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (Task task : tasks) {
+            ArrayList<Task> allTasks = tasks.getAllTasks();
+            for (Task task : allTasks) {
                 fw.write(task.toStorageString());
                 fw.write(System.lineSeparator());
             }
@@ -130,8 +131,9 @@ public class Storage {
         String[] saveStringsParts = line.split(" \\| ");
 
         // Corrupted line due to insufficient information
-        if (saveStringsParts.length < 3)
+        if (saveStringsParts.length < 3) {
             return null;
+        }
 
         String taskType = saveStringsParts[0];
         String doneStatus = saveStringsParts[1];

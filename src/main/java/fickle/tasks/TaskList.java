@@ -13,8 +13,8 @@ public class TaskList {
      *
      * @param tasks The loaded list of tasks from save file.
      */
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(TaskList loadedTaskList) {
+        this.tasks = new ArrayList<>(loadedTaskList.tasks);
     }
 
     /**
@@ -53,6 +53,15 @@ public class TaskList {
      */
     public Task getTask(int idx) {
         return this.tasks.get(idx);
+    }
+
+    /**
+     * Returns the list of tasks in this taskList.
+     * 
+     * @return The ArrayList of tasks.
+     */
+    public ArrayList<Task> getAllTasks() {
+        return tasks;
     }
 
     /**
