@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
 
         Task task = tasks.deleteTask(taskIndex);
         int totalTaskCount = tasks.getSize();
-        ui.printDeletedTask("  " + task.toString(), totalTaskCount);
+        ui.printDeletedTask(task.toString(), totalTaskCount);
 
         // Special message when all tasks are deleted
         if (totalTaskCount == 0) {

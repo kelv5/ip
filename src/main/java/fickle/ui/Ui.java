@@ -72,9 +72,9 @@ public class Ui {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
-                        totalTasksMessage },
-                true);
+                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage },
+                false);
+        printEasterAlignedRight("Still Early");
     }
 
     /**
@@ -85,12 +85,12 @@ public class Ui {
      * 
      */
     public void printDeletedTask(String taskname, int totalTasks) {
-        String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
+        String totalTaskMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
-                new String[] { "Noted. I've removed this task: ", taskname, "\n",
-                        totalTasksMessage },
-                true);
+                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage },
+                false);
+        printEasterAlignedRight("It's Gone");
     }
 
     /**
