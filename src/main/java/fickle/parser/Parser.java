@@ -12,6 +12,11 @@ import fickle.commands.UnmarkCommand;
 
 import fickle.exceptions.FickleException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Converts user input into a corresponding command.
  */
@@ -26,6 +31,12 @@ public class Parser {
     public static Command parse(String input) throws FickleException {
         if (input.isEmpty()) {
             throw new FickleException("No input detected. We'll be here when you're ready.", "Don't Leave me Alone.");
+        }
+
+        if (input.contains("|")) {
+            throw new FickleException(
+                    "Please avoid using '|'. Remove it and try again.",
+                    "Let it...");
         }
 
         String[] parts = input.split(" ", 2);
@@ -111,11 +122,12 @@ public class Parser {
 
         String[] contents = contextWord.split("/by", 2);
         String name = contents[0].trim();
-        String by = contents[1].trim();
+        String byString = contents[1].trim();
 
-        if (name.isEmpty() || by.isEmpty()) {
+        if (name.isEmpty() || byString.isEmpty()) {
             throw new FickleException("Deadline needs both a name and a due time.", "else, it's Untold");
         }
+        LocalDateTime by = parseDateTime(byString);
 
         return new DeadlineCommand(name, by);
     }
@@ -142,11 +154,19 @@ public class Parser {
         String[] firstSecondParts = contextWord.split("/from", 2);
         String name = firstSecondParts[0].trim();
         String[] secondThirdParts = firstSecondParts[1].split("/to", 2);
-        String from = secondThirdParts[0].trim();
-        String to = secondThirdParts[1].trim();
+        String fromString = secondThirdParts[0].trim();
+        String toString = secondThirdParts[1].trim();
 
-        if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (name.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
             throw new FickleException("Event needs a name, a start time, and an end time.", "else, it's Untold");
+        }
+
+        LocalDateTime from = parseDateTime(fromString);
+        LocalDateTime to = parseDateTime(toString);
+
+        if (from.isAfter(to)) {
+            throw new FickleException("Start time cannot be later than end time.",
+                    "As It is");
         }
 
         return new EventCommand(name, from, to);
@@ -161,7 +181,27 @@ public class Parser {
             int index = Integer.parseInt(contextWord) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
-            throw new FickleException("Please use a valid whole number for the task.", "Confuses me, Contradiction");
+            throw new FickleException("Please use a valid whole number for the task.",
+                    "Confuses me, Contradiction");
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeString) throws FickleException {
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        try {
+            if (dateTimeString.contains(" ")) {
+                return LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+            } else {
+                // Time is optional. Default time is 00:00 if omitted by user.
+                LocalDate date = LocalDate.parse(dateTimeString, dateOnlyFormatter);
+                return date.atTime(0, 0);
+            }
+        } catch (DateTimeParseException e) {
+            String exceptionMsg = "Date/time format incorrect. Please use: d/M/yyyy or d/M/yyyy HHmm.\n"
+                    + "[Example Usage]  21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
+            throw new FickleException(exceptionMsg, "Time will Tell");
         }
     }
 }
