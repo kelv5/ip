@@ -2,10 +2,10 @@ package fickle;
 
 import fickle.commands.Command;
 import fickle.exceptions.FickleException;
-import fickle.tasks.TaskList;
-import fickle.ui.Ui;
 import fickle.parser.Parser;
 import fickle.storage.Storage;
+import fickle.tasks.TaskList;
+import fickle.ui.Ui;
 
 /**
  * Fickle chatbot main class.
@@ -40,9 +40,8 @@ public class Fickle {
     }
 
     /**
-     * Runs the Fickle chatbot
-     * Displays the logo, greeting, handles user input and executes commands.
-     * Exits on "bye" command and print goodbye.
+     * Runs the Fickle chatbot Displays the logo, greeting, handles user input
+     * and executes commands. Exits on "bye" command and print goodbye.
      */
     public void run() {
         ui.printLogo();

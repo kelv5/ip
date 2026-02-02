@@ -1,7 +1,8 @@
 package fickle.ui;
 
-import fickle.tasks.TaskList;
 import java.util.Scanner;
+
+import fickle.tasks.TaskList;
 
 /**
  * UI class for handling user interactions.
@@ -23,12 +24,9 @@ public class Ui {
      */
     public void printLogo() {
         indentLine();
-        String logo = "       ______ _      _    _\n"
-                + "      |  ___(_)    | |  | |     \n"
-                + "      | |_   _  ___| | _| | ___ \n"
-                + "      |  _| | |/ __| |/ / |/ _ \\\n"
-                + "      | |   | | |__|   <|_|  __/\n"
-                + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+        String logo = "       ______ _      _    _\n" + "      |  ___(_)    | |  | |     \n"
+                + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
+                + "      | |   | | |__|   <|_|  __/\n" + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -64,32 +62,30 @@ public class Ui {
     /**
      * Prints the added task message.
      * 
-     * @param taskname   The name of the added task.
+     * @param taskname The name of the added task.
      * @param totalTasks Total number of tasks after added a new task
      * 
      */
     public void printAddedTask(String taskname, int totalTasks) {
-        String totalTasksMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
+        String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage },
-                false);
+                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage }, false);
         printEasterAlignedRight("Still Early");
     }
 
     /**
      * Prints the deleted task message.
      * 
-     * @param taskname   The name of the deleted task.
+     * @param taskname The name of the deleted task.
      * @param totalTasks Total number of tasks after deleted a new task
      * 
      */
     public void printDeletedTask(String taskname, int totalTasks) {
-        String totalTaskMessage = "Now you have " + totalTasks + " task" + (totalTasks == 1 ? "" : "s")
+        String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                 + " in the list.";
         printFormattedMessages(
-                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage },
-                false);
+                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage }, false);
         printEasterAlignedRight("It's Gone");
     }
 
@@ -99,8 +95,7 @@ public class Ui {
      * @param taskname The name of the marked task.
      */
     public void printMarkedTask(String taskname) {
-        printFormattedMessages(
-                new String[] { "All set. This task is marked as done: ", taskname }, false);
+        printFormattedMessages(new String[] { "All set. This task is marked as done: ", taskname }, false);
         printEasterAlignedRight("One After Another");
     }
 
@@ -110,8 +105,7 @@ public class Ui {
      * @param taskname The name of the unmarked task.
      */
     public void printUnmarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "Noted. This task is now unmarked: ", taskname },
-                false);
+        printFormattedMessages(new String[] { "Noted. This task is now unmarked: ", taskname }, false);
         printEasterAlignedRight("Pace Yourself");
     }
 
@@ -140,7 +134,7 @@ public class Ui {
      * Prints a Exception message for invalid input with double lines.
      * 
      * @param exceptionMessage The description the invalid input
-     * @param secondLine       The second message to display, aligned to the right.
+     * @param secondLine The second message to display, aligned to the right.
      */
     public void printFickleException(String exceptionMessage, String secondLine) {
         System.out.println("[Invalid Input]  " + exceptionMessage);
@@ -148,7 +142,8 @@ public class Ui {
     }
 
     /**
-     * Prints an error message when tasks cannot be loaded from or saved to a file.
+     * Prints an error message when tasks cannot be loaded from or saved to a
+     * file.
      *
      * @param exceptionMessage Description of the file operation failure.
      */
@@ -166,8 +161,7 @@ public class Ui {
     }
 
     /**
-     * Prints a single line message with indentation
-     * No lines are printed
+     * Prints a single line message with indentation No lines are printed
      * 
      * @param message The message to be printed.
      */
@@ -176,11 +170,11 @@ public class Ui {
     }
 
     /**
-     * Prints an array of messages with indentation
-     * A top horizontal line is always printed.
-     * The bottom horizontal line is printed only if hasBottomLine is true.
+     * Prints an array of messages with indentation A top horizontal line is
+     * always printed. The bottom horizontal line is printed only if
+     * hasBottomLine is true.
      * 
-     * @param messages      An array of messages to be printed
+     * @param messages An array of messages to be printed
      * @param hasBottomLine Print a bottom horizontal line if true
      * 
      */
@@ -208,7 +202,7 @@ public class Ui {
     /**
      * Prints an indented message.
      * 
-     * @param msg
+     * @param msg The message to be indented
      */
     private void indentMessage(String msg) {
         System.out.println(INDENTATION + "  " + msg);

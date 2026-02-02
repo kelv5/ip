@@ -1,12 +1,5 @@
 package fickle.storage;
 
-import fickle.exceptions.FickleException;
-import fickle.tasks.Task;
-import fickle.tasks.Todo;
-import fickle.tasks.Deadline;
-import fickle.tasks.Event;
-import fickle.tasks.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,6 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fickle.exceptions.FickleException;
+import fickle.tasks.Deadline;
+import fickle.tasks.Event;
+import fickle.tasks.Task;
+import fickle.tasks.TaskList;
+import fickle.tasks.Todo;
 
 /**
  * Handles saving and loading of tasks to/from a file.
@@ -36,8 +36,8 @@ public class Storage {
     /**
      * Loads tasks from the save file.
      *
-     * @return A TaskList with the tasks loaded from the save file. Returns an empty
-     *         TaskList if the file does not exist.
+     * @return A TaskList with the tasks loaded from the save file. Returns an
+     * empty TaskList if the file does not exist.
      * 
      * @throws FickleException If the file exists but cannot be read.
      */
@@ -80,8 +80,8 @@ public class Storage {
     }
 
     /**
-     * Overwrites the save file with the list of tasks.
-     * This method is triggered by commands such as Mark, Unmark, Delete.
+     * Overwrites the save file with the list of tasks. This method is triggered
+     * by commands such as Mark, Unmark, Delete.
      *
      * @param tasks The list of tasks to be saved.
      * @throws FickleException If fails to write to the saveFile.
@@ -101,8 +101,8 @@ public class Storage {
     }
 
     /**
-     * Appends a single task to be saved in the file.
-     * This method is triggered by commands such as Todo, Event, Deadline.
+     * Appends a single task to be saved in the file. This method is triggered
+     * by commands such as Todo, Event, Deadline.
      *
      * @param task The task to be appended to the save file.
      * @throws FickleException If fails to write to the saveFile.
@@ -119,8 +119,8 @@ public class Storage {
     }
 
     /**
-     * If the folder does not exist, it will be created.
-     * If the folder already exists, it does nothing.
+     * If the folder does not exist, it will be created. If the folder already
+     * exists, it does nothing.
      */
     private void checkAndCreateFolder() {
         File file = new File(filePath);
@@ -155,43 +155,43 @@ public class Storage {
 
         Task task;
         switch (taskType) {
-            case "T":
-                task = new Todo(name);
-                break;
+        case "T":
+            task = new Todo(name);
+            break;
 
-            case "D":
-                if (saveStringsParts.length < 4)
-                    throw new FickleException("Insufficient Fields for Deadline.");
+        case "D":
+            if (saveStringsParts.length < 4)
+                throw new FickleException("Insufficient Fields for Deadline.");
 
-                LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
+            LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
 
-                if (by == null) {
-                    throw new FickleException("Invalid Date/Time Format for Deadline.");
-                }
+            if (by == null) {
+                throw new FickleException("Invalid Date/Time Format for Deadline.");
+            }
 
-                task = new Deadline(name, by);
-                break;
+            task = new Deadline(name, by);
+            break;
 
-            case "E":
-                if (saveStringsParts.length < 5)
-                    throw new FickleException("Insufficient Fields for Event.");
+        case "E":
+            if (saveStringsParts.length < 5)
+                throw new FickleException("Insufficient Fields for Event.");
 
-                LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
-                LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
+            LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
+            LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
 
-                if (from == null || to == null) {
-                    throw new FickleException("Invalid Date/Time Format for Event.");
-                }
+            if (from == null || to == null) {
+                throw new FickleException("Invalid Date/Time Format for Event.");
+            }
 
-                if (from.isAfter(to)) {
-                    throw new FickleException("Event start time is after the end time.");
-                }
+            if (from.isAfter(to)) {
+                throw new FickleException("Event start time is after the end time.");
+            }
 
-                task = new Event(name, from, to);
-                break;
+            task = new Event(name, from, to);
+            break;
 
-            default:
-                throw new FickleException("Unknown Task Type.");
+        default:
+            throw new FickleException("Unknown Task Type.");
 
         }
 
@@ -201,7 +201,7 @@ public class Storage {
         return task;
     }
 
-    // Parses storage date/time string (yyyy-MM-dd HHmm). Returns null if invalid.
+    // Parses date/time string (yyyy-MM-dd HHmm). Returns null if invalid.
     private LocalDateTime parseStorageDateTime(String dateTimeString) {
         DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {

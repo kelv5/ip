@@ -1,5 +1,10 @@
 package fickle.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import fickle.commands.ByeCommand;
 import fickle.commands.Command;
 import fickle.commands.DeadlineCommand;
@@ -9,13 +14,7 @@ import fickle.commands.ListCommand;
 import fickle.commands.MarkCommand;
 import fickle.commands.TodoCommand;
 import fickle.commands.UnmarkCommand;
-
 import fickle.exceptions.FickleException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Converts user input into a corresponding command.
@@ -34,44 +33,41 @@ public class Parser {
         }
 
         if (input.contains("|")) {
-            throw new FickleException(
-                    "Please avoid using '|'. Remove it and try again.",
-                    "Let it...");
+            throw new FickleException("Please avoid using '|'. Remove it and try again.", "Let it...");
         }
 
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
-        String contextWord = parts.length > 1 ? parts[1].trim() : "";
+        String contextWord = (parts.length > 1) ? parts[1].trim() : "";
 
         // contextWord is everything after the single command word
         switch (commandWord) {
-            case "bye":
-                return parseBye();
+        case "bye":
+            return parseBye();
 
-            case "list":
-                return parseList(contextWord);
+        case "list":
+            return parseList(contextWord);
 
-            case "mark":
-                return parseMark(contextWord);
+        case "mark":
+            return parseMark(contextWord);
 
-            case "unmark":
-                return parseUnmark(contextWord);
+        case "unmark":
+            return parseUnmark(contextWord);
 
-            case "deadline":
-                return parseDeadline(contextWord);
+        case "deadline":
+            return parseDeadline(contextWord);
 
-            case "todo":
-                return parseTodo(contextWord);
+        case "todo":
+            return parseTodo(contextWord);
 
-            case "event":
-                return parseEvent(contextWord);
+        case "event":
+            return parseEvent(contextWord);
 
-            case "delete":
-                return parseDelete(contextWord);
+        case "delete":
+            return parseDelete(contextWord);
 
-            default:
-                throw new FickleException(
-                        "Sorry, I didn't understand that. Try a valid command!", "Going Nowhere.");
+        default:
+            throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere.");
         }
     }
 
@@ -144,8 +140,7 @@ public class Parser {
             throw new FickleException("Event name is missing. Please provide one.", "Like Missing You");
         }
         if (!contextWord.contains("/from") || !contextWord.contains("/to")) {
-            throw new FickleException(
-                    "Please place '/from' before '/to' in your input.", "Too Late without it");
+            throw new FickleException("Event must include both '/from' and '/to'.", "Too Late without it");
         }
         if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
             throw new FickleException("/from has to be in front of /to.", "Confuses me, Contradiction");
@@ -165,8 +160,7 @@ public class Parser {
         LocalDateTime to = parseDateTime(toString);
 
         if (from.isAfter(to)) {
-            throw new FickleException("Start time cannot be later than end time.",
-                    "As It is");
+            throw new FickleException("Start time cannot be later than end time.", "As It is");
         }
 
         return new EventCommand(name, from, to);
@@ -181,8 +175,7 @@ public class Parser {
             int index = Integer.parseInt(contextWord) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
-            throw new FickleException("Please use a valid whole number for the task.",
-                    "Confuses me, Contradiction");
+            throw new FickleException("Please use a valid whole number for the task.", "Confuses me, Contradiction");
         }
     }
 

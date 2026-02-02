@@ -60,10 +60,11 @@ public abstract class Task {
      * @return The string representation for writing to the save file.
      */
     public String toStorageString() {
-        return " | " + (isDone() ? "1" : "0") + " | " + getName();
+        String statusIcon = (isDone()) ? "1" : "0";
+        return " | " + statusIcon + " | " + getName();
     }
 
     private String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone) ? "X" : " ";
     }
 }
