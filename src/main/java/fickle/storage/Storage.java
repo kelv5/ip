@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,12 +61,12 @@ public class Storage {
                     continue;
                 }
 
-                Task task = parseTask(line);
-                if (task != null) {
+                try {
+                    Task task = parseTask(line);
                     tasks.addTask(task);
-                } else {
-                    System.out.println("Warning! Corrupted line skipped: ");
-                    System.out.println("   " + line);
+                } catch (FickleException e) {
+                    System.out.println("Warning!  Corrupted line: " + e.getMessage());
+                    System.out.println("Corrupted Line Skipped:  " + line);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -128,46 +131,83 @@ public class Storage {
         }
     }
 
-    private Task parseTask(String line) {
+    /**
+     * Parses a line from the storage file into a Task object.
+     *
+     * @param line The line from the storage file.
+     * @return A Task object.
+     * @throws FickleException If the line from storage file is corrupted.
+     */
+    private Task parseTask(String line) throws FickleException {
         String[] saveStringsParts = line.split(" \\| ");
 
-        // Corrupted line due to insufficient information
         if (saveStringsParts.length < 3) {
-            return null;
+            throw new FickleException("Insufficient Fields.");
         }
 
-        String taskType = saveStringsParts[0];
-        String doneStatus = saveStringsParts[1];
-        String name = saveStringsParts[2];
+        String taskType = saveStringsParts[0].trim();
+        String doneStatus = saveStringsParts[1].trim();
+        String name = saveStringsParts[2].trim();
 
-        // Corrupted line due to invalid doneStatus
         if (!doneStatus.equals("0") && !doneStatus.equals("1")) {
-            return null;
+            throw new FickleException("Invalid Done Status.");
         }
 
-        Task task = null;
-        // Corrupted line due to insufficient timing information
+        Task task;
         switch (taskType) {
             case "T":
                 task = new Todo(name);
                 break;
+
             case "D":
                 if (saveStringsParts.length < 4)
-                    return null;
-                task = new Deadline(name, saveStringsParts[3]);
+                    throw new FickleException("Insufficient Fields for Deadline.");
+
+                LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
+
+                if (by == null) {
+                    throw new FickleException("Invalid Date/Time Format for Deadline.");
+                }
+
+                task = new Deadline(name, by);
                 break;
+
             case "E":
                 if (saveStringsParts.length < 5)
-                    return null;
-                task = new Event(name, saveStringsParts[3], saveStringsParts[4]);
+                    throw new FickleException("Insufficient Fields for Event.");
+
+                LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
+                LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
+
+                if (from == null || to == null) {
+                    throw new FickleException("Invalid Date/Time Format for Event.");
+                }
+
+                if (from.isAfter(to)) {
+                    throw new FickleException("Event start time is after the end time.");
+                }
+
+                task = new Event(name, from, to);
                 break;
+
             default:
-                return null;
+                throw new FickleException("Unknown Task Type.");
+
         }
 
         if (doneStatus.equals("1")) {
             task.markAsDone();
         }
         return task;
+    }
+
+    // Parses storage date/time string (yyyy-MM-dd HHmm). Returns null if invalid.
+    private LocalDateTime parseStorageDateTime(String dateTimeString) {
+        DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            return LocalDateTime.parse(dateTimeString, loadFormatter);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 }

@@ -7,12 +7,14 @@ import fickle.storage.Storage;
 import fickle.tasks.Deadline;
 import fickle.ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Adds a Deadline task to the task list.
  */
 public class DeadlineCommand extends Command {
     private final String taskName;
-    private final String by;
+    private final LocalDateTime by;
 
     /**
      * Initialises a command that adds a Deadline task with given name and due time.
@@ -20,7 +22,7 @@ public class DeadlineCommand extends Command {
      * @param taskName The name of the Deadline task
      * @param by       The due time of the Deadline task.
      */
-    public DeadlineCommand(String taskName, String by) {
+    public DeadlineCommand(String taskName, LocalDateTime by) {
         this.taskName = taskName;
         this.by = by;
     }
