@@ -133,6 +133,12 @@ public class Ui {
         printEasterAlignedRight("Glimpses of a Journey");
     }
 
+    /**
+     * Prints the list of tasks that match the keyword in the task list.
+     * 
+     * @param keyword The keyword to search for tasks.
+     * @param matchedTasks The list of tasks that match the keyword.
+     */
     public void printMatchedTaskList(String keyword, ArrayList<Task> matchedTasks) {
         if (matchedTasks.size() == 0) {
             printFormattedMessages(new String[] { "Sorry, no tasks found matching [" + keyword + "]." }, false);
@@ -208,7 +214,6 @@ public class Ui {
         if (hasBottomLine) {
             indentLine();
         }
-
     }
 
     /**

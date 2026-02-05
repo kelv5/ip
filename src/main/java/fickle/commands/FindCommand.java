@@ -8,13 +8,14 @@ import fickle.tasks.TaskList;
 import fickle.ui.Ui;
 
 /**
- * Finds tasks by a keyword matching by the names of tasks in the task list.
+ * Searches for tasks containing the keyword in their names. The search is case
+ * insensitive and matches partial words.
  */
 public class FindCommand extends Command {
     private final String keyword;
 
     /**
-     * Initialises a command that searches for a keyword in the task name.
+     * Initialises a command that searches for tasks with the given keyword.
      * 
      * @param keyword The keyword to search for in task names.
      */
@@ -24,7 +25,7 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
+        ArrayList<Task> matchedTasks = tasks.getMatchedTasks(keyword);
         ui.printMatchedTaskList(keyword, matchedTasks);
     }
 }
