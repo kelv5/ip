@@ -1,13 +1,13 @@
 package fickle.commands;
 
-import fickle.tasks.Task;
-import fickle.tasks.TaskList;
+import java.time.LocalDateTime;
+
 import fickle.exceptions.FickleException;
 import fickle.storage.Storage;
 import fickle.tasks.Deadline;
+import fickle.tasks.Task;
+import fickle.tasks.TaskList;
 import fickle.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * Adds a Deadline task to the task list.
@@ -17,10 +17,11 @@ public class DeadlineCommand extends Command {
     private final LocalDateTime by;
 
     /**
-     * Initialises a command that adds a Deadline task with given name and due time.
+     * Initialises a command that adds a Deadline task with given name and due
+     * time.
      * 
-     * @param taskName The name of the Deadline task
-     * @param by       The due time of the Deadline task.
+     * @param taskName The name of the Deadline task.
+     * @param by The due time of the Deadline task.
      */
     public DeadlineCommand(String taskName, LocalDateTime by) {
         this.taskName = taskName;

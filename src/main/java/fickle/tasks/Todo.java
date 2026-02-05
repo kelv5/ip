@@ -20,6 +20,11 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns the string representation of the todo task to store in data file.
+     *
+     * @return The string representation with taskType, status, name.
+     */
     @Override
     public String toStorageString() {
         return "T" + super.toStorageString();

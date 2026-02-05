@@ -23,9 +23,9 @@ public class Parser {
     /**
      * Parses a input string from the user and returns a corresponding command.
      * 
-     * @param input Input string entered by the user
+     * @param input Input string entered by the user.
      * @return A specifc command object corresponding to the input.
-     * @throws FickleException if the input is invalid or unknown command
+     * @throws FickleException if the input is invalid or unknown command.
      */
     public static Command parse(String input) throws FickleException {
         if (input.isEmpty()) {

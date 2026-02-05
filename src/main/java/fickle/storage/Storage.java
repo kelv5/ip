@@ -36,8 +36,8 @@ public class Storage {
     /**
      * Loads tasks from the save file.
      *
-     * @return A TaskList with the tasks loaded from the save file. Returns an
-     * empty TaskList if the file does not exist.
+     * @return A TaskList with tasks loaded from the save file. Returns an empty
+     * TaskList if the file does not exist.
      * 
      * @throws FickleException If the file exists but cannot be read.
      */
@@ -201,7 +201,12 @@ public class Storage {
         return task;
     }
 
-    // Parses date/time string (yyyy-MM-dd HHmm). Returns null if invalid.
+    /**
+     * Parses a date/time string in the format yyyy-MM-dd HHmm.
+     * 
+     * @param dateTimeString The date/time string to parse.
+     * @return A LocalDateTime object if valid, or null invalid.
+     */
     private LocalDateTime parseStorageDateTime(String dateTimeString) {
         DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {

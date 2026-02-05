@@ -1,11 +1,11 @@
 package fickle.commands;
 
+import fickle.exceptions.FickleException;
+import fickle.storage.Storage;
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 import fickle.tasks.Todo;
 import fickle.ui.Ui;
-import fickle.exceptions.FickleException;
-import fickle.storage.Storage;
 
 /**
  * Adds a Todo task to the task list.
@@ -16,7 +16,7 @@ public class TodoCommand extends Command {
     /**
      * Initialises a command that adds a Todo task with given name.
      * 
-     * @param taskName The name of the Todo task
+     * @param taskName The name of the Todo task.
      */
     public TodoCommand(String taskName) {
         this.taskName = taskName;
