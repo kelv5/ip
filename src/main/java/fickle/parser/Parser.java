@@ -43,7 +43,7 @@ public class Parser {
         // contextWord is everything after the single command word
         switch (commandWord) {
         case "bye":
-            return parseBye();
+            return parseBye(contextWord);
 
         case "list":
             return parseList(contextWord);
@@ -71,7 +71,10 @@ public class Parser {
         }
     }
 
-    private static Command parseBye() {
+    private static Command parseBye(String contextWord) throws FickleException {
+        if (!contextWord.isEmpty()) {
+            throw new FickleException("The 'bye' command doesn't take any arguments.", "Even fickleness has rules");
+        }
         return new ByeCommand();
     }
 
@@ -85,7 +88,7 @@ public class Parser {
     private static Command parseMark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
             throw new FickleException("Please provide a task number for the 'mark' command.",
-                    "Shadow's shadow without it");
+                                            "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
@@ -98,7 +101,7 @@ public class Parser {
     private static Command parseUnmark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
             throw new FickleException("Please provide a task number for the 'unmark' command.",
-                    "Shadow's shadow without it");
+                                            "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
@@ -169,7 +172,7 @@ public class Parser {
     private static Command parseDelete(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
             throw new FickleException("Please provide a task number for the 'delete' command.",
-                    "Shadow's shadow without it");
+                                            "Shadow's shadow without it");
         }
         try {
             int index = Integer.parseInt(contextWord) - 1;
@@ -193,7 +196,7 @@ public class Parser {
             }
         } catch (DateTimeParseException e) {
             String exceptionMsg = "Date/time format incorrect. Please use: d/M/yyyy or d/M/yyyy HHmm.\n"
-                    + "[Example Usage]  21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
+                                            + "[Example Usage]  21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
             throw new FickleException(exceptionMsg, "Time will Tell");
         }
     }
