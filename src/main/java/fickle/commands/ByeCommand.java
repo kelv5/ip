@@ -1,8 +1,8 @@
 package fickle.commands;
 
+import fickle.storage.Storage;
 import fickle.tasks.TaskList;
 import fickle.ui.Ui;
-import fickle.storage.Storage;
 
 /**
  * Says goodbye to the user and ends the chatbot.
