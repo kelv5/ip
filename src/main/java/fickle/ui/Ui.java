@@ -8,7 +8,7 @@ import fickle.tasks.TaskList;
  * UI class for handling user interactions.
  */
 public class Ui {
-    public static final String LINE = "___________________________________________________________________________________________________";
+    public static final String LINE = "_".repeat(99);
     private static final String INDENTATION = "      ";
     private Scanner scanner;
 
@@ -25,8 +25,9 @@ public class Ui {
     public void printLogo() {
         indentLine();
         String logo = "       ______ _      _    _\n" + "      |  ___(_)    | |  | |     \n"
-                + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
-                + "      | |   | | |__|   <|_|  __/\n" + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+                                        + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
+                                        + "      | |   | | |__|   <|_|  __/\n"
+                                        + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -56,6 +57,7 @@ public class Ui {
         System.out.print("Next:  ");
         String input = scanner.nextLine();
         System.out.println();
+
         return input;
     }
 
@@ -68,9 +70,10 @@ public class Ui {
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage }, false);
+                                        + " in the list.";
+
+        printFormattedMessages(new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
+                totalTasksMessage }, false);
         printEasterAlignedRight("Still Early");
     }
 
@@ -83,9 +86,10 @@ public class Ui {
      */
     public void printDeletedTask(String taskname, int totalTasks) {
         String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage }, false);
+                                        + " in the list.";
+
+        printFormattedMessages(new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n",
+                totalTaskMessage }, false);
         printEasterAlignedRight("It's Gone");
     }
 
@@ -120,12 +124,14 @@ public class Ui {
             printEasterAlignedRight("A Little Happiness");
             return;
         }
+
         String[] messageList = new String[tasks.getSize() + 1];
         messageList[0] = "Here's your task list for you: ";
 
         for (int i = 0; i < tasks.getSize(); i++) {
             messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
+
         printFormattedMessages(messageList, false);
         printEasterAlignedRight("Glimpses of a Journey");
     }
@@ -180,9 +186,11 @@ public class Ui {
      */
     private void printFormattedMessages(String[] messages, boolean hasBottomLine) {
         indentLine();
+
         for (String msg : messages) {
             indentMessage(msg);
         }
+
         if (hasBottomLine) {
             indentLine();
         }

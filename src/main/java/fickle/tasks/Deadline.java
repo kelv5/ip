@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * Constructor for Deadline task.
      * 
      * @param name The name of the deadline task.
-     * @param by   The due time of the deadline task.
+     * @param by The due time of the deadline task.
      */
     public Deadline(String name, LocalDateTime by) {
         super(name);
@@ -21,8 +21,8 @@ public class Deadline extends Task {
     /**
      * Returns the string representation of the deadline task.
      * 
-     * @return The string representation with taskType, status, name and due date/
-     *         time (Example DateTime: Sat, Aug 21 2021 [10:50PM]).
+     * @return The string representation with taskType, status, name and due
+     * date/ time (Example DateTime: Sat, Aug 21 2021 [10:50PM]).
      */
     @Override
     public String toString() {
@@ -32,10 +32,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of the deadline task to store in data file.
+     * Returns the string representation of the deadline task to store in data
+     * file.
      *
      * @return The string representation with taskType, status, name and due
-     *         date/time for storage. (Example DateTime: 2021-08-21 2250).
+     * date/time for storage. (Example DateTime: 2021-08-21 2250).
      */
     @Override
     public String toStorageString() {

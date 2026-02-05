@@ -21,6 +21,7 @@ public class Fickle {
     public Fickle(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             tasks = new TaskList(storage.load());
         } catch (FickleException e) {
@@ -46,6 +47,7 @@ public class Fickle {
     public void run() {
         ui.printLogo();
         ui.greet();
+
         boolean isExit = false;
         while (!isExit) {
             try {

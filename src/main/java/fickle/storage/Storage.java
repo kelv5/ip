@@ -69,6 +69,7 @@ public class Storage {
                     System.out.println("Corrupted Line Skipped:  " + line);
                 }
             }
+
         } catch (FileNotFoundException e) {
             throw new FickleException("Couldn't load tasks from file.");
         } finally {
@@ -76,6 +77,7 @@ public class Storage {
                 scanner.close();
             }
         }
+
         return tasks;
     }
 
@@ -90,10 +92,12 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filePath);
             ArrayList<Task> allTasks = tasks.getAllTasks();
+
             for (Task task : allTasks) {
                 fw.write(task.toStorageString());
                 fw.write(System.lineSeparator());
             }
+
             fw.close();
         } catch (IOException e) {
             throw new FickleException("Couldn't save tasks to file.");
@@ -154,6 +158,7 @@ public class Storage {
         }
 
         Task task;
+
         switch (taskType) {
         case "T":
             task = new Todo(name);
@@ -198,12 +203,14 @@ public class Storage {
         if (doneStatus.equals("1")) {
             task.markAsDone();
         }
+
         return task;
     }
 
     // Parses date/time string (yyyy-MM-dd HHmm). Returns null if invalid.
     private LocalDateTime parseStorageDateTime(String dateTimeString) {
         DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
         try {
             return LocalDateTime.parse(dateTimeString, loadFormatter);
         } catch (DateTimeParseException e) {

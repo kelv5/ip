@@ -20,6 +20,7 @@ import fickle.exceptions.FickleException;
  * Converts user input into a corresponding command.
  */
 public class Parser {
+
     /**
      * Parses a input string from the user and returns a corresponding command.
      * 
@@ -75,6 +76,7 @@ public class Parser {
         if (!contextWord.isEmpty()) {
             throw new FickleException("The 'bye' command doesn't take any arguments.", "Even fickleness has rules");
         }
+
         return new ByeCommand();
     }
 
@@ -82,6 +84,7 @@ public class Parser {
         if (!contextWord.isEmpty()) {
             throw new FickleException("The 'list' command doesn't take any arguments.", "Even fickleness has rules");
         }
+
         return new ListCommand();
     }
 
@@ -115,6 +118,7 @@ public class Parser {
         if (contextWord.isEmpty()) {
             throw new FickleException("Deadline name is missing. Please provide one.", "Like Missing You");
         }
+
         if (!contextWord.contains("/by")) {
             throw new FickleException("Deadline must include '/by' to set a due time.", "Too Late without it");
         }
@@ -126,6 +130,7 @@ public class Parser {
         if (name.isEmpty() || byString.isEmpty()) {
             throw new FickleException("Deadline needs both a name and a due time.", "else, it's Untold");
         }
+
         LocalDateTime by = parseDateTime(byString);
 
         return new DeadlineCommand(name, by);
@@ -135,6 +140,7 @@ public class Parser {
         if (contextWord.isEmpty()) {
             throw new FickleException("Todo name is missing. Please provide one.", "Like Missing You");
         }
+
         return new TodoCommand(contextWord);
     }
 
@@ -142,9 +148,11 @@ public class Parser {
         if (contextWord.isEmpty()) {
             throw new FickleException("Event name is missing. Please provide one.", "Like Missing You");
         }
+
         if (!contextWord.contains("/from") || !contextWord.contains("/to")) {
             throw new FickleException("Event must include both '/from' and '/to'.", "Too Late without it");
         }
+
         if (contextWord.indexOf("/from") > contextWord.indexOf("/to")) {
             throw new FickleException("/from has to be in front of /to.", "Confuses me, Contradiction");
         }
@@ -174,6 +182,7 @@ public class Parser {
             throw new FickleException("Please provide a task number for the 'delete' command.",
                                             "Shadow's shadow without it");
         }
+
         try {
             int index = Integer.parseInt(contextWord) - 1;
             return new DeleteCommand(index);
@@ -197,6 +206,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             String exceptionMsg = "Date/time format incorrect. Please use: d/M/yyyy or d/M/yyyy HHmm.\n"
                                             + "[Example Usage]  21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
+
             throw new FickleException(exceptionMsg, "Time will Tell");
         }
     }
