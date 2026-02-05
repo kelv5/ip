@@ -1,7 +1,9 @@
 package fickle.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 
 /**
@@ -25,8 +27,9 @@ public class Ui {
     public void printLogo() {
         indentLine();
         String logo = "       ______ _      _    _\n" + "      |  ___(_)    | |  | |     \n"
-                + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
-                + "      | |   | | |__|   <|_|  __/\n" + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+                                        + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
+                                        + "      | |   | | |__|   <|_|  __/\n"
+                                        + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -68,9 +71,9 @@ public class Ui {
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage }, false);
+                                        + " in the list.";
+        printFormattedMessages(new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
+                totalTasksMessage }, false);
         printEasterAlignedRight("Still Early");
     }
 
@@ -83,9 +86,9 @@ public class Ui {
      */
     public void printDeletedTask(String taskname, int totalTasks) {
         String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage }, false);
+                                        + " in the list.";
+        printFormattedMessages(new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n",
+                totalTaskMessage }, false);
         printEasterAlignedRight("It's Gone");
     }
 
@@ -120,14 +123,32 @@ public class Ui {
             printEasterAlignedRight("A Little Happiness");
             return;
         }
-        String[] messageList = new String[tasks.getSize() + 1];
-        messageList[0] = "Here's your task list for you: ";
+        String[] messages = new String[tasks.getSize() + 1];
+        messages[0] = "Here's your task list for you: ";
 
         for (int i = 0; i < tasks.getSize(); i++) {
-            messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
+            messages[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
         }
-        printFormattedMessages(messageList, false);
+        printFormattedMessages(messages, false);
         printEasterAlignedRight("Glimpses of a Journey");
+    }
+
+    public void printMatchedTaskList(String keyword, ArrayList<Task> matchedTasks) {
+        if (matchedTasks.size() == 0) {
+            printFormattedMessages(new String[] { "Sorry, no tasks found matching [" + keyword + "]." }, false);
+            printEasterAlignedRight("Out of Nothing");
+            return;
+        }
+
+        String[] messages = new String[matchedTasks.size() + 1];
+        messages[0] = "Here are the matching tasks for [" + keyword + "] in your list: ";
+
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            messages[i + 1] = (i + 1) + ". " + matchedTasks.get(i).toString();
+        }
+
+        printFormattedMessages(messages, false);
+        printEasterAlignedRight("Hidden Love");
     }
 
     /**
@@ -161,7 +182,8 @@ public class Ui {
     }
 
     /**
-     * Prints a single line message with indentation No lines are printed
+     * Prints a single line message with indentation. No lines are printed at
+     * top or bottom.
      * 
      * @param message The message to be printed.
      */
@@ -186,6 +208,7 @@ public class Ui {
         if (hasBottomLine) {
             indentLine();
         }
+
     }
 
     /**
