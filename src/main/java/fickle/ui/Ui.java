@@ -1,7 +1,9 @@
 package fickle.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import fickle.tasks.Task;
 import fickle.tasks.TaskList;
 
 /**
@@ -35,14 +37,15 @@ public class Ui {
      * Prints Fickle's greeting message.
      */
     public void greet() {
-        printFormattedMessages(new String[] { "Hi! I'm Fickle", "What feels right to start with today? " }, true);
+        printFormattedMessages(new String[] { "Hi! I'm Fickle", "What feels right to start with today? " });
+        indentLine();
     }
 
     /**
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        printFormattedMessages(new String[] { "Goodbye. See you again soon! " }, false);
+        printFormattedMessages(new String[] { "Goodbye. See you again soon! " });
         printEasterAlignedRight("Day by Day");
         scanner.close();
     }
@@ -71,9 +74,8 @@ public class Ui {
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
-
         printFormattedMessages(new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
-                totalTasksMessage }, false);
+                totalTasksMessage });
         printEasterAlignedRight("Still Early");
     }
 
@@ -87,9 +89,8 @@ public class Ui {
     public void printDeletedTask(String taskname, int totalTasks) {
         String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
-
         printFormattedMessages(new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n",
-                totalTaskMessage }, false);
+                totalTaskMessage });
         printEasterAlignedRight("It's Gone");
     }
 
@@ -99,7 +100,7 @@ public class Ui {
      * @param taskname The name of the marked task.
      */
     public void printMarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "All set. This task is marked as done: ", taskname }, false);
+        printFormattedMessages(new String[] { "All set. This task is marked as done: ", taskname });
         printEasterAlignedRight("One After Another");
     }
 
@@ -109,7 +110,7 @@ public class Ui {
      * @param taskname The name of the unmarked task.
      */
     public void printUnmarkedTask(String taskname) {
-        printFormattedMessages(new String[] { "Noted. This task is now unmarked: ", taskname }, false);
+        printFormattedMessages(new String[] { "Noted. This task is now unmarked: ", taskname });
         printEasterAlignedRight("Pace Yourself");
     }
 
@@ -120,20 +121,44 @@ public class Ui {
      */
     public void printTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            printFormattedMessages(new String[] { "No tasks remaining. " }, false);
+            printFormattedMessages(new String[] { "No tasks remaining. " });
             printEasterAlignedRight("A Little Happiness");
             return;
         }
-
-        String[] messageList = new String[tasks.getSize() + 1];
-        messageList[0] = "Here's your task list for you: ";
+        String[] messages = new String[tasks.getSize() + 1];
+        messages[0] = "Here's your task list for you: ";
 
         for (int i = 0; i < tasks.getSize(); i++) {
-            messageList[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
+            messages[i + 1] = (i + 1) + ". " + tasks.getTask(i).toString();
+        }
+        printFormattedMessages(messages);
+        printEasterAlignedRight("Glimpses of a Journey");
+    }
+
+    /**
+     * Prints the list of tasks that match the keyword in the task list.
+     * 
+     * @param keyword The keyword to search for tasks.
+     * @param matchedTasks The list of tasks that match the keyword.
+     */
+    public void printMatchedTaskList(String keyword, ArrayList<Task> matchedTasks) {
+        if (matchedTasks.size() == 0) {
+            printFormattedMessages(new String[] { "Sorry, no tasks found matching [" + keyword + "]." });
+            printEasterAlignedRight("Out of Nothing");
+            return;
         }
 
-        printFormattedMessages(messageList, false);
-        printEasterAlignedRight("Glimpses of a Journey");
+        int totalMatchCount = matchedTasks.size();
+        String[] messages = new String[totalMatchCount + 1];
+
+        messages[0] = "Here are the matching tasks for [" + keyword + "] in your list: ";
+
+        for (int i = 0; i < totalMatchCount; i++) {
+            messages[i + 1] = (i + 1) + ". " + matchedTasks.get(i).toString();
+        }
+
+        printFormattedMessages(messages);
+        printEasterAlignedRight("Hidden Love");
     }
 
     /**
@@ -167,7 +192,8 @@ public class Ui {
     }
 
     /**
-     * Prints a single line message with indentation No lines are printed.
+     * Prints a single line message with indentation. No lines are printed at
+     * top or bottom.
      * 
      * @param message The message to be printed.
      */
@@ -176,23 +202,16 @@ public class Ui {
     }
 
     /**
-     * Prints an array of messages with indentation. One top horizontal line is
-     * always printed. The bottom horizontal line is printed only if
-     * hasBottomLine is true.
+     * Prints an array of messages with indentation. A top horizontal line is
+     * printed before the messages. The bottom horizontal line is never printed.
      * 
-     * @param messages An array of messages to be printed.
-     * @param hasBottomLine Print a bottom horizontal line if true.
-     * 
+     * @param messages An array of messages to be printed
      */
-    private void printFormattedMessages(String[] messages, boolean hasBottomLine) {
+    private void printFormattedMessages(String[] messages) {
         indentLine();
 
         for (String msg : messages) {
             indentMessage(msg);
-        }
-
-        if (hasBottomLine) {
-            indentLine();
         }
     }
 

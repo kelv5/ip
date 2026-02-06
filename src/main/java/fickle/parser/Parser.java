@@ -10,6 +10,7 @@ import fickle.commands.Command;
 import fickle.commands.DeadlineCommand;
 import fickle.commands.DeleteCommand;
 import fickle.commands.EventCommand;
+import fickle.commands.FindCommand;
 import fickle.commands.ListCommand;
 import fickle.commands.MarkCommand;
 import fickle.commands.TodoCommand;
@@ -66,6 +67,9 @@ public class Parser {
 
         case "delete":
             return parseDelete(contextWord);
+
+        case "find":
+            return parseFind(contextWord);
 
         default:
             throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere.");
@@ -209,5 +213,13 @@ public class Parser {
 
             throw new FickleException(exceptionMsg, "Time will Tell");
         }
+    }
+
+    private static Command parseFind(String contextWord) throws FickleException {
+        if (contextWord.isEmpty()) {
+            throw new FickleException("Please provide a keyword for me to search.", "What, Where");
+        }
+
+        return new FindCommand(contextWord.toLowerCase());
     }
 }

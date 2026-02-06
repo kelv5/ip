@@ -65,6 +65,24 @@ public class TaskList {
     }
 
     /**
+     * Searches for the tasks containing the given keyword in this tasklist.
+     * 
+     * @param keyword The keyword to search for.
+     * @return The ArrayList of tasks with names containing the keyword.
+     */
+    public ArrayList<Task> getMatchedTasks(String keyword) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getName().toLowerCase().contains(keyword)) {
+                matchedTasks.add(task);
+            }
+        }
+
+        return matchedTasks;
+    }
+
+    /**
      * Gets the number of tasks in the task list.
      * 
      * @return The number of tasks.
