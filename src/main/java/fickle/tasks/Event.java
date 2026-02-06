@@ -33,6 +33,7 @@ public class Event extends Task {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
         String outputFrom = from.format(outputFormatter);
         String outputTo = to.format(outputFormatter);
+
         return "[E]" + super.toString() + " (FROM: " + outputFrom + "  TO: " + outputTo + ")";
     }
 
@@ -48,6 +49,7 @@ public class Event extends Task {
         DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String storageFrom = from.format(storageFormatter);
         String storageTo = to.format(storageFormatter);
+
         return "E" + super.toStorageString() + " | " + storageFrom + " | " + storageTo;
     }
 }

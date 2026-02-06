@@ -26,6 +26,7 @@ public class UnmarkCommand extends Command {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to unmark.", "A Little Happiness");
         }
+
         if (taskIndex < 0) {
             throw new FickleException("Task number starts from 1. Please enter a valid number.",
                                             "Too small, Insignificance");
@@ -37,6 +38,7 @@ public class UnmarkCommand extends Command {
 
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
+
         ui.printUnmarkedTask(task.toString());
         storage.overwriteSave(tasks);
     }

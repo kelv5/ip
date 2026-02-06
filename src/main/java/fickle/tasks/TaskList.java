@@ -84,6 +84,7 @@ public class TaskList {
                 return false;
             }
         }
+
         return true;
     }
 }

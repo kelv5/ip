@@ -26,6 +26,7 @@ public class MarkCommand extends Command {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to mark.", "A Little Happiness");
         }
+
         if (taskIndex < 0) {
             throw new FickleException("Task number starts from 1. Please enter a valid number.",
                                             "Too small, Insignificance");
@@ -44,6 +45,7 @@ public class MarkCommand extends Command {
             ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
             ui.printEasterAlignedRight("A Little Happiness");
         }
+
         storage.overwriteSave(tasks);
     }
 }

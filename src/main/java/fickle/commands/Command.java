@@ -9,6 +9,7 @@ import fickle.ui.Ui;
  * Represents a valid command entered by the user.
  */
 public abstract class Command {
+
     /**
      * Executes the specific command.
      *
