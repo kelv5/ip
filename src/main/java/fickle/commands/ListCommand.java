@@ -1,8 +1,8 @@
 package fickle.commands;
 
+import fickle.storage.Storage;
 import fickle.tasks.TaskList;
 import fickle.ui.Ui;
-import fickle.storage.Storage;
 
 /**
  * Lists all tasks in the task list.

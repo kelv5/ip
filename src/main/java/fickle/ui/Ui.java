@@ -25,8 +25,9 @@ public class Ui {
     public void printLogo() {
         indentLine();
         String logo = "       ______ _      _    _\n" + "      |  ___(_)    | |  | |     \n"
-                + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
-                + "      | |   | | |__|   <|_|  __/\n" + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+                                        + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
+                                        + "      | |   | | |__|   <|_|  __/\n"
+                                        + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
         System.out.println(logo);
     }
 
@@ -63,14 +64,14 @@ public class Ui {
      * Prints the added task message.
      * 
      * @param taskname The name of the added task.
-     * @param totalTasks Total number of tasks after added a new task
+     * @param totalTasks Total number of tasks after added a new task.
      * 
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Got it. I've added this task: ", "  " + taskname, "\n", totalTasksMessage }, false);
+                                        + " in the list.";
+        printFormattedMessages(new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
+                totalTasksMessage }, false);
         printEasterAlignedRight("Still Early");
     }
 
@@ -78,14 +79,14 @@ public class Ui {
      * Prints the deleted task message.
      * 
      * @param taskname The name of the deleted task.
-     * @param totalTasks Total number of tasks after deleted a new task
+     * @param totalTasks Total number of tasks after deleted a new task.
      * 
      */
     public void printDeletedTask(String taskname, int totalTasks) {
         String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
-                + " in the list.";
-        printFormattedMessages(
-                new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n", totalTaskMessage }, false);
+                                        + " in the list.";
+        printFormattedMessages(new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n",
+                totalTaskMessage }, false);
         printEasterAlignedRight("It's Gone");
     }
 
@@ -133,7 +134,7 @@ public class Ui {
     /**
      * Prints a Exception message for invalid input with double lines.
      * 
-     * @param exceptionMessage The description the invalid input
+     * @param exceptionMessage The description the invalid input.
      * @param secondLine The second message to display, aligned to the right.
      */
     public void printFickleException(String exceptionMessage, String secondLine) {
@@ -145,23 +146,23 @@ public class Ui {
      * Prints an error message when tasks cannot be loaded from or saved to a
      * file.
      *
-     * @param exceptionMessage Description of the file operation failure.
+     * @param exceptionMessage The description of the file operation failure.
      */
     public void printFickleException(String exceptionMessage) {
         System.out.println("[Load/Save Error]  " + exceptionMessage);
     }
 
     /**
-     * Prints an error message
+     * Prints an error message.
      * 
-     * @param errorMessage The message description the Error
+     * @param errorMessage The message description the error.
      */
     public void printError(String errorMessage) {
         System.out.println("[Error]  " + errorMessage);
     }
 
     /**
-     * Prints a single line message with indentation No lines are printed
+     * Prints a single line message with indentation No lines are printed.
      * 
      * @param message The message to be printed.
      */
@@ -170,12 +171,12 @@ public class Ui {
     }
 
     /**
-     * Prints an array of messages with indentation A top horizontal line is
+     * Prints an array of messages with indentation. One top horizontal line is
      * always printed. The bottom horizontal line is printed only if
      * hasBottomLine is true.
      * 
-     * @param messages An array of messages to be printed
-     * @param hasBottomLine Print a bottom horizontal line if true
+     * @param messages An array of messages to be printed.
+     * @param hasBottomLine Print a bottom horizontal line if true.
      * 
      */
     private void printFormattedMessages(String[] messages, boolean hasBottomLine) {
@@ -202,7 +203,7 @@ public class Ui {
     /**
      * Prints an indented message.
      * 
-     * @param msg The message to be indented
+     * @param msg The message to be indented.
      */
     private void indentMessage(String msg) {
         System.out.println(INDENTATION + "  " + msg);

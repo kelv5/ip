@@ -76,7 +76,7 @@ public class TaskList {
     /**
      * Checks whether all tasks in the list are marked as done.
      *
-     * @return true if all tasks are completed, else it returns false
+     * @return true if all tasks are completed, else returns false.
      */
     public boolean isAllMarked() {
         for (Task task : tasks) {

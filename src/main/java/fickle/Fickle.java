@@ -30,9 +30,8 @@ public class Fickle {
     }
 
     /**
-     * The entry point for the Fickle chatbot.
-     * 
-     * @param args
+     * Entry point for the Fickle chatbot program. Creates a Fickle instance and
+     * starts the chatbot.
      */
     public static void main(String[] args) {
         Fickle fickle = new Fickle("data/tasks.txt");
