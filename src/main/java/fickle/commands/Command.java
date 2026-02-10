@@ -22,7 +22,7 @@ public abstract class Command {
 
     /**
      * Returns whether the command executed is a ByeCommand.
-     * 
+     *
      * @return True if the command is ByeCommand.
      */
     public boolean isExit() {

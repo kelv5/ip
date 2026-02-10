@@ -4,13 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Represents an event task that has a start and end date and time.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
     /**
      * Constructor for Event task.
-     * 
+     *
      * @param name The name of the event task.
      * @param from The start time of the event task.
      * @param to The end time of the event task.
@@ -23,9 +26,9 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the event task.
-     * 
+     *
      * @return The string representation with taskType, status, name and due
-     * date/ time (Example DateTime: Aug 21 2021 [10:50PM]).
+     *         date/ time (Example DateTime: Aug 21 2021 [10:50PM]).
      */
     @Override
     public String toString() {
@@ -38,11 +41,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of the event task to store in data
-     * file.
+     * Returns the string representation of the event task to store in file.
      *
      * @return The string representation with taskType, status, name and due
-     * date/time for storage. (Example DateTime: 2021-08-21 2250).
+     *         date/time for storage. (Example DateTime: 2021-08-21 2250).
      */
     @Override
     public String toStorageString() {
