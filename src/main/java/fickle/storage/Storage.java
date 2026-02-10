@@ -36,9 +36,9 @@ public class Storage {
     /**
      * Loads tasks from the save file.
      *
-     * @return A TaskList with tasks loaded from the save file. Returns an empty
-     * TaskList if the file does not exist.
-     * 
+     * @return A TaskList with tasks loaded from the save file.
+     *         Returns an empty TaskList if the file does not exist.
+     *
      * @throws FickleException If the file exists but cannot be read.
      */
     public TaskList load() throws FickleException {
@@ -82,8 +82,8 @@ public class Storage {
     }
 
     /**
-     * Overwrites the save file with the list of tasks. This method is triggered
-     * by commands such as Mark, Unmark, Delete.
+     * Overwrites the save file with the list of tasks.
+     * This method is triggered by commands such as Mark, Unmark, Delete.
      *
      * @param tasks The list of tasks to be saved.
      * @throws FickleException If fails to write to the saveFile.
@@ -105,8 +105,8 @@ public class Storage {
     }
 
     /**
-     * Appends a single task to be saved in the file. This method is triggered
-     * by commands such as Todo, Event, Deadline.
+     * Appends a single task to be saved in the file.
+     * This method is triggered by commands such as Todo, Event, Deadline.
      *
      * @param task The task to be appended to the save file.
      * @throws FickleException If fails to write to the saveFile.
@@ -123,8 +123,8 @@ public class Storage {
     }
 
     /**
-     * If the folder does not exist, it will be created. If the folder already
-     * exists, it does nothing.
+     * If the folder does not exist, it will be created.
+     * If the folder already exists, it does nothing.
      */
     private void checkAndCreateFolder() {
         File file = new File(filePath);
@@ -165,8 +165,9 @@ public class Storage {
             break;
 
         case "D":
-            if (saveStringsParts.length < 4)
+            if (saveStringsParts.length < 4) {
                 throw new FickleException("Insufficient Fields for Deadline.");
+            }
 
             LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
 
@@ -178,8 +179,9 @@ public class Storage {
             break;
 
         case "E":
-            if (saveStringsParts.length < 5)
+            if (saveStringsParts.length < 5) {
                 throw new FickleException("Insufficient Fields for Event.");
+            }
 
             LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
             LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
@@ -209,7 +211,7 @@ public class Storage {
 
     /**
      * Parses a date/time string in the format yyyy-MM-dd HHmm.
-     * 
+     *
      * @param dateTimeString The date/time string to parse.
      * @return A LocalDateTime object if valid, or null invalid.
      */

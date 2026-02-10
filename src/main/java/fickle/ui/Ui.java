@@ -52,7 +52,7 @@ public class Ui {
 
     /**
      * Reads a line of user input.
-     * 
+     *
      * @return The user input.
      */
     public String readInput() {
@@ -66,37 +66,39 @@ public class Ui {
 
     /**
      * Prints the added task message.
-     * 
+     *
      * @param taskname The name of the added task.
      * @param totalTasks Total number of tasks after added a new task.
-     * 
+     *
      */
     public void printAddedTask(String taskname, int totalTasks) {
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
-        printFormattedMessages(new String[] { "Got it. I've added this task: ", "  " + taskname, "\n",
-                totalTasksMessage });
+        String taskAddedMessage = "Got it. I've added this task: ";
+
+        printFormattedMessages(new String[] { taskAddedMessage, "  " + taskname, "\n", totalTasksMessage });
         printEasterAlignedRight("Still Early");
     }
 
     /**
      * Prints the deleted task message.
-     * 
+     *
      * @param taskname The name of the deleted task.
      * @param totalTasks Total number of tasks after deleted a new task.
-     * 
+     *
      */
     public void printDeletedTask(String taskname, int totalTasks) {
         String totalTaskMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
-        printFormattedMessages(new String[] { "Noted. I've removed this task: ", "  " + taskname, "\n",
-                totalTaskMessage });
+        String taskRemovedMessage = "Noted. I've removed this task: ";
+
+        printFormattedMessages(new String[] { taskRemovedMessage, "  " + taskname, "\n", totalTaskMessage });
         printEasterAlignedRight("It's Gone");
     }
 
     /**
      * Prints the marked task message.
-     * 
+     *
      * @param taskname The name of the marked task.
      */
     public void printMarkedTask(String taskname) {
@@ -106,7 +108,7 @@ public class Ui {
 
     /**
      * Prints the unmarked task message.
-     * 
+     *
      * @param taskname The name of the unmarked task.
      */
     public void printUnmarkedTask(String taskname) {
@@ -116,7 +118,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks.
-     * 
+     *
      * @param tasks The tasklist to be printed.
      */
     public void printTaskList(TaskList tasks) {
@@ -137,7 +139,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks that match the keyword in the task list.
-     * 
+     *
      * @param keyword The keyword to search for tasks.
      * @param matchedTasks The list of tasks that match the keyword.
      */
@@ -163,7 +165,7 @@ public class Ui {
 
     /**
      * Prints a Exception message for invalid input with double lines.
-     * 
+     *
      * @param exceptionMessage The description the invalid input.
      * @param secondLine The second message to display, aligned to the right.
      */
@@ -184,7 +186,7 @@ public class Ui {
 
     /**
      * Prints an error message.
-     * 
+     *
      * @param errorMessage The message description the error.
      */
     public void printError(String errorMessage) {
@@ -194,7 +196,7 @@ public class Ui {
     /**
      * Prints a single line message with indentation. No lines are printed at
      * top or bottom.
-     * 
+     *
      * @param message The message to be printed.
      */
     public void printSingleLineWithoutLine(String message) {
@@ -204,7 +206,7 @@ public class Ui {
     /**
      * Prints an array of messages with indentation. A top horizontal line is
      * printed before the messages. The bottom horizontal line is never printed.
-     * 
+     *
      * @param messages An array of messages to be printed
      */
     private void printFormattedMessages(String[] messages) {
@@ -228,7 +230,7 @@ public class Ui {
 
     /**
      * Prints an indented message.
-     * 
+     *
      * @param msg The message to be indented.
      */
     private void indentMessage(String msg) {

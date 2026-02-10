@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
 
     /**
      * Initialises a command that marks the task at the given index as done.
-     * 
+     *
      * @param taskIndex The index of the task to be marked, starting from 0.
      */
     public MarkCommand(int taskIndex) {

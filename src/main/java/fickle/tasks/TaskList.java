@@ -26,7 +26,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * 
+     *
      * @param task The task to be added.
      * @return Message of added task.
      */
@@ -37,7 +37,7 @@ public class TaskList {
 
     /**
      * Delete a task from the task list.
-     * 
+     *
      * @param index The index of the task to be deleted.
      * @return Message of deleted task.
      */
@@ -47,7 +47,7 @@ public class TaskList {
 
     /**
      * Gets a task at the given index.
-     * 
+     *
      * @param idx The index of the task.
      * @return The task at the index.
      */
@@ -57,7 +57,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks in this taskList.
-     * 
+     *
      * @return The ArrayList of tasks.
      */
     public ArrayList<Task> getAllTasks() {
@@ -66,7 +66,7 @@ public class TaskList {
 
     /**
      * Searches for the tasks containing the given keyword in this tasklist.
-     * 
+     *
      * @param keyword The keyword to search for.
      * @return The ArrayList of tasks with names containing the keyword.
      */
@@ -84,7 +84,7 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the task list.
-     * 
+     *
      * @return The number of tasks.
      */
     public int getSize() {
