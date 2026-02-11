@@ -61,7 +61,7 @@ public class Ui {
      *
      */
     public void printAddedTask(String taskname, int totalTasks) {
-        String taskAddedMessage = "Got it. I've added this task: \n  " + taskname + "\n";
+        String taskAddedMessage = "Got it. I've added this task: \n  " + taskname + "\n\n";
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
 
@@ -79,7 +79,7 @@ public class Ui {
      *
      */
     public void printDeletedTask(String taskname, int totalTasks) {
-        String taskRemovedMessage = "Noted. I've removed this task: \n  " + taskname + "\n";
+        String taskRemovedMessage = "Noted. I've removed this task: \n  " + taskname + "\n\n";
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
 
@@ -99,6 +99,21 @@ public class Ui {
         String specialMessage = "One After Another";
 
         outputMessages = new String[] { mainMessage, specialMessage };
+    }
+
+    /**
+    * Appends a congratulatory message when all tasks are marked as done.
+    */
+    public void printAllTasksMarked() {
+        // Append to existing mainMessage
+        String currentMainMessage = outputMessages[0];
+        String newLine = "\n\nCongratulations! All tasks are completed!";
+        String updatedMainMessage = currentMainMessage + newLine;
+
+        // Replace with a new specialMessage.
+        String specialMessage = "A Little Happiness";
+
+        outputMessages = new String[] { updatedMainMessage, specialMessage };
     }
 
     /**

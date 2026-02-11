@@ -77,8 +77,6 @@ public class Storage {
                     tasks.addTask(task);
                 } catch (FickleException e) {
                     corruptedWarnings.add("[" + e.getMessage() + "]  " + line);
-                    System.out.println("Warning!  Corrupted line: " + e.getMessage());
-                    System.out.println("Corrupted Line Skipped:  " + line);
                 }
             }
 
