@@ -1,6 +1,7 @@
 package fickle.ui;
 
 import fickle.Fickle;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -42,8 +45,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
-     * Fickle's reply
-     * and then appends them to the dialog container.
+     * Fickle's reply and then appends them to the dialog container.
      * Clears the user input after processing.
      */
     @FXML
@@ -55,5 +57,21 @@ public class MainWindow extends AnchorPane {
                                         DialogBox.getFickleDialog(responses, fickleImage));
 
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            // Disable user input and send button
+            userInput.setEditable(false);
+            sendButton.setDisable(true);
+
+            // Reused from https://stackoverflow.com/a/13602324 (a.b)
+            // Minor modification: Retrieved the stage from dialogContainer instead of a button
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+
+            // Reused from https://stackoverflow.com/a/27334614 (James_D)
+            // Creates a delay of 3.3 seconds before closing the window automatically
+            PauseTransition delay = new PauseTransition(Duration.seconds(3.3));
+            delay.setOnFinished(event -> stage.close());
+            delay.play();
+        }
     }
 }

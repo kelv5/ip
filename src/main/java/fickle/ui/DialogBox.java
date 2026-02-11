@@ -16,8 +16,7 @@ import javafx.scene.layout.HBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's
- * face
- * and a label containing text from the speaker.
+ * face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -62,7 +61,7 @@ public class DialogBox extends HBox {
 
         String outputText = mainMessage;
         if (!specialMessage.isEmpty()) {
-            outputText += "\n" + specialMessage;
+            outputText += "\n" + "\n" + specialMessage;
         }
         var db = new DialogBox(outputText, img);
         db.flip();

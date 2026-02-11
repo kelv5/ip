@@ -47,7 +47,7 @@ public class Ui {
      * Prints Fickle's goodbye message.
      */
     public void sayGoodbye() {
-        String mainMessage = "Goodbye. See you again soon!";
+        String mainMessage = "Goodbye. See you again soon! \n(This window will be closed automatically)";
         String specialMessage = "Day by Day";
 
         outputMessages = new String[] { mainMessage, specialMessage };
