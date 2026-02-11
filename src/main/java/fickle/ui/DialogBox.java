@@ -36,6 +36,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        // Uses a monospaced font (Consolas) to ensure proper alignment for ASCII logo.
+        dialog.setFont(javafx.scene.text.Font.font("Consolas", 12));
         displayPicture.setImage(img);
     }
 

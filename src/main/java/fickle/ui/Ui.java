@@ -26,10 +26,14 @@ public class Ui {
      * Displays the ASCII art logo and Fickle's greeting message.
      */
     public static String[] printLogoAndGreet() {
-        String logo = "       ______ _      _    _\n" + "      |  ___(_)    | |  | |     \n"
-                                        + "      | |_   _  ___| | _| | ___ \n" + "      |  _| | |/ __| |/ / |/ _ \\\n"
-                                        + "      | |   | | |__|   <|_|  __/\n"
-                                        + "      \\_|   |_|\\___|_|\\_\\_|\\___|\n";
+        String logo = """
+                                          ______ _      _    _
+                                         |  ____(_)    | |  | |
+                                         | |__   _  ___| | _| | ___
+                                         |  __| | |/ __| |/ / |/ _ \\
+                                         | |    | | (__|   <| |  __/
+                                         |_|    |_|\\___|_|\\_\\_|\\___|
+                                        """;
 
         String greetings = "Hi! I'm Fickle\n" + "What feels right to start with today?";
 
