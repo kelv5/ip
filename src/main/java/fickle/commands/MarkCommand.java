@@ -41,11 +41,10 @@ public class MarkCommand extends Command {
         ui.printMarkedTask(task.toString());
 
         // Special message when all tasks are completed
-        if (tasks.isAllMarked()) {
-            ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
-            ui.printEasterAlignedRight("A Little Happiness");
-        }
-
+        /*
+         * if (tasks.isAllMarked()) { ui.printSingleLineWithoutLine("Congratulations! All tasks are completed!");
+         * ui.printEasterAlignedRight("A Little Happiness"); }
+         */
         storage.overwriteSave(tasks);
     }
 }

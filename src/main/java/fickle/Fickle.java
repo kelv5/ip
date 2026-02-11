@@ -30,40 +30,29 @@ public class Fickle {
         }
     }
 
-    /**
-     * Entry point for the Fickle chatbot program. Creates a Fickle instance and
-     * starts the chatbot.
-     */
-    public static void main(String[] args) {
-        Fickle fickle = new Fickle("data/tasks.txt");
-        fickle.run();
-    }
-
-    /**
-     * Runs the Fickle chatbot Displays the logo, greeting, handles user input
-     * and executes commands. Exits on "bye" command and print goodbye.
-     */
-    public void run() {
-        ui.printLogo();
-        ui.greet();
-
+    public String[] getResponse(String input) {
         boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = ui.readInput().trim();
-                Command command = Parser.parse(input);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (FickleException e) {
-                // FickleException may contain an optional second display line
-                if (e.hasSecondLine()) {
-                    ui.printFickleException(e.getMessage(), e.getSecondLine());
-                } else {
-                    ui.printFickleException(e.getMessage());
-                }
-            } catch (Exception e) {
-                ui.printError(e.getMessage());
+        try {
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            isExit = command.isExit();
+
+            if (isExit) {
+                ui.sayGoodbye();
             }
+
+            return ui.getOutput();
+        } catch (FickleException e) {
+            // FickleException may contain an optional second display line
+            if (e.hasSecondLine()) {
+                ui.printFickleException(e.getMessage(), e.getSecondLine());
+            } else {
+                ui.printFickleException(e.getMessage());
+            }
+            return ui.getOutput();
+        } catch (Exception e) {
+            ui.printError(e.getMessage());
+            return ui.getOutput();
         }
     }
 }

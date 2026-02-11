@@ -40,10 +40,10 @@ public class DeleteCommand extends Command {
         ui.printDeletedTask(task.toString(), totalTaskCount);
 
         // Special message when all tasks are deleted
-        if (totalTaskCount == 0) {
-            ui.printSingleLineWithoutLine("Wow! All tasks are deleted!");
-            ui.printEasterAlignedRight("A Little Happiness");
-        }
+        /*
+         * if (totalTaskCount == 0) { ui.printSingleLineWithoutLine("Wow! All tasks are deleted!");
+         * ui.printEasterAlignedRight("A Little Happiness"); }
+         */
         storage.overwriteSave(tasks);
     }
 }
