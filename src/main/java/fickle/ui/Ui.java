@@ -25,7 +25,7 @@ public class Ui {
     /**
      * Displays the ASCII art logo and Fickle's greeting message.
      */
-    public static String[] printLogoAndGreet() {
+    public String[] printLogoAndGreet() {
         String logo = """
                                           ______ _      _    _
                                          |  ____(_)    | |  | |
@@ -164,6 +164,30 @@ public class Ui {
 
         String mainMessage = sb.toString().trim();
         String specialMessage = "Hidden Love";
+
+        outputMessages = new String[] { mainMessage, specialMessage };
+    }
+
+    /**
+    * Prints the list of all the warnings caused by corrupted lines in the save file.
+    *
+    * @param corruptedWarnings The list of corrupted line messages.
+    */
+    public void buildCorruptedWarnings(ArrayList<String> corruptedWarnings) {
+        if (corruptedWarnings.isEmpty()) {
+            outputMessages = new String[] { "", "" };
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Warning! Corrupted lines below skipped from your saved tasks: \n");
+
+        for (int i = 0; i < corruptedWarnings.size(); i++) {
+            sb.append((i + 1) + ". " + corruptedWarnings.get(i) + "\n");
+        }
+
+        String mainMessage = sb.toString().trim();
+        String specialMessage = "Anything Goes";
 
         outputMessages = new String[] { mainMessage, specialMessage };
     }

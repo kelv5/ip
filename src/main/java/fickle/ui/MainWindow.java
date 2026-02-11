@@ -1,5 +1,7 @@
 package fickle.ui;
 
+import java.util.ArrayList;
+
 import fickle.Fickle;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -31,16 +33,29 @@ public class MainWindow extends AnchorPane {
     private Image fickleImage = new Image(this.getClass().getResourceAsStream("/images/DaFickle.png"));
 
     @FXML
+    /**
+     * Initializes the GUI.
+     */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        // Display ASCII logo and greetings at start
-        dialogContainer.getChildren().add(DialogBox.getFickleDialog(Ui.printLogoAndGreet(), fickleImage));
     }
 
-    /** Injects the Fickle instance */
+    /**
+     * Injects the Fickle instance into this controller.
+     * Generate welcome messages and displays them as dialogs.
+     * 
+     * @param fickle The Fickle instance used for commands handling.
+     */
     public void setFickle(Fickle fickle) {
         this.fickle = fickle;
+
+        // Run fickle to get initial welcome messages
+        ArrayList<String[]> welcomeMessages = fickle.run();
+
+        // Display each message as a dialog
+        for (String[] message : welcomeMessages) {
+            dialogContainer.getChildren().add(DialogBox.getFickleDialog(message, fickleImage));
+        }
     }
 
     /**
