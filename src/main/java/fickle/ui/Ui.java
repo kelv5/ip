@@ -31,13 +31,12 @@ public class Ui {
      * Displays the ASCII art logo and Fickle's greeting message.
      */
     public String[] printLogoAndGreet() {
+        // ASCII art generated using https://patorjk.com/software/taag/ (Font: Stforek)
         String logo = """
-                                          ______ _      _    _
-                                         |  ____(_)    | |  | |
-                                         | |__   _  ___| | _| | ___
-                                         |  __| | |/ __| |/ / |/ _ \\
-                                         | |    | | (__|   <| |  __/
-                                         |_|    |_|\\___|_|\\_\\_|\\___|
+                                         ___ _   ____  ___   ___
+                                        | __| | / _/ |/ / | | __|
+                                        | _|| || \\_|   <| |_| _|
+                                        |_| |_| \\__/_|\\_\\___|___|
                                         """;
 
         String greetings = "Hi! I'm Fickle\n" + "What feels right to start with today?";
