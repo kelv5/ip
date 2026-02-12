@@ -35,8 +35,11 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        // Uses a monospaced font (Consolas) to ensure proper alignment for ASCII logo.
+
+        // Uses a monospaced font (Consolas) to ensure proper alignment for ASCII logo
+        // Code below inspired by https://en.wikipedia.org/wiki/Monospaced_font#Use_in_art
         dialog.setFont(javafx.scene.text.Font.font("Consolas", 12));
+
         displayPicture.setImage(img);
     }
 
@@ -51,17 +54,31 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+    * Creates a dialog box for the user with the given input text and user image.
+    *
+    * @param text The input text to display in the dialog.
+    * @param img The user's image.
+    * @return A DialogBox representing the user's message.
+    */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+    * Creates a dialog box for Fickle chatbot with the given output messages and Fickle's image.
+    *
+    * @param texts A string array represented by [mainMessage, specialMessage].
+    * @param img The Fickle's image.
+    * @return A flipped DialogBox representing Fickle's message.
+    */
     public static DialogBox getFickleDialog(String[] texts, Image img) {
         String mainMessage = texts[0];
         String specialMessage = texts[1];
 
         String outputText = mainMessage;
         if (!specialMessage.isEmpty()) {
-            outputText += "\n" + "\n" + specialMessage;
+            outputText += "\n\n" + specialMessage;
         }
         var db = new DialogBox(outputText, img);
         db.flip();

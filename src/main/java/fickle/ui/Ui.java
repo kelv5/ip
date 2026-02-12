@@ -18,6 +18,11 @@ public class Ui {
         outputMessages = new String[] { "", "" };
     }
 
+    /**
+     * Returns output messages represented by [mainMessage, specialMessage].
+     *
+     * @return A string array of output messages.
+     */
     public String[] getOutput() {
         return outputMessages;
     }
@@ -211,7 +216,7 @@ public class Ui {
      * Prints a Exception message for invalid input with double lines.
      *
      * @param exceptionMessage The description the invalid input.
-     * @param secondLine The second message to display, aligned to the right.
+     * @param secondLine The second message to display.
      */
     public void printFickleException(String exceptionMessage, String secondLine) {
         String mainMessage = "[Invalid Input]  " + exceptionMessage;

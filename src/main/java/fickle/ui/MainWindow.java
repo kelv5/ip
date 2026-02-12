@@ -59,9 +59,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing
-     * Fickle's reply and then appends them to the dialog container.
+     * Creates two dialog boxes, one echoing user input and the other containing Fickle's reply.
+     * Appends them to the dialog container.
      * Clears the user input after processing.
+     * Disables both user input and send button, then closes the windows automatically.
      */
     @FXML
     private void handleUserInput() {
@@ -83,8 +84,8 @@ public class MainWindow extends AnchorPane {
             Stage stage = (Stage) dialogContainer.getScene().getWindow();
 
             // Reused from https://stackoverflow.com/a/27334614 (James_D)
-            // Creates a delay of 3.3 seconds before closing the window automatically
-            PauseTransition delay = new PauseTransition(Duration.seconds(3.3));
+            // Creates a delay of 1.9 seconds before closing the window automatically
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.9));
             delay.setOnFinished(event -> stage.close());
             delay.play();
         }
