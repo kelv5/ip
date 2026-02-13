@@ -78,7 +78,7 @@ public class Storage {
                     Task task = parseTask(line);
                     tasks.addTask(task);
                 } catch (FickleException e) {
-                    corruptedWarnings.add("[" + e.getMessage() + "]  " + line);
+                    corruptedWarnings.add("[" + e.getMessage() + "] " + line);
                 }
             }
 
