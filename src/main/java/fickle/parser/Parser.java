@@ -39,6 +39,7 @@ public class Parser {
         }
 
         String[] parts = input.split(" ", 2);
+
         String commandWord = parts[0].toLowerCase();
         String contextWord = (parts.length > 1) ? parts[1].trim() : "";
 
@@ -128,6 +129,9 @@ public class Parser {
         }
 
         String[] contents = contextWord.split("/by", 2);
+
+        assert contents.length == 2 : "Split with '/by' should produce 2 parts";
+
         String name = contents[0].trim();
         String byString = contents[1].trim();
 
@@ -162,8 +166,15 @@ public class Parser {
         }
 
         String[] firstSecondParts = contextWord.split("/from", 2);
+
+        assert firstSecondParts.length == 2 : "Split with '/from' should produce 2 parts";
+
         String name = firstSecondParts[0].trim();
+
         String[] secondThirdParts = firstSecondParts[1].split("/to", 2);
+
+        assert secondThirdParts.length == 2 : "Split with '/to' should produce 2 parts";
+
         String fromString = secondThirdParts[0].trim();
         String toString = secondThirdParts[1].trim();
 
@@ -196,6 +207,8 @@ public class Parser {
     }
 
     private static LocalDateTime parseDateTime(String dateTimeString) throws FickleException {
+        assert dateTimeString != null && !dateTimeString.isEmpty() : "DateTime string should not be null nor empty";
+
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 

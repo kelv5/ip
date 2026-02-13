@@ -26,6 +26,8 @@ public class EventCommand extends Command {
      * @param to The end time of the Event task.
      */
     public EventCommand(String taskName, LocalDateTime from, LocalDateTime to) {
+        assert !from.isAfter(to) : "Start time should not be later than end time";
+
         this.taskName = taskName;
         this.from = from;
         this.to = to;

@@ -31,6 +31,8 @@ public class Storage {
      * @param filePath The path if the save file.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "filePath should not be null nor empty";
+
         this.filePath = filePath;
         corruptedWarnings = new ArrayList<String>();
     }
@@ -103,6 +105,8 @@ public class Storage {
             FileWriter fw = new FileWriter(filePath);
             ArrayList<Task> allTasks = tasks.getAllTasks();
 
+            assert allTasks != null : "The new tasklist to overwrite should not be null";
+
             for (Task task : allTasks) {
                 fw.write(task.toStorageString());
                 fw.write(System.lineSeparator());
@@ -122,6 +126,8 @@ public class Storage {
      * @throws FickleException If fails to write to the saveFile.
      */
     public void appendSave(Task task) throws FickleException {
+        assert task != null : "Task to be added in storage file should not be null";
+
         try {
             FileWriter fw = new FileWriter(filePath, true);
             fw.write(task.toStorageString());
@@ -153,6 +159,8 @@ public class Storage {
      * @throws FickleException If the line from storage file is corrupted.
      */
     private Task parseTask(String line) throws FickleException {
+        assert line != null && !line.isEmpty() : "Storage line should not be null nor empty";
+
         String[] saveStringsParts = line.split(" \\| ");
 
         if (saveStringsParts.length < 3) {
@@ -226,6 +234,7 @@ public class Storage {
      * @return A LocalDateTime object if valid, or null invalid.
      */
     private LocalDateTime parseStorageDateTime(String dateTimeString) {
+        assert dateTimeString != null && !dateTimeString.isEmpty() : "DateTime string should not be null nor empty";
         DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         try {
