@@ -72,7 +72,7 @@ public class Parser {
             return parseFind(contextWord);
 
         default:
-            throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere.");
+            throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere");
         }
     }
 
