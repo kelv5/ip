@@ -32,10 +32,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image fickleImage = new Image(this.getClass().getResourceAsStream("/images/DaFickle.png"));
 
-    @FXML
     /**
-     * Initializes the GUI.
+     * Initialise the GUI.
      */
+    @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Injects the Fickle instance into this controller.
      * Generate welcome messages and displays them as dialogs.
-     * 
+     *
      * @param fickle The Fickle instance used for commands handling.
      */
     public void setFickle(Fickle fickle) {
