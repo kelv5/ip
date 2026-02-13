@@ -8,12 +8,12 @@ import java.util.Locale;
  * Represents a deadline task that has a due date and time.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
-
     // Locale.ENGLISH ensures that AM/PM is uppercase
     private static final DateTimeFormatter DEADLINE_DISPLAY_FORMAT = DateTimeFormatter
                                     .ofPattern("EEE, MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
     private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private LocalDateTime by;
 
     /**
      * Constructor for Deadline task.

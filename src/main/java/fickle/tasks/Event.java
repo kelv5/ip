@@ -8,13 +8,12 @@ import java.util.Locale;
  * Represents an event task that has a start and end date and time.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
-
     // Locale.ENGLISH ensures that AM/PM is uppercase
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter EVENTS_DISPLAY_FORMAT = DateTimeFormatter
                                     .ofPattern("MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
-    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for Event task.
