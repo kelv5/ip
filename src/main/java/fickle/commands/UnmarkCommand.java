@@ -23,6 +23,18 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
+        checkTaskIndex(tasks);
+
+        Task task = tasks.getTask(taskIndex);
+        task.markAsNotDone();
+
+        ui.printUnmarkedTask(task.toString());
+
+        storage.overwriteSave(tasks);
+    }
+
+    // Check that tasklist is not empty and the index is within valid range.
+    private void checkTaskIndex(TaskList tasks) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to unmark.", "A Little Happiness");
         }
@@ -35,11 +47,5 @@ public class UnmarkCommand extends Command {
         if (taskIndex >= tasks.getSize()) {
             throw new FickleException("Please enter a task number within the available range.", "Too Much");
         }
-
-        Task task = tasks.getTask(taskIndex);
-        task.markAsNotDone();
-
-        ui.printUnmarkedTask(task.toString());
-        storage.overwriteSave(tasks);
     }
 }

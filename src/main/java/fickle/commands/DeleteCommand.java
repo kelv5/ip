@@ -23,9 +23,22 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FickleException {
+        checkTaskIndex(tasks);
+
+        Task task = tasks.deleteTask(taskIndex);
+
+        int totalTaskCount = tasks.getSize();
+        ui.printDeletedTask(task.toString(), totalTaskCount);
+
+        storage.overwriteSave(tasks);
+    }
+
+    // Check that tasklist is not empty before deleting and the index is within valid range.
+    private void checkTaskIndex(TaskList tasks) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to delete.", "A Little Happiness");
         }
+
         if (taskIndex < 0) {
             throw new FickleException("Task number starts from 1. Please enter a valid number.",
                                             "Too small, Insignificance");
@@ -34,12 +47,5 @@ public class DeleteCommand extends Command {
         if (taskIndex >= tasks.getSize()) {
             throw new FickleException("Please enter a task number within the available range.", "Too Much");
         }
-
-        Task task = tasks.deleteTask(taskIndex);
-
-        int totalTaskCount = tasks.getSize();
-        ui.printDeletedTask(task.toString(), totalTaskCount);
-
-        storage.overwriteSave(tasks);
     }
 }
