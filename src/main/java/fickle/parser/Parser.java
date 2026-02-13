@@ -222,7 +222,7 @@ public class Parser {
             }
         } catch (DateTimeParseException e) {
             String exceptionMsg = "Date/time format incorrect. Please use: d/M/yyyy or d/M/yyyy HHmm.\n"
-                                            + "[Example Usage]  21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
+                                            + "[Example Usage] 21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
 
             throw new FickleException(exceptionMsg, "Time will Tell");
         }
