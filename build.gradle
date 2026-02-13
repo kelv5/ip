@@ -50,7 +50,6 @@ application {
 shadowJar {
     archiveBaseName = "fickle"
     archiveClassifier = null
-    archiveVersion = '0.1'
 }
 
 run{
