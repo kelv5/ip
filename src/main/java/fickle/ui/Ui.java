@@ -24,6 +24,7 @@ public class Ui {
      * @return A string array of output messages.
      */
     public String[] getOutput() {
+        assert outputMessages.length == 2 : "outputMessages should contain exactly 2 elements";
         return outputMessages;
     }
 
@@ -65,6 +66,9 @@ public class Ui {
      *
      */
     public void printAddedTask(String taskname, int totalTasks) {
+        assert taskname != null && !taskname.isEmpty() : "Name of the task added should not be null, nor empty";
+        assert totalTasks >= 1 : "totalTasks should be at least 1 when a task is added";
+
         String taskAddedMessage = "Got it. I've added this task: \n  " + taskname + "\n\n";
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
@@ -83,6 +87,9 @@ public class Ui {
      *
      */
     public void printDeletedTask(String taskname, int totalTasks) {
+        assert taskname != null && !taskname.isEmpty() : "Name of the task deleted should not be null, nor empty";
+        assert totalTasks >= 0 : "totalTasks cannot be negative";
+
         String taskRemovedMessage = "Noted. I've removed this task: \n  " + taskname + "\n\n";
         String totalTasksMessage = "Now you have " + totalTasks + " task" + ((totalTasks == 1) ? "" : "s")
                                         + " in the list.";
@@ -146,6 +153,8 @@ public class Ui {
             return;
         }
 
+        assert tasks.getSize() > 0 : "Non-empty TaskList should have at least one task in it";
+
         StringBuilder sb = new StringBuilder();
         sb.append("Here's your task list for you: \n");
 
@@ -166,6 +175,8 @@ public class Ui {
      * @param matchedTasks The list of tasks that match the keyword.
      */
     public void printMatchedTaskList(String keyword, ArrayList<Task> matchedTasks) {
+        assert !keyword.isEmpty() : "Keyword should not be empty";
+
         if (matchedTasks.size() == 0) {
             String mainMessage = "Sorry, no tasks found matching [" + keyword + "].";
             String specialMessage = "Out of Nothing";
@@ -173,6 +184,8 @@ public class Ui {
             outputMessages = new String[] { mainMessage, specialMessage };
             return;
         }
+
+        assert matchedTasks.size() > 0 : "Non-empty matched Tasklist should have at least one matched task";
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks for [" + keyword + "] in your list: \n");
@@ -193,10 +206,7 @@ public class Ui {
     * @param corruptedWarnings The list of corrupted line messages.
     */
     public void buildCorruptedWarnings(ArrayList<String> corruptedWarnings) {
-        if (corruptedWarnings.isEmpty()) {
-            outputMessages = new String[] { "", "" };
-            return;
-        }
+        assert !corruptedWarnings.isEmpty() : "corruptedWarnings should not be empty";
 
         StringBuilder sb = new StringBuilder();
         sb.append("Warning! Corrupted lines below skipped from your saved tasks: \n");

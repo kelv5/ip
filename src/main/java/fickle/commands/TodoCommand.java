@@ -19,6 +19,8 @@ public class TodoCommand extends Command {
      * @param taskName The name of the Todo task.
      */
     public TodoCommand(String taskName) {
+        assert taskName != null && !taskName.isEmpty() : "Todo task name should not be null nor empty";
+
         this.taskName = taskName;
     }
 
