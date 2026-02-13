@@ -26,6 +26,7 @@ public class Ui {
      */
     public String[] getOutput() {
         assert outputMessages.length == 2 : "outputMessages should contain exactly 2 elements";
+
         return outputMessages;
     }
 
@@ -50,17 +51,17 @@ public class Ui {
     }
 
     /**
-     * Prints Fickle's goodbye message.
+     * Sets Fickle's goodbye message.
      */
     public void sayGoodbye() {
         String mainMessage = "Goodbye. See you again soon! \n(This window will be closed automatically)";
         String specialMessage = "Day by Day";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints the added task message.
+     * Sets the added task message.
      *
      * @param taskname The name of the added task.
      * @param totalTasks Total number of tasks after added a new task.
@@ -77,11 +78,11 @@ public class Ui {
         String mainMessage = taskAddedMessage + totalTasksMessage;
         String specialMessage = "Still Early";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints the deleted task message.
+     * Sets the deleted task message.
      *
      * @param taskname The name of the deleted task.
      * @param totalTasks Total number of tasks after deleted a new task.
@@ -98,11 +99,11 @@ public class Ui {
         String mainMessage = taskRemovedMessage + totalTasksMessage;
         String specialMessage = "It's Gone";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints the marked task message.
+     * Sets the marked task message.
      *
      * @param taskname The name of the marked task.
      */
@@ -110,7 +111,7 @@ public class Ui {
         String mainMessage = "All set. This task is marked as done: \n  " + taskname;
         String specialMessage = "One After Another";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
@@ -125,11 +126,11 @@ public class Ui {
         // Replace with a new specialMessage.
         String specialMessage = "A Little Happiness";
 
-        outputMessages = new String[] { updatedMainMessage, specialMessage };
+        setOutputMessage(updatedMainMessage, specialMessage);
     }
 
     /**
-     * Prints the unmarked task message.
+     * Sets the unmarked task message.
      *
      * @param taskname The name of the unmarked task.
      */
@@ -137,11 +138,11 @@ public class Ui {
         String mainMessage = "Noted. This task is now unmarked: \n  " + taskname;
         String specialMessage = "Pace Yourself";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints the list of tasks.
+     * Prepares the list of tasks for display.
      *
      * @param tasks The tasklist to be printed.
      */
@@ -166,11 +167,11 @@ public class Ui {
         String mainMessage = sb.toString().trim();
         String specialMessage = "Glimpses of a Journey";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints the list of tasks that match the keyword in the task list.
+     * Prepares the list of tasks that match the keyword for display.
      *
      * @param keyword The keyword to search for tasks.
      * @param matchedTasks The list of tasks that match the keyword.
@@ -198,11 +199,11 @@ public class Ui {
         String mainMessage = sb.toString().trim();
         String specialMessage = "Hidden Love";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-    * Prints the list of all the warnings caused by corrupted lines in the save file.
+    * Prepares the list of all the warnings caused by corrupted lines for display.
     *
     * @param corruptedWarnings The list of corrupted line messages.
     */
@@ -217,11 +218,11 @@ public class Ui {
 
         String specialMessage = "Anything Goes";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints a Exception message for invalid input with double lines.
+     * Sets a Exception message for invalid input with double lines.
      *
      * @param exceptionMessage The description the invalid input.
      * @param secondLine The second message to display.
@@ -230,11 +231,11 @@ public class Ui {
         String mainMessage = "[Invalid Input] " + exceptionMessage;
         String specialMessage = secondLine;
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints an error message when tasks cannot be loaded from or saved to a
+     * Sets an error message when tasks cannot be loaded from or saved to a
      * file.
      *
      * @param exceptionMessage The description of the file operation failure.
@@ -243,11 +244,11 @@ public class Ui {
         String mainMessage = "[Load/Save Error] " + exceptionMessage;
         String specialMessage = "";
 
-        outputMessages = new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     /**
-     * Prints an error message.
+     * Sets an error message.
      *
      * @param errorMessage The message description the error.
      */
@@ -255,6 +256,11 @@ public class Ui {
         String mainMessage = "[Error] " + errorMessage;
         String specialMessage = "";
 
+        setOutputMessage(mainMessage, specialMessage);
+    }
+
+    // Updates the outputMessages to be displayed.
+    private void setOutputMessage(String mainMessage, String specialMessage) {
         outputMessages = new String[] { mainMessage, specialMessage };
     }
 }

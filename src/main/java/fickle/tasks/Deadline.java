@@ -8,6 +8,11 @@ import java.util.Locale;
  * Represents a deadline task that has a due date and time.
  */
 public class Deadline extends Task {
+    // Locale.ENGLISH ensures that AM/PM is uppercase
+    private static final DateTimeFormatter DEADLINE_DISPLAY_FORMAT = DateTimeFormatter
+                                    .ofPattern("EEE, MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     private LocalDateTime by;
 
     /**
@@ -29,8 +34,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        // Locale.ENGLISH to ensure AM/PM is uppercase
-        String outputBy = by.format(DateTimeFormatter.ofPattern("EEE, MMM dd yyyy '['h:mma']'", Locale.ENGLISH));
+        String outputBy = by.format(DEADLINE_DISPLAY_FORMAT);
         return "[D]" + super.toString() + " (BY: " + outputBy + ")";
     }
 
@@ -42,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        String storageBy = by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String storageBy = by.format(STORAGE_FORMAT);
         return "D" + super.toStorageString() + " | " + storageBy;
     }
 }

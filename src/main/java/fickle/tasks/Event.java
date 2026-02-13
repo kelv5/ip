@@ -8,6 +8,10 @@ import java.util.Locale;
  * Represents an event task that has a start and end date and time.
  */
 public class Event extends Task {
+    // Locale.ENGLISH ensures that AM/PM is uppercase
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter EVENTS_DISPLAY_FORMAT = DateTimeFormatter
+                                    .ofPattern("MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -32,10 +36,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        // Locale.ENGLISH to ensure AM/PM is uppercase
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
-        String outputFrom = from.format(outputFormatter);
-        String outputTo = to.format(outputFormatter);
+        String outputFrom = from.format(EVENTS_DISPLAY_FORMAT);
+        String outputTo = to.format(EVENTS_DISPLAY_FORMAT);
 
         return "[E]" + super.toString() + " (FROM: " + outputFrom + "  TO: " + outputTo + ")";
     }
@@ -48,9 +50,8 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        String storageFrom = from.format(storageFormatter);
-        String storageTo = to.format(storageFormatter);
+        String storageFrom = from.format(STORAGE_FORMAT);
+        String storageTo = to.format(STORAGE_FORMAT);
 
         return "E" + super.toStorageString() + " | " + storageFrom + " | " + storageTo;
     }

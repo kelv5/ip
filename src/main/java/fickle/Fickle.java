@@ -27,34 +27,60 @@ public class Fickle {
     }
 
     /**
-    * Loads tasks from storage, handles corrupted lines, and returns welcome messages to display in the GUI.
+    * Runs the chatbot, load tasks from storage, handles corrupted lines.
+    * Returns welcome messages to display in the GUI.
     *
     * @return An Arraylist of string arrays representing welcome messages.
     */
     public ArrayList<String[]> run() {
         ArrayList<String[]> welcomeMessages = new ArrayList<>();
-        try {
-            tasks = new TaskList(storage.load());
 
-            ArrayList<String> warnings = storage.getCorruptedWarnings();
-
-            if (!warnings.isEmpty()) {
-                // Build and add corrupted warnings to welcome messages
-                ui.buildCorruptedWarnings(warnings);
-                welcomeMessages.add(ui.getOutput());
-            }
-
-        } catch (FickleException e) {
-            // Handle storage load failure
-            ui.printFickleException(e.getMessage(), e.getSecondLine());
-            tasks = new TaskList();
-
-            welcomeMessages.add(ui.getOutput());
-        }
-        // Always show logo and greeting
-        welcomeMessages.add(ui.printLogoAndGreet());
+        loadTasks(welcomeMessages);
+        addCorruptedWarnings(welcomeMessages);
+        addGreetingMessages(welcomeMessages);
 
         return welcomeMessages;
+    }
+
+    /**
+    * Loads tasks from storage into the task list.
+    * Initialises an empty task list and display exception message if failed to load storage.
+    *
+    * @param welcomeMessages ArrayList to collect any exception message for display.
+    */
+    private void loadTasks(ArrayList<String[]> welcomeMessages) {
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FickleException e) {
+            ui.printFickleException(e.getMessage());
+            welcomeMessages.add(ui.getOutput());
+
+            tasks = new TaskList();
+        }
+    }
+
+    /**
+    * Checks for any corrupted storage lines and adds warning messages into welcomeMessages.
+    *
+    * @param welcomeMessages ArrayList to collect any warning messages.
+    */
+    private void addCorruptedWarnings(ArrayList<String[]> welcomeMessages) {
+        ArrayList<String> warnings = storage.getCorruptedWarnings();
+
+        if (!warnings.isEmpty()) {
+            // Add corrupted warnings into welcome messages
+            ui.buildCorruptedWarnings(warnings);
+            welcomeMessages.add(ui.getOutput());
+        }
+    }
+
+    /**
+     * Adds the greeting meetings and ASCII logo to the welcome messages.
+     *
+     * @param welcomeMessages ArrayList to collect greeting messages and logo.
+     */
+    private void addGreetingMessages(ArrayList<String[]> welcomeMessages) {
+        welcomeMessages.add(ui.printLogoAndGreet());
     }
 
     /**
@@ -64,28 +90,26 @@ public class Fickle {
     * @return String array with main and special messages to be displayed.
     */
     public String[] getResponse(String input) {
-        boolean isExit = false;
         try {
-            Command command = Parser.parse(input);
-            command.execute(tasks, ui, storage);
-            isExit = command.isExit();
-
-            if (isExit) {
-                ui.sayGoodbye();
-            }
-
-            return ui.getOutput();
+            executeCommand(input);
         } catch (FickleException e) {
-            // FickleException may contain an optional second display line
-            if (e.hasSecondLine()) {
-                ui.printFickleException(e.getMessage(), e.getSecondLine());
-            } else {
-                ui.printFickleException(e.getMessage());
-            }
-            return ui.getOutput();
+            ui.printFickleException(e.getMessage(), e.getSecondLine());
         } catch (Exception e) {
             ui.printError(e.getMessage());
-            return ui.getOutput();
         }
+
+        // Always return the collected UI output
+        return ui.getOutput();
+    }
+
+    /**
+    * Parses user input and executes the command.
+    *
+    * @param input Raw input string.
+    * @throws FickleException If parsing of input or command execution fails.
+    */
+    private void executeCommand(String input) throws FickleException {
+        Command command = Parser.parse(input);
+        command.execute(tasks, ui, storage);
     }
 }
