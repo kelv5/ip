@@ -56,6 +56,7 @@ public class Storage {
      */
     public TaskList load() throws FickleException {
         checkAndCreateFolder();
+        corruptedWarnings.clear();
 
         File file = new File(filePath);
         TaskList tasks = new TaskList();
@@ -68,25 +69,34 @@ public class Storage {
         try {
             scanner = new Scanner(file);
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.isEmpty()) {
-                    continue;
-                }
-
-                try {
-                    Task task = parseTask(line);
-                    tasks.addTask(task);
-                } catch (FickleException e) {
-                    corruptedWarnings.add("[" + e.getMessage() + "] " + line);
-                }
-            }
-
+            tasks = parseTasksFromScanner(scanner);
         } catch (FileNotFoundException e) {
             throw new FickleException("Couldn't load tasks from file.");
         } finally {
             if (scanner != null) {
                 scanner.close();
+            }
+        }
+
+        return tasks;
+    }
+
+    // Parse tasks from scanner one by one.
+    private TaskList parseTasksFromScanner(Scanner sc) {
+        TaskList tasks = new TaskList();
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine().trim();
+
+            if (line.isEmpty()) {
+                continue;
+            }
+
+            try {
+                Task task = parseTask(line);
+                tasks.addTask(task);
+            } catch (FickleException e) {
+                corruptedWarnings.add("[" + e.getMessage() + "] " + line);
             }
         }
 
@@ -161,58 +171,25 @@ public class Storage {
     private Task parseTask(String line) throws FickleException {
         assert line != null && !line.isEmpty() : "Storage line should not be null nor empty";
 
-        String[] saveStringsParts = line.split(" \\| ");
-
-        if (saveStringsParts.length < 3) {
-            throw new FickleException("Insufficient Fields");
-        }
+        String[] saveStringsParts = checkAndSplitLine(line);
 
         String taskType = saveStringsParts[0].trim();
         String doneStatus = saveStringsParts[1].trim();
         String name = saveStringsParts[2].trim();
 
-        if (!doneStatus.equals("0") && !doneStatus.equals("1")) {
-            throw new FickleException("Invalid Done Status");
-        }
-
         Task task;
 
         switch (taskType) {
         case "T":
-            task = new Todo(name);
+            task = parseTodo(name);
             break;
 
         case "D":
-            if (saveStringsParts.length < 4) {
-                throw new FickleException("Insufficient Fields for Deadline");
-            }
-
-            LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
-
-            if (by == null) {
-                throw new FickleException("Invalid Date/Time Format for Deadline");
-            }
-
-            task = new Deadline(name, by);
+            task = parseDeadline(name, saveStringsParts);
             break;
 
         case "E":
-            if (saveStringsParts.length < 5) {
-                throw new FickleException("Insufficient Fields for Event");
-            }
-
-            LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
-            LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
-
-            if (from == null || to == null) {
-                throw new FickleException("Invalid Date/Time Format for Event");
-            }
-
-            if (from.isAfter(to)) {
-                throw new FickleException("Event start time is after the end time");
-            }
-
-            task = new Event(name, from, to);
+            task = parseEvent(name, saveStringsParts);
             break;
 
         default:
@@ -225,6 +202,60 @@ public class Storage {
         }
 
         return task;
+    }
+
+    // Checks a storage line and splits it.
+    private String[] checkAndSplitLine(String line) throws FickleException {
+        String[] parts = line.split(" \\| ");
+
+        if (parts.length < 3) {
+            throw new FickleException("Insufficient Fields");
+        }
+
+        String doneStatus = parts[1].trim();
+
+        if (!doneStatus.equals("0") && !doneStatus.equals("1")) {
+            throw new FickleException("Invalid Done Status");
+        }
+
+        return parts;
+    }
+
+    private Task parseTodo(String name) {
+        return new Todo(name);
+    }
+
+    private Task parseDeadline(String name, String[] saveStringsParts) throws FickleException {
+        if (saveStringsParts.length < 4) {
+            throw new FickleException("Insufficient Fields for Deadline");
+        }
+
+        LocalDateTime by = parseStorageDateTime(saveStringsParts[3].trim());
+
+        if (by == null) {
+            throw new FickleException("Invalid Date/Time Format for Deadline");
+        }
+
+        return new Deadline(name, by);
+    }
+
+    private Task parseEvent(String name, String[] saveStringsParts) throws FickleException {
+        if (saveStringsParts.length < 5) {
+            throw new FickleException("Insufficient Fields for Event");
+        }
+
+        LocalDateTime from = parseStorageDateTime(saveStringsParts[3].trim());
+        LocalDateTime to = parseStorageDateTime(saveStringsParts[4].trim());
+
+        if (from == null || to == null) {
+            throw new FickleException("Invalid Date/Time Format for Event");
+        }
+
+        if (from.isAfter(to)) {
+            throw new FickleException("Event start time is after the end time");
+        }
+
+        return new Event(name, from, to);
     }
 
     /**
