@@ -71,13 +71,8 @@ public class TaskList {
      * @return The ArrayList of tasks with names containing the keyword.
      */
     public ArrayList<Task> getMatchedTasks(String keyword) {
-        ArrayList<Task> matchedTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.getName().toLowerCase().contains(keyword)) {
-                matchedTasks.add(task);
-            }
-        }
+        ArrayList<Task> matchedTasks = new ArrayList<>(tasks.stream()
+                                        .filter(task -> task.getName().toLowerCase().contains(keyword)).toList());
 
         return matchedTasks;
     }
@@ -97,12 +92,6 @@ public class TaskList {
      * @return true if all tasks are completed, else returns false.
      */
     public boolean isAllMarked() {
-        for (Task task : tasks) {
-            if (!task.isDone()) {
-                return false;
-            }
-        }
-
-        return true;
+        return tasks.stream().allMatch(Task::isDone);
     }
 }

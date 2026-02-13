@@ -1,6 +1,7 @@
 package fickle.ui;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import fickle.tasks.Task;
 import fickle.tasks.TaskList;
@@ -208,14 +209,12 @@ public class Ui {
     public void buildCorruptedWarnings(ArrayList<String> corruptedWarnings) {
         assert !corruptedWarnings.isEmpty() : "corruptedWarnings should not be empty";
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Warning! Corrupted lines below skipped from your saved tasks: \n");
+        String mainMessage = "Warning! Corrupted lines below skipped from your saved tasks: \n";
 
-        for (int i = 0; i < corruptedWarnings.size(); i++) {
-            sb.append((i + 1) + ". " + corruptedWarnings.get(i) + "\n");
-        }
+        mainMessage += IntStream.range(0, corruptedWarnings.size())
+                                        .mapToObj(i -> (i + 1) + ". " + corruptedWarnings.get(i))
+                                        .reduce((s1, s2) -> s1 + "\n" + s2).orElse("");
 
-        String mainMessage = sb.toString().trim();
         String specialMessage = "Anything Goes";
 
         outputMessages = new String[] { mainMessage, specialMessage };
@@ -228,7 +227,7 @@ public class Ui {
      * @param secondLine The second message to display.
      */
     public void printFickleException(String exceptionMessage, String secondLine) {
-        String mainMessage = "[Invalid Input]  " + exceptionMessage;
+        String mainMessage = "[Invalid Input] " + exceptionMessage;
         String specialMessage = secondLine;
 
         outputMessages = new String[] { mainMessage, specialMessage };
@@ -241,7 +240,7 @@ public class Ui {
      * @param exceptionMessage The description of the file operation failure.
      */
     public void printFickleException(String exceptionMessage) {
-        String mainMessage = "[Load/Save Error]  " + exceptionMessage;
+        String mainMessage = "[Load/Save Error] " + exceptionMessage;
         String specialMessage = "";
 
         outputMessages = new String[] { mainMessage, specialMessage };
@@ -253,7 +252,7 @@ public class Ui {
      * @param errorMessage The message description the error.
      */
     public void printError(String errorMessage) {
-        String mainMessage = "[Error]  " + errorMessage;
+        String mainMessage = "[Error] " + errorMessage;
         String specialMessage = "";
 
         outputMessages = new String[] { mainMessage, specialMessage };

@@ -53,9 +53,8 @@ public class MainWindow extends AnchorPane {
         ArrayList<String[]> welcomeMessages = fickle.run();
 
         // Display each message as a dialog
-        for (String[] message : welcomeMessages) {
-            dialogContainer.getChildren().add(DialogBox.getFickleDialog(message, fickleImage));
-        }
+        welcomeMessages.stream().map(message -> DialogBox.getFickleDialog(message, fickleImage))
+                                        .forEach(dialogContainer.getChildren()::add);
     }
 
     /**
