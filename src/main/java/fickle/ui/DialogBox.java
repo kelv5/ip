@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's
@@ -20,12 +21,27 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private VBox messageBox;
+
+    @FXML
+    private Label mainLabel;
+
+    @FXML
+    private Label specialLabel;
+
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    /**
+     * Constructor for DialogBox.
+     *
+     * @param mainText The main text content.
+     * @param specialText The special text content (Optional: would be empty string for UserDialog).
+     * @param img The current speaker's avatar image.
+     */
+    private DialogBox(String mainText, String specialText, Image img) {
         try {
+            // Load the FXML layout for the DialogBox and set current class as its controller
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
@@ -34,11 +50,21 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+        mainLabel.setText(mainText);
 
-        // Uses a monospaced font (Consolas) to ensure proper alignment for ASCII logo
-        // Code below inspired by https://en.wikipedia.org/wiki/Monospaced_font#Use_in_art
-        dialog.setFont(javafx.scene.text.Font.font("Consolas", 12));
+        // If there is special text, display it.
+        if (!specialText.isEmpty()) {
+            specialLabel.setText(specialText);
+        } else {
+            // Reused from https://stackoverflow.com/a/49053199 (fabian)
+            // Remove from layout and hide the label visually if there is no special text
+            specialLabel.setManaged(false);
+            specialLabel.setVisible(false);
+        }
+
+        // Apply CSS styling to labels
+        mainLabel.getStyleClass().add("main-label");
+        specialLabel.getStyleClass().add("special-label");
 
         displayPicture.setImage(img);
     }
@@ -52,7 +78,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
+
+        // Style Fickle's messageBox to face the right direction
+        messageBox.getStyleClass().add("reply-label");
     }
 
     /**
@@ -63,7 +91,8 @@ public class DialogBox extends HBox {
     * @return A DialogBox representing the user's message.
     */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        // empty special text for UserDialog
+        return new DialogBox(text, "", img);
     }
 
     /**
@@ -74,14 +103,11 @@ public class DialogBox extends HBox {
     * @return A flipped DialogBox representing Fickle's message.
     */
     public static DialogBox getFickleDialog(String[] texts, Image img) {
-        String mainMessage = texts[0];
-        String specialMessage = texts[1];
+        String mainText = texts[0];
+        String specialText = texts[1];
 
-        String outputText = mainMessage;
-        if (!specialMessage.isEmpty()) {
-            outputText += "\n\n" + specialMessage;
-        }
-        var db = new DialogBox(outputText, img);
+        var db = new DialogBox(mainText, specialText, img);
+
         db.flip();
         return db;
     }
