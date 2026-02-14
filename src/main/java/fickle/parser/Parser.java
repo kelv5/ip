@@ -13,6 +13,7 @@ import fickle.commands.EventCommand;
 import fickle.commands.FindCommand;
 import fickle.commands.ListCommand;
 import fickle.commands.MarkCommand;
+import fickle.commands.ScheduleCommand;
 import fickle.commands.TodoCommand;
 import fickle.commands.UnmarkCommand;
 import fickle.exceptions.FickleException;
@@ -64,6 +65,9 @@ public class Parser {
 
         case "find":
             return parseFind(contextWord);
+
+        case "schedule":
+            return parseSchedule(contextWord);
 
         default:
             throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere");
@@ -260,11 +264,38 @@ public class Parser {
         }
     }
 
+    private static LocalDate parseDate(String dateString) throws FickleException {
+        assert (dateString != null && !dateString.isEmpty()) : "Date string should not be null nor empty";
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+        try {
+            LocalDate date = LocalDate.parse(dateString, dateFormatter);
+
+            return date;
+        } catch (DateTimeParseException e) {
+            String exceptionMsg = "Date format incorrect. Please use: d/M/yyyy to find schedule tasks.\n"
+                                            + "[Example Usage] schedule 21/8/2021";
+
+            throw new FickleException(exceptionMsg, "Time will Tell");
+        }
+    }
+
     private static Command parseFind(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
             throw new FickleException("Please provide a keyword for me to search.", "What, Where");
         }
 
         return new FindCommand(contextWord.toLowerCase());
+    }
+
+    private static Command parseSchedule(String contextWord) throws FickleException {
+        if (contextWord.isEmpty()) {
+            throw new FickleException("Please provide a date for me to search.", "Should know about it");
+        }
+
+        LocalDate date = parseDate(contextWord);
+
+        return new ScheduleCommand(date);
     }
 }

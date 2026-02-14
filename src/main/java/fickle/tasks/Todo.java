@@ -1,5 +1,7 @@
 package fickle.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Represents a todo task without specified time.
  */
@@ -11,6 +13,17 @@ public class Todo extends Task {
      */
     public Todo(String name) {
         super(name);
+    }
+
+    /**
+    * Returns false by default as Todo task does not have a date.
+    *
+    * @param targetDate The specific target date to check on.
+    * @return false for all Todo tasks.
+    */
+    @Override
+    public boolean isScheduledOn(LocalDate targetDate) {
+        return false;
     }
 
     /**

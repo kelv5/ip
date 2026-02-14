@@ -1,5 +1,7 @@
 package fickle.tasks;
 
+import java.time.LocalDate;
+
 /** Abstract class representing a task */
 public abstract class Task {
     private String name;
@@ -15,6 +17,17 @@ public abstract class Task {
         this.isDone = false;
 
     }
+
+    /**
+     * Checks whether this task occurs on the given date.
+     * For Todo, it always returns false by default.
+     * For Deadline, it returns true if the given date equals the deadline date.
+     * For Event, it returns true when the target date is within event period (Inclusive bounds).
+     *
+     * @param targetDate The specific target date to check on.
+     * @return true if the task is schedule on the given date, else false.
+     */
+    public abstract boolean isScheduledOn(LocalDate targetDate);
 
     /**
      * Gets the name of the task.

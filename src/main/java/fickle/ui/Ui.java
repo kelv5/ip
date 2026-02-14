@@ -1,5 +1,6 @@
 package fickle.ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
@@ -147,27 +148,14 @@ public class Ui {
      * @param tasks The tasklist to be printed.
      */
     public void printTaskList(TaskList tasks) {
-        if (tasks.getSize() == 0) {
-            String mainMessage = "No tasks remaining in your task list.";
-            String specialMessage = "A Little Happiness";
 
-            outputMessages = new String[] { mainMessage, specialMessage };
-            return;
-        }
+        String header = "Here's your task list for you:";
+        String emptyMainString = "No tasks remaining in your task list.";
+        String emptySpecialString = "A Little Happiness";
+        String nonEmptySpecialMsg = "Glimpses of a Journey";
+        ArrayList<Task> allTasks = tasks.getAllTasks();
 
-        assert tasks.getSize() > 0 : "Non-empty TaskList should have at least one task in it";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here's your task list for you: \n");
-
-        for (int i = 0; i < tasks.getSize(); i++) {
-            sb.append((i + 1) + ". " + tasks.getTask(i).toString() + "\n");
-        }
-
-        String mainMessage = sb.toString().trim();
-        String specialMessage = "Glimpses of a Journey";
-
-        setOutputMessage(mainMessage, specialMessage);
+        prepareTaskList(allTasks, header, emptyMainString, emptySpecialString, nonEmptySpecialMsg);
     }
 
     /**
@@ -177,29 +165,48 @@ public class Ui {
      * @param matchedTasks The list of tasks that match the keyword.
      */
     public void printMatchedTaskList(String keyword, ArrayList<Task> matchedTasks) {
-        assert !keyword.isEmpty() : "Keyword should not be empty";
+        String header = "Here are the matching tasks for [" + keyword + "] in your list:";
+        String emptyMainString = "Sorry, no tasks found matching [" + keyword + "].";
+        String emptySpecialString = "Out of Nothing";
+        String nonEmptySpecialMsg = "Hidden Love";
 
-        if (matchedTasks.size() == 0) {
-            String mainMessage = "Sorry, no tasks found matching [" + keyword + "].";
-            String specialMessage = "Out of Nothing";
+        prepareTaskList(matchedTasks, header, emptyMainString, emptySpecialString, nonEmptySpecialMsg);
+    }
 
-            outputMessages = new String[] { mainMessage, specialMessage };
+    /**
+     * Prepares the list of tasks that are scheduled on the given date for display.
+     *
+     * @param date The target date to search for tasks.
+     * @param scheduledTasks The list of tasks that occur on the date.
+     */
+    public void printScheduledTaskList(LocalDate date, ArrayList<Task> scheduledTasks) {
+        String header = "Here are the tasks scheduled on " + date + ":";
+        String emptyMainString = "No tasks scheduled on " + date + ".";
+        String emptySpecialString = "A Little Happiness";
+        String nonEmptySpecialMsg = "Live in Life";
+
+        prepareTaskList(scheduledTasks, header, emptyMainString, emptySpecialString, nonEmptySpecialMsg);
+    }
+
+    // Prepares a task list for display with a main and special message.
+    private void prepareTaskList(ArrayList<Task> tasks, String header, String emptyMainMsg, String emptySpecialMsg,
+                                    String nonEmptySpecialMsg) {
+        if (tasks.isEmpty()) {
+            setOutputMessage(emptyMainMsg, emptySpecialMsg);
             return;
         }
 
-        assert matchedTasks.size() > 0 : "Non-empty matched Tasklist should have at least one matched task";
+        assert tasks.size() > 0 : "Non-empty TaskList should have at least one task";
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks for [" + keyword + "] in your list: \n");
+        sb.append(header + " \n");
 
-        for (int i = 0; i < matchedTasks.size(); i++) {
-            sb.append((i + 1) + ". " + matchedTasks.get(i).toString() + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
 
         String mainMessage = sb.toString().trim();
-        String specialMessage = "Hidden Love";
-
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, nonEmptySpecialMsg);
     }
 
     /**

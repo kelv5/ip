@@ -1,5 +1,6 @@
 package fickle.tasks;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -61,7 +62,7 @@ public class TaskList {
      * @return The ArrayList of tasks.
      */
     public ArrayList<Task> getAllTasks() {
-        return tasks;
+        return new ArrayList<>(tasks);
     }
 
     /**
@@ -93,5 +94,18 @@ public class TaskList {
      */
     public boolean isAllMarked() {
         return tasks.stream().allMatch(Task::isDone);
+    }
+
+    /**
+     * Returns a list of tasks that are scheduled on the given date.
+     *
+     * @param targetDate The specific target date to check on.
+     * @return The ArrayList of tasks scheduled on the target date.
+     */
+    public ArrayList<Task> getScheduledOnTasks(LocalDate targetDate) {
+        ArrayList<Task> scheduledTasks = new ArrayList<>(
+                                        tasks.stream().filter(task -> task.isScheduledOn(targetDate)).toList());
+
+        return scheduledTasks;
     }
 }
