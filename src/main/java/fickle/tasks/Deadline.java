@@ -27,6 +27,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    private LocalDateTime getByDate() {
+        return by;
+    }
+
     /**
     * Returns true if this deadline occurs on the given date.
     *
@@ -36,6 +40,26 @@ public class Deadline extends Task {
     @Override
     public boolean isScheduledOn(LocalDate targetDate) {
         return by.toLocalDate().equals(targetDate);
+    }
+
+    /**
+     * Checks whether this Deadline task is a duplicate of another task.
+     *
+     * @param other The task to be compared with.
+     * @return true if both tasks are Deadline tasks with same name and due datetime.
+     */
+    @Override
+    public boolean isDuplicatedTask(Task other) {
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) other;
+
+        boolean isSameName = this.getName().equals(otherDeadline.getName());
+        boolean isSameByDate = this.getByDate().equals(otherDeadline.getByDate());
+
+        return isSameName && isSameByDate;
     }
 
     /**

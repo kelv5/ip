@@ -30,6 +30,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    private LocalDateTime getFromDate() {
+        return from;
+    }
+
+    private LocalDateTime getToDate() {
+        return to;
+    }
+
     /**
     * Returns true if this event occurs on the given date.
     *
@@ -42,6 +50,29 @@ public class Event extends Task {
         boolean isBeforeEndDate = !(targetDate.isAfter(to.toLocalDate()));
 
         return isAfterStartDate && isBeforeEndDate;
+    }
+
+    /**
+     * Checks whether this Event task is a duplicate of another task.
+     *
+     * @param other The task to be compared with.
+     * @return true if both tasks are Event tasks with same name, start and end datetimes.
+     */
+    @Override
+    public boolean isDuplicatedTask(Task other) {
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+
+        boolean isSameName = this.getName().equals(otherEvent.getName());
+        boolean isSameFromDate = this.getFromDate().equals(otherEvent.getFromDate());
+        boolean isSameToDate = this.getToDate().equals(otherEvent.getToDate());
+
+        boolean isSameEvent = isSameName && isSameFromDate && isSameToDate;
+
+        return isSameEvent;
     }
 
     /**

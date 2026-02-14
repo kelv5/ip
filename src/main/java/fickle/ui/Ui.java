@@ -180,7 +180,7 @@ public class Ui {
      * @param scheduledTasks The list of tasks that occur on the date.
      */
     public void printScheduledTaskList(LocalDate date, ArrayList<Task> scheduledTasks) {
-        String header = "Here are the tasks scheduled on:" + date + ":";
+        String header = "Here are the tasks scheduled on " + date + ":";
         String emptyMainString = "No tasks scheduled on " + date + ".";
         String emptySpecialString = "A Little Happiness";
         String nonEmptySpecialMsg = "Live in Life";

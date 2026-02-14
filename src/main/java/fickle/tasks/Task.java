@@ -29,6 +29,14 @@ public abstract class Task {
     public abstract boolean isScheduledOn(LocalDate targetDate);
 
     /**
+     * Checks whether this task is a duplicate of another task.
+     *
+     * @param other The task to be compared with.
+     * @return true if this task is a duplicate of the given task, else false.
+     */
+    public abstract boolean isDuplicatedTask(Task other);
+
+    /**
      * Gets the name of the task.
      *
      * @return The taskname.
