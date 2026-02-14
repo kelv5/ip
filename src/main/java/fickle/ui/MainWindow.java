@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     private Image fickleImage = new Image(this.getClass().getResourceAsStream("/images/DaFickle.png"));
 
     /**
-     * Initialise the GUI.
+     * Initialises the GUI.
      */
     @FXML
     public void initialize() {
@@ -42,17 +42,17 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Injects the Fickle instance into this controller.
-     * Generate welcome messages and displays them as dialogs.
+     * Generates welcome messages and displays them as dialogs.
      *
      * @param fickle The Fickle instance used for commands handling.
      */
     public void setFickle(Fickle fickle) {
         this.fickle = fickle;
 
-        // Run fickle to get initial welcome messages
+        // Runs fickle to get initial welcome messages
         ArrayList<String[]> welcomeMessages = fickle.run();
 
-        // Display each message as a dialog
+        // Displays each message as a dialog
         welcomeMessages.stream().map(message -> DialogBox.getFickleDialog(message, fickleImage))
                                         .forEach(dialogContainer.getChildren()::add);
     }
@@ -74,7 +74,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equalsIgnoreCase("bye")) {
-            // Disable user input and send button
+            // Disables user input and send button
             userInput.setEditable(false);
             sendButton.setDisable(true);
 

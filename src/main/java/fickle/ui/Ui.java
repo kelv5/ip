@@ -265,8 +265,7 @@ public class Ui {
     }
 
     /**
-     * Sets an error message when tasks cannot be loaded from or saved to a
-     * file.
+     * Sets an error message when tasks cannot be loaded from or saved to a file.
      *
      * @param exceptionMessage The description of the file operation failure.
      */

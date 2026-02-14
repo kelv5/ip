@@ -8,8 +8,8 @@ import fickle.tasks.TaskList;
 import fickle.ui.Ui;
 
 /**
- * Searches for tasks containing the keyword in their names. The search is case
- * insensitive and matches partial words.
+ * Searches for tasks containing the keyword in their names.
+ * Makes the search case-insensitive and allows partial word matching.
  */
 public class FindCommand extends Command {
     private final String keyword;

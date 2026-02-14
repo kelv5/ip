@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
         storage.overwriteSave(tasks);
     }
 
-    // Check that tasklist is not empty before deleting and the index is within valid range.
+    // Checks that tasklist is not empty before deleting and the index is within valid range.
     private void checkTaskIndex(TaskList tasks) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to delete.", "A Little Happiness");

@@ -17,8 +17,7 @@ public class DeadlineCommand extends Command {
     private final LocalDateTime by;
 
     /**
-     * Initialises a command that adds a Deadline task with given name and due
-     * time.
+     * Initialises a command that adds a Deadline task with given name and due time.
      *
      * @param taskName The name of the Deadline task.
      * @param by The due time of the Deadline task.

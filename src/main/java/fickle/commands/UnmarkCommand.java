@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
         storage.overwriteSave(tasks);
     }
 
-    // Check that tasklist is not empty and the index is within valid range.
+    // Checks that tasklist is not empty and the index is within valid range.
     private void checkTaskIndex(TaskList tasks) throws FickleException {
         if (tasks.getSize() == 0) {
             throw new FickleException("There are no tasks left to unmark.", "A Little Happiness");

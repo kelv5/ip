@@ -16,8 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Represents a dialog box consisting of an ImageView to represent the speaker's
- * face and a label containing text from the speaker.
+ * Represents a dialog box consisting of an ImageView for avatar and a label containing speaker's message.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -52,17 +51,17 @@ public class DialogBox extends HBox {
 
         mainLabel.setText(mainText);
 
-        // If there is special text, display it.
+        // Displays a special text if it is present
         if (!specialText.isEmpty()) {
             specialLabel.setText(specialText);
         } else {
             // Reused from https://stackoverflow.com/a/49053199 (fabian)
-            // Remove from layout and hide the label visually if there is no special text
+            // Removes from layout and hides the label visually if there is no special text
             specialLabel.setManaged(false);
             specialLabel.setVisible(false);
         }
 
-        // Apply CSS styling to labels
+        // Applies CSS styling to labels
         mainLabel.getStyleClass().add("main-label");
         specialLabel.getStyleClass().add("special-label");
 

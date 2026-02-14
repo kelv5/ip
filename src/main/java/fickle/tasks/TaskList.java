@@ -37,7 +37,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a task from the task list.
+     * Deletes a task from the task list.
      *
      * @param index The index of the task to be deleted.
      * @return Message of deleted task.

@@ -13,6 +13,7 @@ public class Event extends Task {
     private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter EVENTS_DISPLAY_FORMAT = DateTimeFormatter
                                     .ofPattern("MMM dd yyyy '['h:mma']'", Locale.ENGLISH);
+
     private LocalDateTime from;
     private LocalDateTime to;
 

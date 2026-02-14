@@ -17,25 +17,25 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Load the FXML layout for the main window
+            // Loads the FXML layout for the main window
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
 
-            // Create a scene with the loaded layout
+            // Creates a scene with the loaded layout
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            // Format the window with minimum size constraints and title
+            // Formats the window with minimum size constraints and title
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setTitle("Fickle");
 
             Fickle fickle = new Fickle("data/tasks.txt");
 
-            // Inject the Fickle instance
+            // Injects the Fickle instance
             fxmlLoader.<MainWindow>getController().setFickle(fickle);
 
-            // Show the application window
+            // Shows the application window
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

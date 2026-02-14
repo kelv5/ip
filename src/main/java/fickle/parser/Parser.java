@@ -143,7 +143,7 @@ public class Parser {
         return new DeleteCommand(taskIndex);
     }
 
-    // Parse task index from user input
+    // Parses task index from user input
     private static int parseTaskIndex(String contextWord) throws FickleException {
         try {
             int index = Integer.parseInt(contextWord) - 1;

@@ -18,7 +18,7 @@ import fickle.tasks.TaskList;
 import fickle.tasks.Todo;
 
 /**
- * Handles saving and loading of tasks to/from a file.
+ * Handles saving and loading of tasks to and from a file.
  */
 public class Storage {
 
@@ -81,7 +81,7 @@ public class Storage {
         return tasks;
     }
 
-    // Parse tasks from scanner one by one.
+    // Parses tasks from scanner one by one.
     private TaskList parseTasksFromScanner(Scanner sc) {
         TaskList tasks = new TaskList();
 
@@ -105,7 +105,7 @@ public class Storage {
 
     /**
      * Overwrites the save file with the list of tasks.
-     * This method is triggered by commands such as Mark, Unmark, Delete.
+     * Triggers this method with commands such as Mark, Unmark, or Delete.
      *
      * @param tasks The list of tasks to be saved.
      * @throws FickleException If fails to write to the saveFile.
@@ -130,7 +130,7 @@ public class Storage {
 
     /**
      * Appends a single task to be saved in the file.
-     * This method is triggered by commands such as Todo, Event, Deadline.
+     * Triggers this method with commands such as Todo, Event, Deadline.
      *
      * @param task The task to be appended to the save file.
      * @throws FickleException If fails to write to the saveFile.
@@ -148,10 +148,7 @@ public class Storage {
         }
     }
 
-    /**
-     * If the folder does not exist, it will be created.
-     * If the folder already exists, it does nothing.
-     */
+    // Creates a folder if it does not exist. Otherwise, the folder remains unchanged.
     private void checkAndCreateFolder() {
         File file = new File(filePath);
         File parent = file.getParentFile();

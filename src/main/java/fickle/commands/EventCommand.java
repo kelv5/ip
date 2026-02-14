@@ -18,8 +18,7 @@ public class EventCommand extends Command {
     private final LocalDateTime to;
 
     /**
-     * Initialises a command that adds a Event task with given name, start time
-     * and end time.
+     * Initialises a command that adds a Event task with given name, start and end time.
      *
      * @param taskName The name of the Event task.
      * @param from The start time of the Event task.

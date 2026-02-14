@@ -1,15 +1,14 @@
 package fickle.exceptions;
 
 /**
- * Exception class for errors specific to the Fickle chatbot. Could include a
- * second line of message for display.
+ * Exception class for errors specific to the Fickle chatbot.
  */
 public class FickleException extends Exception {
     private String secondLine;
 
     /**
      * Constructor for FickleException with a single main message.
-     * This constructor is only used for exceptions thrown during storage loading.
+     * Uses only for exceptions thrown during storage loading.
      *
      * @param exceptionMessage The main exception message.
      */
@@ -20,7 +19,7 @@ public class FickleException extends Exception {
 
     /**
      * Constructor for FickleException with a main message and a second line.
-     * This constructor is used for all other Fickle operations except storage loading.
+     * Uses for all other Fickle operations except storage loading.
      *
      * @param exceptionMessage The main exception message.
      * @param secondLine An second line to display.

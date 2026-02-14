@@ -98,7 +98,7 @@ public class Fickle {
             ui.printError(e.getMessage());
         }
 
-        // Always return the collected UI output
+        // Returns the collected UI output
         return ui.getOutput();
     }
 
