@@ -215,7 +215,7 @@ public class Parser {
         LocalDateTime to = parseDateTime(toString);
 
         if (from.isAfter(to)) {
-            throw new FickleException("Start time cannot be later than end time.", "As It is");
+            throw new FickleException("Start time cannot be later than end time.", "Should know about it");
         }
 
         return new EventCommand(name, from, to);
@@ -283,7 +283,7 @@ public class Parser {
 
     private static Command parseSchedule(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Please provide a date for me to search.", "Should know about it");
+            throw new FickleException("Please provide a date for me to search.", "What, Where");
         }
 
         LocalDate date = parseDate(contextWord);
