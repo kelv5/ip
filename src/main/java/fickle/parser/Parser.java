@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import fickle.commands.ByeCommand;
 import fickle.commands.Command;
@@ -23,6 +24,13 @@ import fickle.exceptions.FickleException;
  * Converts user input into a corresponding command.
  */
 public class Parser {
+    // Solution below inspired by
+    // https://stackoverflow.com/questions/63706705/java-datetimeformatter-is-not-parsing-as-expected.
+    // Uses 'uuuu' instead of 'yyyy' to ensure parsing with strict ResolverStyle works.
+    private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/uuuu")
+                                    .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter INPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
+                                    .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses a input string from the user and returns a corresponding command.
@@ -249,37 +257,17 @@ public class Parser {
     private static LocalDateTime parseDateTime(String dateTimeString) throws FickleException {
         assert (dateTimeString != null && !dateTimeString.isEmpty()) : "DateTime string should not be null nor empty";
 
-        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         try {
             if (dateTimeString.contains(" ")) {
-                return LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+                return LocalDateTime.parse(dateTimeString, INPUT_DATETIME_FORMATTER);
             } else {
                 // Time is optional. Default time is 00:00 if omitted by user.
-                LocalDate date = LocalDate.parse(dateTimeString, dateOnlyFormatter);
+                LocalDate date = LocalDate.parse(dateTimeString, INPUT_DATE_FORMATTER);
                 return date.atTime(0, 0);
             }
         } catch (DateTimeParseException e) {
             String exceptionMsg = "Date/time format incorrect. Please use: d/M/yyyy or d/M/yyyy HHmm.\n"
                                             + "[Example Usage] 21/8/2021 or 3/9/2010 0911 (Default time: 00:00)";
-
-            throw new FickleException(exceptionMsg, "Time will Tell");
-        }
-    }
-
-    private static LocalDate parseDate(String dateString) throws FickleException {
-        assert (dateString != null && !dateString.isEmpty()) : "Date string should not be null nor empty";
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-
-        try {
-            LocalDate date = LocalDate.parse(dateString, dateFormatter);
-
-            return date;
-        } catch (DateTimeParseException e) {
-            String exceptionMsg = "Date format incorrect. Please use: d/M/yyyy to find schedule tasks.\n"
-                                            + "[Example Usage] schedule 21/8/2021";
 
             throw new FickleException(exceptionMsg, "Time will Tell");
         }
@@ -301,6 +289,19 @@ public class Parser {
         LocalDate date = parseDate(contextWord);
 
         return new ScheduleCommand(date);
+    }
+
+    private static LocalDate parseDate(String dateString) throws FickleException {
+        assert (dateString != null && !dateString.isEmpty()) : "Date string should not be null nor empty";
+
+        try {
+            return LocalDate.parse(dateString, INPUT_DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            String exceptionMsg = "Date format incorrect. Please use: d/M/yyyy to find schedule tasks.\n"
+                                            + "[Example Usage] schedule 21/8/2021";
+
+            throw new FickleException(exceptionMsg, "Time will Tell");
+        }
     }
 
     private static Command parseHelp(String contextWord) {

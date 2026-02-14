@@ -196,7 +196,7 @@ public class Ui {
     public void printHelpMessages(ArrayList<String[]> helpMessages) {
         assert helpMessages != null && !(helpMessages.isEmpty()) : "helpMessages should never be null or empty.";
 
-        String header = "Here are your Help messages:";
+        String header = "Here are your Help messages (Case-insensitive command):";
         StringBuilder sb = new StringBuilder();
         sb.append(header + " \n\n");
 
