@@ -123,8 +123,7 @@ public class Parser {
 
     private static Command parseMark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Please provide a task number for the 'mark' command.",
-                                            "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for 'mark' command.", "Out of Nothing");
         }
 
         int taskIndex = parseTaskIndex(contextWord);
@@ -133,8 +132,7 @@ public class Parser {
 
     private static Command parseUnmark(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Please provide a task number for the 'unmark' command.",
-                                            "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for 'unmark' command.", "Out of Nothing");
         }
 
         int taskIndex = parseTaskIndex(contextWord);
@@ -143,8 +141,7 @@ public class Parser {
 
     private static Command parseDelete(String contextWord) throws FickleException {
         if (contextWord.isEmpty()) {
-            throw new FickleException("Please provide a task number for the 'delete' command.",
-                                            "Shadow's shadow without it");
+            throw new FickleException("Please provide a task number for 'delete' command.", "Out of Nothing");
         }
 
         int taskIndex = parseTaskIndex(contextWord);

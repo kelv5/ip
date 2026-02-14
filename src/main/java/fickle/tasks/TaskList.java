@@ -120,7 +120,7 @@ public class TaskList {
         boolean hasDuplicates = tasks.stream().anyMatch(task -> task.isDuplicatedTask(newTask));
 
         if (hasDuplicates) {
-            throw new FickleException("", "");
+            throw new FickleException("Task not added as duplicate detected below:\n  " + newTask, "Shadow's Shadow");
         }
     }
 }
