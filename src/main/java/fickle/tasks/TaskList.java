@@ -3,6 +3,8 @@ package fickle.tasks;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import fickle.exceptions.FickleException;
+
 /**
  * Represents a list of tasks. Manages adding and getting tasks.
  */
@@ -26,12 +28,15 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
+     * Adds a task to the task list if it is not a duplicated task.
      *
      * @param task The task to be added.
      * @return Message of added task.
+     * @throws FickleException IIf the task already exists in the task list.
      */
-    public String addTask(Task task) {
+    public String addTask(Task task) throws FickleException {
+        checkDuplicates(task);
+
         tasks.add(task);
         return task.toString();
     }
@@ -49,11 +54,11 @@ public class TaskList {
     /**
      * Gets a task at the given index.
      *
-     * @param idx The index of the task.
+     * @param index The index of the task.
      * @return The task at the index.
      */
-    public Task getTask(int idx) {
-        return this.tasks.get(idx);
+    public Task getTask(int index) {
+        return this.tasks.get(index);
     }
 
     /**
@@ -107,5 +112,15 @@ public class TaskList {
                                         tasks.stream().filter(task -> task.isScheduledOn(targetDate)).toList());
 
         return scheduledTasks;
+    }
+
+    // Checks if the given task already exists in the task list.
+    // Throws a FickleException if there is a duplicate.
+    private void checkDuplicates(Task newTask) throws FickleException {
+        boolean hasDuplicates = tasks.stream().anyMatch(task -> task.isDuplicatedTask(newTask));
+
+        if (hasDuplicates) {
+            throw new FickleException("Task not added as duplicate detected below:\n  " + newTask, "Shadow's Shadow");
+        }
     }
 }

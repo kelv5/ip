@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +22,8 @@ import fickle.tasks.Todo;
  * Handles saving and loading of tasks to and from a file.
  */
 public class Storage {
-
+    private static final DateTimeFormatter LOAD_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm")
+                                    .withResolverStyle(ResolverStyle.STRICT);
     private final String filePath;
     private ArrayList<String> corruptedWarnings;
 
@@ -263,10 +265,9 @@ public class Storage {
      */
     private LocalDateTime parseStorageDateTime(String dateTimeString) {
         assert dateTimeString != null && !dateTimeString.isEmpty() : "DateTime string should not be null nor empty";
-        DateTimeFormatter loadFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         try {
-            return LocalDateTime.parse(dateTimeString, loadFormatter);
+            return LocalDateTime.parse(dateTimeString, LOAD_DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return null;
         }

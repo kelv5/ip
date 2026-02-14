@@ -180,7 +180,7 @@ public class Ui {
      * @param scheduledTasks The list of tasks that occur on the date.
      */
     public void printScheduledTaskList(LocalDate date, ArrayList<Task> scheduledTasks) {
-        String header = "Here are the tasks scheduled on:" + date + ":";
+        String header = "Here are the tasks scheduled on " + date + ":";
         String emptyMainString = "No tasks scheduled on " + date + ".";
         String emptySpecialString = "A Little Happiness";
         String nonEmptySpecialMsg = "Live in Life";
@@ -196,7 +196,7 @@ public class Ui {
     public void printHelpMessages(ArrayList<String[]> helpMessages) {
         assert helpMessages != null && !(helpMessages.isEmpty()) : "helpMessages should never be null or empty.";
 
-        String header = "Here are your Help messages:";
+        String header = "Here are your Help messages (Case-insensitive command):";
         StringBuilder sb = new StringBuilder();
         sb.append(header + " \n\n");
 

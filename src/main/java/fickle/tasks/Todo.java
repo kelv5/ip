@@ -27,6 +27,22 @@ public class Todo extends Task {
     }
 
     /**
+     * Checks whether this Todo task is a duplicate of another task.
+     *
+     * @param other The task to be compared with.
+     * @return true if both tasks are Todo tasks sharing same name.
+     */
+    @Override
+    public boolean isDuplicatedTask(Task other) {
+        if (!(other instanceof Todo)) {
+            return false;
+        }
+
+        boolean isSameName = this.getName().equals(other.getName());
+        return isSameName;
+    }
+
+    /**
      * Returns the string representation of the todo task.
      *
      * @return The string representation with taskType, status icon, name.

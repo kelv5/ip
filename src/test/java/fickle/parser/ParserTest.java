@@ -57,7 +57,7 @@ public class ParserTest {
             Parser.parse("mark");
             fail();
         } catch (FickleException e) {
-            assertEquals("Please provide a task number for the 'mark' command.", e.getMessage());
+            assertEquals("Please provide a task number for 'mark' command.", e.getMessage());
         }
     }
 

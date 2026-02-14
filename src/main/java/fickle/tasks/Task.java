@@ -2,6 +2,8 @@ package fickle.tasks;
 
 import java.time.LocalDate;
 
+import fickle.exceptions.FickleException;
+
 /** Abstract class representing a task */
 public abstract class Task {
     private String name;
@@ -27,6 +29,14 @@ public abstract class Task {
     public abstract boolean isScheduledOn(LocalDate targetDate);
 
     /**
+     * Checks whether this task is a duplicate of another task.
+     *
+     * @param other The task to be compared with.
+     * @return true if this task is a duplicate of the given task, else false.
+     */
+    public abstract boolean isDuplicatedTask(Task other);
+
+    /**
      * Gets the name of the task.
      *
      * @return The taskname.
@@ -37,16 +47,28 @@ public abstract class Task {
 
     /**
      * Marks the task to set its status as done.
+     *
+     * @throws FickleException If the task is already marked as done.
      */
-    public void markAsDone() {
-        this.isDone = true;
+    public void markAsDone() throws FickleException {
+        if (isDone) {
+            throw new FickleException("This task is already marked before.\n  " + this.toString(), "As It is");
+        }
+
+        isDone = true;
     }
 
     /**
      * Marks the task to set its status as not done.
+     *
+     * @throws FickleException If the task is already unmarked.
      */
-    public void markAsNotDone() {
-        this.isDone = false;
+    public void markAsNotDone() throws FickleException {
+        if (!isDone) {
+            throw new FickleException("This task is already unmarked before.\n  " + this.toString(), "As It is");
+        }
+
+        isDone = false;
     }
 
     /**
