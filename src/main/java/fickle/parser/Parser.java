@@ -11,6 +11,7 @@ import fickle.commands.DeadlineCommand;
 import fickle.commands.DeleteCommand;
 import fickle.commands.EventCommand;
 import fickle.commands.FindCommand;
+import fickle.commands.HelpCommand;
 import fickle.commands.ListCommand;
 import fickle.commands.MarkCommand;
 import fickle.commands.ScheduleCommand;
@@ -68,6 +69,9 @@ public class Parser {
 
         case "schedule":
             return parseSchedule(contextWord);
+
+        case "help":
+            return parseHelp(contextWord);
 
         default:
             throw new FickleException("Sorry, I didn't understand that. Try a valid command!", "Going Nowhere");
@@ -297,5 +301,9 @@ public class Parser {
         LocalDate date = parseDate(contextWord);
 
         return new ScheduleCommand(date);
+    }
+
+    private static Command parseHelp(String contextWord) {
+        return new HelpCommand(contextWord);
     }
 }

@@ -180,12 +180,37 @@ public class Ui {
      * @param scheduledTasks The list of tasks that occur on the date.
      */
     public void printScheduledTaskList(LocalDate date, ArrayList<Task> scheduledTasks) {
-        String header = "Here are the tasks scheduled on " + date + ":";
+        String header = "Here are the tasks scheduled on:" + date + ":";
         String emptyMainString = "No tasks scheduled on " + date + ".";
         String emptySpecialString = "A Little Happiness";
         String nonEmptySpecialMsg = "Live in Life";
 
         prepareTaskList(scheduledTasks, header, emptyMainString, emptySpecialString, nonEmptySpecialMsg);
+    }
+
+    /**
+     * Prepares the list of help messages for display.
+     *
+     * @param helpMessages The list of help message arrays.
+     */
+    public void printHelpMessages(ArrayList<String[]> helpMessages) {
+        assert helpMessages != null && !(helpMessages.isEmpty()) : "helpMessages should never be null or empty.";
+
+        String header = "Here are your Help messages:";
+        StringBuilder sb = new StringBuilder();
+        sb.append(header + " \n\n");
+
+        for (String[] helpMessage : helpMessages) {
+            String description = helpMessage[0];
+            String format = helpMessage[1];
+
+            sb.append("Description: " + description + "\n");
+            sb.append("Format: " + format + "\n\n");
+        }
+
+        String mainMessage = sb.toString().trim();
+        String specialMessage = "A Guide for You";
+        setOutputMessage(mainMessage, specialMessage);
     }
 
     // Prepares a task list for display with a main and special message.
@@ -196,10 +221,8 @@ public class Ui {
             return;
         }
 
-        assert tasks.size() > 0 : "Non-empty TaskList should have at least one task";
-
         StringBuilder sb = new StringBuilder();
-        sb.append(header + " \n");
+        sb.append(header + " \n\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
