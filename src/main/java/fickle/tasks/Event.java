@@ -1,5 +1,6 @@
 package fickle.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -26,6 +27,20 @@ public class Event extends Task {
         super(name);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+    * Returns true if this event occurs on the given date.
+    *
+    * @param targetDate The specific target date to check on.
+    * @return true if the date is within the event period (inclusive of bounds).
+    */
+    @Override
+    public boolean isScheduledOn(LocalDate targetDate) {
+        boolean isAfterStartDate = !(targetDate.isBefore(from.toLocalDate()));
+        boolean isBeforeEndDate = !(targetDate.isAfter(to.toLocalDate()));
+
+        return isAfterStartDate && isBeforeEndDate;
     }
 
     /**

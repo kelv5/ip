@@ -1,5 +1,6 @@
 package fickle.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -24,6 +25,17 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
+    }
+
+    /**
+    * Returns true if this deadline occurs on the given date.
+    *
+    * @param targetDate The specific target date to check on.
+    * @return true if the deadline date equals the given date, else false.
+    */
+    @Override
+    public boolean isScheduledOn(LocalDate targetDate) {
+        return by.toLocalDate().equals(targetDate);
     }
 
     /**
