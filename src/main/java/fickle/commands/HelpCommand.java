@@ -13,7 +13,8 @@ import fickle.ui.Ui;
  * Shows either help for all commands or for a specific command.
  */
 public class HelpCommand extends Command {
-    // HELP_COMMAND_MAP was generated with the help of ChatGPT to organise commands and write clear descriptions.
+    // AiAssisted: HELP_COMMAND_MAP was generated with the help of ChatGPT to organise all chatbot commands clearly.
+    // Provides descriptions and example formats for each of the commands supoorted.
     private static final Map<String, String[]> HELP_COMMAND_MAP = Map.ofEntries(
         Map.entry("todo", new String[] {
             "Add a todo task without any date.",
