@@ -38,6 +38,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Reused from https://stackoverflow.com/a/46990144 with minor modifications
+        userInput.setPromptText("Type here...");
     }
 
     /**
@@ -66,6 +69,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText().trim();
+
         String[] responses = fickle.getResponse(input);
 
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
