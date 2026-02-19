@@ -17,16 +17,16 @@ public class Ui {
      * Constructor for Ui.
      */
     public Ui() {
-        outputMessages = new String[] { "", "" };
+        outputMessages = new String[] { "", "", null };
     }
 
     /**
-     * Returns output messages represented by [mainMessage, specialMessage].
+     * Returns output messages represented by [mainMessage, specialMessage, messageType].
      *
-     * @return A string array of output messages.
+     * @return A string array of output messages with its message type for styling purposes.
      */
     public String[] getOutput() {
-        assert outputMessages.length == 2 : "outputMessages should contain exactly 2 elements";
+        assert outputMessages.length == 3 : "outputMessages should contain exactly 3 elements";
 
         return outputMessages;
     }
@@ -48,7 +48,9 @@ public class Ui {
         String mainMessage = logo + "\n" + greetings;
         String specialMessage = "";
 
-        return new String[] { mainMessage, specialMessage };
+        setOutputMessage(mainMessage, specialMessage, MessageType.SYSTEM);
+
+        return getOutput();
     }
 
     /**
@@ -58,7 +60,7 @@ public class Ui {
         String mainMessage = "Goodbye. See you again soon! \n(This window will be closed automatically)";
         String specialMessage = "Day by Day";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SYSTEM);
     }
 
     /**
@@ -79,7 +81,7 @@ public class Ui {
         String mainMessage = taskAddedMessage + totalTasksMessage;
         String specialMessage = "Still Early";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     /**
@@ -100,7 +102,7 @@ public class Ui {
         String mainMessage = taskRemovedMessage + totalTasksMessage;
         String specialMessage = "It's Gone";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     /**
@@ -112,7 +114,7 @@ public class Ui {
         String mainMessage = "All set. This task is marked as done: \n  " + taskname;
         String specialMessage = "One After Another";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     /**
@@ -127,7 +129,7 @@ public class Ui {
         // Replace with a new specialMessage.
         String specialMessage = "A Little Happiness";
 
-        setOutputMessage(updatedMainMessage, specialMessage);
+        setOutputMessage(updatedMainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     /**
@@ -139,7 +141,7 @@ public class Ui {
         String mainMessage = "Noted. This task is now unmarked: \n  " + taskname;
         String specialMessage = "Pace Yourself";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     /**
@@ -196,7 +198,7 @@ public class Ui {
     public void printHelpMessages(ArrayList<String[]> helpMessages) {
         assert helpMessages != null && !(helpMessages.isEmpty()) : "helpMessages should never be null or empty.";
 
-        String header = "Here are your Help messages (Case-insensitive command):";
+        String header = "Here are your Help messages (Case-insensitive Command):";
         StringBuilder sb = new StringBuilder();
         sb.append(header + " \n\n");
 
@@ -210,14 +212,14 @@ public class Ui {
 
         String mainMessage = sb.toString().trim();
         String specialMessage = "A Guide for You";
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.SUCCESS);
     }
 
     // Prepares a task list for display with a main and special message.
     private void prepareTaskList(ArrayList<Task> tasks, String header, String emptyMainMsg, String emptySpecialMsg,
                                     String nonEmptySpecialMsg) {
         if (tasks.isEmpty()) {
-            setOutputMessage(emptyMainMsg, emptySpecialMsg);
+            setOutputMessage(emptyMainMsg, emptySpecialMsg, MessageType.SUCCESS);
             return;
         }
 
@@ -229,7 +231,7 @@ public class Ui {
         }
 
         String mainMessage = sb.toString().trim();
-        setOutputMessage(mainMessage, nonEmptySpecialMsg);
+        setOutputMessage(mainMessage, nonEmptySpecialMsg, MessageType.SUCCESS);
     }
 
     /**
@@ -248,7 +250,7 @@ public class Ui {
 
         String specialMessage = "Anything Goes";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.WARNING);
     }
 
     /**
@@ -261,7 +263,7 @@ public class Ui {
         String mainMessage = "[Invalid Input] " + exceptionMessage;
         String specialMessage = secondLine;
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.ERROR);
     }
 
     /**
@@ -273,7 +275,7 @@ public class Ui {
         String mainMessage = "[Load/Save Error] " + exceptionMessage;
         String specialMessage = "";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.ERROR);
     }
 
     /**
@@ -285,11 +287,11 @@ public class Ui {
         String mainMessage = "[Error] " + errorMessage;
         String specialMessage = "";
 
-        setOutputMessage(mainMessage, specialMessage);
+        setOutputMessage(mainMessage, specialMessage, MessageType.ERROR);
     }
 
     // Updates the outputMessages to be displayed.
-    private void setOutputMessage(String mainMessage, String specialMessage) {
-        outputMessages = new String[] { mainMessage, specialMessage };
+    private void setOutputMessage(String mainMessage, String specialMessage, MessageType type) {
+        outputMessages = new String[] { mainMessage, specialMessage, type.name().toLowerCase() };
     }
 }
