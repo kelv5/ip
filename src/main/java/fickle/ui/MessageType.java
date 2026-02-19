@@ -24,5 +24,5 @@ public enum MessageType {
     /**
      * Represents error due to invalid user input or other errors.
      */
-    ERROR
+    ERROR;
 }

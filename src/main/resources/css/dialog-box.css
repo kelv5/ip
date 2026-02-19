@@ -1,4 +1,4 @@
-#messageBox {
+.message-box {
     -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
     -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
     -fx-border-width: 2px;
@@ -20,7 +20,23 @@
     -fx-font-size: 12px;
 }
 
-#messageBox.reply-label {
+.message-box.system {
+    -fx-background-color: #97e6f4;
+}
+
+.message-box.success {
+    -fx-background-color: #9ff3b3;
+}
+
+.message-box.warning {
+    -fx-background-color: #f7df91;
+}
+
+.message-box.error {
+    -fx-background-color: #fea1a9;
+}
+
+.message-box.reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
 }

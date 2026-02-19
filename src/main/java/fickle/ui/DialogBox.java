@@ -38,7 +38,7 @@ public class DialogBox extends HBox {
      * @param specialText The special text content (Optional: would be empty string for UserDialog).
      * @param img The current speaker's avatar image.
      */
-    private DialogBox(String mainText, String specialText, Image img) {
+    private DialogBox(String mainText, String specialText, String messageType, Image img) {
         try {
             // Load the FXML layout for the DialogBox and set current class as its controller
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -64,6 +64,13 @@ public class DialogBox extends HBox {
         // Applies CSS styling to labels
         mainLabel.getStyleClass().add("main-label");
         specialLabel.getStyleClass().add("special-label");
+
+        messageBox.getStyleClass().add("message-box");
+
+        // Applies CSS styling to different type of Fickle messages.
+        if (messageType != null && !messageType.isEmpty()) {
+            messageBox.getStyleClass().add(messageType);
+        }
 
         displayPicture.setImage(img);
     }
@@ -91,7 +98,7 @@ public class DialogBox extends HBox {
     */
     public static DialogBox getUserDialog(String text, Image img) {
         // empty special text for UserDialog
-        return new DialogBox(text, "", img);
+        return new DialogBox(text, "", null, img);
     }
 
     /**
@@ -104,8 +111,8 @@ public class DialogBox extends HBox {
     public static DialogBox getFickleDialog(String[] texts, Image img) {
         String mainText = texts[0];
         String specialText = texts[1];
-
-        var db = new DialogBox(mainText, specialText, img);
+        String messageType = texts[2];
+        var db = new DialogBox(mainText, specialText, messageType, img);
 
         db.flip();
         return db;

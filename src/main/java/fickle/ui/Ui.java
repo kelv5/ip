@@ -292,6 +292,6 @@ public class Ui {
 
     // Updates the outputMessages to be displayed.
     private void setOutputMessage(String mainMessage, String specialMessage, MessageType type) {
-        outputMessages = new String[] { mainMessage, specialMessage, type.name() };
+        outputMessages = new String[] { mainMessage, specialMessage, type.name().toLowerCase() };
     }
 }
