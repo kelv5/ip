@@ -66,6 +66,12 @@ public class DialogBox extends HBox {
         // Displays a special text if it is present
         if (!specialText.isEmpty()) {
             specialLabel.setText(specialText);
+
+            // Makes the label fill all available width.
+            specialLabel.setMaxWidth(Double.MAX_VALUE);
+
+            // Aligns special label to the right.
+            specialLabel.setAlignment(Pos.CENTER_RIGHT);
         } else {
             // Reused from https://stackoverflow.com/a/49053199 (fabian)
             // Removes from layout and hides the label visually.

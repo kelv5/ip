@@ -18,6 +18,7 @@
     -fx-font-style: italic;
     -fx-font-family: "Consolas";
     -fx-font-size: 12px;
+    -fx-padding: 0px 6px 0px 0px;    
 }
 
 .message-box.system {
