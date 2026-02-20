@@ -77,6 +77,10 @@ public class MainWindow extends AnchorPane {
 
         userInput.clear();
 
+        handleByeInput(input);
+    }
+
+    private void handleByeInput(String input) {
         if (input.equalsIgnoreCase("bye")) {
             // Disables user input and send button
             userInput.setEditable(false);
