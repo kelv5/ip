@@ -46,7 +46,7 @@ public class Ui {
         String greetings = "Hi! I'm Fickle\n" + "What feels right to start with today?";
 
         String mainMessage = logo + "\n" + greetings;
-        String specialMessage = "";
+        String specialMessage = "A Small Island";
 
         setOutputMessage(mainMessage, specialMessage, MessageType.SYSTEM);
 
