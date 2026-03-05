@@ -29,8 +29,8 @@ public class MainWindow extends AnchorPane {
 
     private Fickle fickle;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image fickleImage = new Image(this.getClass().getResourceAsStream("/images/DaFickle.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserProfile.png"));
+    private Image fickleImage = new Image(this.getClass().getResourceAsStream("/images/FickleProfile.png"));
 
     /**
      * Initialises the GUI.

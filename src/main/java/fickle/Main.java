@@ -26,8 +26,8 @@ public class Main extends Application {
             stage.setScene(scene);
 
             // Formats the window with minimum size constraints and title
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(675);
+            stage.setMinWidth(450);
             stage.setTitle("Fickle");
 
             Fickle fickle = new Fickle("data/tasks.txt");

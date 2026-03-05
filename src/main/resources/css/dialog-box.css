@@ -1,6 +1,6 @@
 .message-box {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: #e896f595;
+    -fx-border-color: #545454a1;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
@@ -22,19 +22,19 @@
 }
 
 .message-box.system {
-    -fx-background-color: #97e6f4;
+    -fx-background-color: #97e6f479;
 }
 
 .message-box.success {
-    -fx-background-color: #9ff3b3;
+    -fx-background-color: #9ff3b372;
 }
 
 .message-box.warning {
-    -fx-background-color: #f7df91;
+    -fx-background-color: #f7df916f;
 }
 
 .message-box.error {
-    -fx-background-color: #fea1a9;
+    -fx-background-color: #fea1a974;
 }
 
 .message-box.reply-label {
