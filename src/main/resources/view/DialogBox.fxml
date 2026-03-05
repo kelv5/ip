@@ -15,7 +15,7 @@
       </children>
     </VBox>
 
-    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="displayPicture" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
       <HBox.margin>
         <Insets left="8.0" right="8.0" />
       </HBox.margin>
