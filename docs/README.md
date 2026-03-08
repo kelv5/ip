@@ -164,5 +164,5 @@ Note: Do not add extra words after `bye`.
 2. Navigate `cd` to the folder where you saved the **JAR** file.
 3. **Run** Fickle using:
 ```bash
-java -jar fickle-v0.3.jar 
+java -jar fickle-v0.4.jar 
 ```
